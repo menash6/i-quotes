@@ -1,0 +1,148 @@
+.text-transition_inner div {
+  /* position: relative !important; */
+  color: "red";
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}
+
+/* .type {
+  font-family: monospace;
+  color: #0000;
+  background: linear-gradient(-90deg, #00dffc 5px, #0000 0) 10px 0,
+    linear-gradient(#00dffc 0 0) 0 0;
+  background-size: calc(var(--n) * 1ch) 200%;
+  -webkit-background-clip: padding-box, text;
+  background-clip: padding-box, text;
+  background-repeat: no-repeat;
+  animation: b 0.7s infinite steps(1),
+    t calc(var(--n) * 0.3s) steps(var(--n)) forwards;
+}
+@keyframes t {
+  from {
+    background-size: 0 200%;
+  }
+}
+@keyframes b {
+  50% {
+    background-position: 0 -100%, 0 0;
+  }
+} */
+
+/* Works - pass "my-custom-class" in cssClass to increase specificity */
+.my-custom-class .popover-content {
+  /* background: rgb(201, 27, 27); */
+  /* top: 13vh !important; */
+  /* left: 15vh !important; */
+  /* text-align: center; */
+  --width: 100vw;
+  bottom: 0px !important;
+  transform-origin: bottom !important;
+  left: 0px !important;
+  top: auto !important;
+}
+
+.Item-Placeholder {
+  height: 20vh;
+}
+
+.Grid-Fixed-Width {
+  max-width: 800px;
+}
+.Quote-Placeholder {
+  font-size: clamp(1.3em, 2vw, 12em);
+  height: 20vh;
+
+  /* font-size: 7vw; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: "Caveat", cursive;
+  /* text-shadow: 1px 1px #313131; */
+  /*todo contrast color.... */
+}
+
+@keyframes animated-square-float {
+  0% {
+    transform: translate(0px, 0px);
+  }
+  25% {
+    transform: translate(-5px, 5px);
+  }
+  50% {
+    transform: translate(0px, 10px);
+  }
+  75% {
+    transform: translate(5px, 5px);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+}
+
+/* @keyframes Quote-Placeholder-float {
+  0% {
+    transform: translate(0px, 0px);
+  }
+  15% {
+    transform: translate(10px, -5px);
+  }
+  30% {
+    transform: translate(2.5px, 5px);
+  }
+  45% {
+    transform: translate(-5px, 5px);
+  }
+  60% {
+    transform: translate(-1px, 5px);
+  }
+  75% {
+    transform: translate(2px, 0px);
+  }
+  90% {
+    transform: translate(1px, 1px);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+} */
+
+/* @keyframes Quote-Placeholder-float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+} */
+
+@media (prefers-reduced-motion: no-preference) {
+  .animated-square {
+    animation: animated-square-float infinite 7s alternate ease-in-out;
+    /* animation: Quote-Placeholder-float infinite 4s ease-in-out; */
+  }
+}
+
+/* .App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.App-link {
+  color: rgb(112, 76, 182);
+}
+*/

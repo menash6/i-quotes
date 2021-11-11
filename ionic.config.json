@@ -1,0 +1,7 @@
+{
+  "name": "iQuotes",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
