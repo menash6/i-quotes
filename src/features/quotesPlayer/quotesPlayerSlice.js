@@ -365,9 +365,4 @@ export const selectQuotesFilter = (state) => state.quotesPlayer.filter;
 export const selectSpeaker = (state) => state.quotesPlayer.currentSpeaker;
 export const selectPrevSpeaker = (state) => state.quotesPlayer.prevSpeaker;
 
-// export const selectEndingQuoteTxt = (state) => {
-//   if (state.quotesPlayer.status !== "loaded") return "";
-//   return state.quotesPlayer.endingQuote.eng_txt;
-// };
-
 export default quotesPlayerSlice.reducer;
