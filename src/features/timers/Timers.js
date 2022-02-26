@@ -102,17 +102,6 @@ export function Timers(props) {
       onIntervalEnded: () => onIntervalTimerComplete(),
     });
 
-  // console.log("from USEINTERVAL TIMER", {
-  //   updateStatus,
-  //   remainingTime,
-  //   remainingIntervalSeconds,
-  //   activeInterval,
-  // });
-
-  // useEffect(() => {
-  //   setNewKeyChangeCircles((prevKey) => prevKey + 1);
-  // }, [remainingIntervalSeconds, activeInterval]);
-
   return (
     <>
       <MusicControls>

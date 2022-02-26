@@ -317,18 +317,15 @@ export default function usePlaylist({
     setShouldPlay(true);
   };
   const getCurrentTitle = () => {
-    console.log(" usePlaylist getCurrentTitle!!!");
     return filesListRef.current && filesListRef.current[currTrack.index]
       ? filesListRef.current[currTrack.index].title
       : "loading title";
   };
   const getCurrentDuration = () => {
-    console.log(" usePlaylist getCurrentDuration!!!");
     if (!howlsRef.current || !howlsRef.current[currTrack.index]) return;
     return howlsRef.current[currTrack.index].duration();
   };
   const getCurrentIndex = () => {
-    console.log(" usePlaylist getCurrentTitle!!!");
     return currTrack.index;
   };
 

@@ -3,15 +3,12 @@ import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
 // Follow this pattern to import other Firebase services
 // import { } from 'firebase/<service>';
 
+// import * as firebase1 from "firebase";
+
 import { getDatabase } from "firebase/database";
 import { getStorage } from "firebase/storage";
 
-import {
-  listAll,
-  ref as storageRef,
-  getMetadata,
-  getDownloadURL,
-} from "firebase/storage";
+import { listAll, ref as storageRef, getMetadata, getDownloadURL } from "firebase/storage";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -32,6 +29,10 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const database = getDatabase(app);
 export const storage = getStorage(app);
+
+// database.ref().set({
+//   name: "Marcus Assaf",
+// });
 
 export async function fetchFilesFromFolder(folder) {
   const urlsResponse = await fetchFilesUrls(folder);

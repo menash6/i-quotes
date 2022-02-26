@@ -1,14 +1,9 @@
 // A mock function to mimic making an async request for data
 import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
 import { ref, child, get } from "firebase/database";
-import {
-  listAll,
-  ref as storageRef,
-  getMetadata,
-  getDownloadURL,
-} from "firebase/storage";
+import { listAll, ref as storageRef, getMetadata, getDownloadURL } from "firebase/storage";
 
-import { db, database, storage } from "../../firebase.ts";
+import { db, database, storage } from "../../firebase.js";
 
 export async function fetchMusicUrls(folder) {
   const musicRef = storageRef(storage, folder);
@@ -57,12 +52,7 @@ export async function fetchMusicFromFolder(folder) {
   const urlsResponse = await fetchMusicUrls(folder);
   const metadataResponse = await fetchMusicMetadata(folder);
   console.log("fetchAsyncMusic:", folder, " urlsResponse", urlsResponse);
-  console.log(
-    "fetchAsyncMusic: ",
-    folder,
-    "metadataResponse",
-    metadataResponse
-  );
+  console.log("fetchAsyncMusic: ", folder, "metadataResponse", metadataResponse);
   const names = metadataResponse.map((e) => e.name);
 
   const response = names.map(function (value, index) {
@@ -97,10 +87,4 @@ export async function fetchMusicFromFolder(folder) {
 //     });
 // }
 
-export const filterCategories = [
-  "new_label",
-  "morning",
-  "focus",
-  "workout",
-  "night",
-]; // all catergories indexed 0-1-2-3
+export const filterCategories = ["new_label", "morning", "focus", "workout", "night"]; // all catergories indexed 0-1-2-3

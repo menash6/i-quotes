@@ -89,6 +89,7 @@ const QuotesPlayer = ({ ref }) => {
     if (quotesControls.isPlaying) quotesTyperRef.current.start();
     //todo changing back to the same speaker - I want to restart!
   }, [quotesControls.isPlaying]);
+
   useEffect(() => {
     if (quotesControls.isPaused) {
       console.log("🚀 ~ useEffect ~ quotesControls.isPaused", quotesControls.isPaused);
@@ -131,91 +132,6 @@ const QuotesPlayer = ({ ref }) => {
         ref={quotesTyperRef}
         durationLetter={calculateDurationLetter()}
       />
-      {/* <IonToolbar> //! for DEBUG
-        <IonChip>
-          <IonLabel>{quotesControls.currLoadStatus}</IonLabel>
-        </IonChip>
-
-        <IonChip color="light" outline disabled={quotesControls.isPlaying === undefined}>
-          <IonLabel>Playing</IonLabel>
-          <IonBadge>
-            <IonLabel>
-              {quotesControls.isPlaying === true
-                ? "✅"
-                : quotesControls.isPlaying === false
-                ? "❌"
-                : "❓"}
-            </IonLabel>
-          </IonBadge>
-        </IonChip>
-        <IonChip color="light" outline disabled={quotesControls.isPaused === undefined}>
-          <IonLabel>Paused</IonLabel>
-          <IonBadge>
-            <IonLabel>
-              {quotesControls.isPaused === true
-                ? "✅"
-                : quotesControls.isPaused === false
-                ? "❌"
-                : "❓"}
-            </IonLabel>
-          </IonBadge>
-        </IonChip>
-        <IonChip color="light" outline disabled={quotesControls.isEnded === undefined}>
-          <IonLabel>Ended</IonLabel>
-          <IonBadge>
-            <IonLabel>
-              {quotesControls.isEnded === true
-                ? "✅"
-                : quotesControls.isEnded === false
-                ? "❌"
-                : "❓"}
-            </IonLabel>
-          </IonBadge>
-        </IonChip>
-        <IonChip color="light" outline disabled={quotesControls.isStopped === undefined}>
-          <IonLabel>Stopped</IonLabel>
-          <IonBadge>
-            <IonLabel>
-              {quotesControls.isStopped === true
-                ? "✅"
-                : quotesControls.isStopped === false
-                ? "❌"
-                : "❓"}
-            </IonLabel>
-          </IonBadge>
-        </IonChip>
-      </IonToolbar> */}
-
-      {/* <IonText>
-        <span ref={ref} className={"Quote-Placeholder ion-text-center "} />
-      </IonText> */}
-
-      {/* 
-      <IonText
-        className={
-          "Quote-Placeholder ion-text-center " +
-          (statusPlayingQuote !== STATUS.READY ? " animated-square" : "")
-        }
-      >
-        {quotesControls.isPlaying || quotesControls.isPaused ? (
-          <QuoteTyper
-            ref={quotesTyperRef}
-            text={quotesControls.getCurrentTitle()}
-            // text={"currentQuoteText"}
-            duration={quotesControls.getCurrentDuration()}
-            onComplete={() => setIsTyping(false)}
-            isPaused={quotesControls.isPaused}
-          />
-        ) : (
-          <TextTransition text={quotesControls.getCurrentTitle()} springConfig={presets.wobbly} />
-        )}
-      </IonText> */}
-
-      {/* <div style={{ display: quotesControls.isPaused ? null : "none" }}>hello</div> */}
-
-      {/* <h1 style={{ display: quotesControls.isPlaying ? "none" : null }}>
-        lets see if you see mee!
-      </h1> */}
 
       {statusTotalTimer === STATUS.ENDED ? (
         <IonText

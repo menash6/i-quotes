@@ -20,7 +20,9 @@ const App: React.FC = () => {
     dispatch(fetchAsyncMusic());
   }, [dispatch]);
 
-  if (status !== "loaded" || statusMusic !== "loaded") return <LoadingTimer />;
+  // if (statusMusic !== "loaded") return <h1>Loading</h1>;
+  if (status !== "loaded") return <LoadingTimer />;
+  // if (status !== "loaded" || statusMusic !== "loaded") return <LoadingTimer />;
   // return <LoadingTimer />;
 
   return (

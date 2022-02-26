@@ -105,6 +105,7 @@ const initialState = {
 // typically used to make async requests.
 export const fetchAsyncQuotes = createAsyncThunk("quotesPlayer/fetchQuotes", async () => {
   const allQuotes = await fetchQuotes();
+  console.log("🚀 ~ fetchAsyncQuotes ~ allQuotes", allQuotes);
 
   const amRecordings = fetchFilesFromFolder("/quotes/am");
   const ldRecordings = fetchFilesFromFolder("/quotes/ld");

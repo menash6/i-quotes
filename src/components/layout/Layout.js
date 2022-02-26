@@ -9,14 +9,8 @@ import { selectMusicFilter } from "../../features/musicPlayer/musicPlayerSlice";
 
 const Layout = (props) => {
   const quoteTextRef = useRef(null);
-  // const prefersDark = window.matchMedia("(prefers-color-scheme: dark)");
-  // // document.body.classList.toggle("dark", true);
-  // document.body.classList.toggle("dark-mode");
-  // console.log("🚀 ~ Layout ~ prefersDark", prefersDark);
 
   const currFilter = useSelector(selectMusicFilter);
-
-  // const toggleDarkModeHandler = () => document.body.classList.toggle("night");
 
   if (currFilter === 0) {
     document.body.classList.remove("morning", "focus", "workout", "night", "mindfulness");
@@ -44,12 +38,9 @@ const Layout = (props) => {
 
   return (
     <IonContent id="main">
-      {/* <IonToggle name="darkMode" onIonChange={toggleDarkModeHandler} /> */}
-
       <ToolBar />
       <div className="type-wrap">
         <span ref={quoteTextRef} />
-        {/* <span style={{ whiteSpace: "pre" }} ref={el} /> */}
       </div>
       <IonGrid className="ion-padding Grid-Fixed-Width" fixed>
         <IonRow className="ion-justify-content-center ion-align-items-center">

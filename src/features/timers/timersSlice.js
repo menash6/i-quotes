@@ -12,8 +12,7 @@ const getIntervalTime = (totalTime, percent) => {
   console.log({ totalTime }, { percent });
   if (totalTime <= 30) return totalTime;
   if (totalTime <= 60) return totalTime / 2;
-  let intervalEstimated =
-    0.005 * (2 * INITIAL_DEFAULTS.minInterval - totalTime) * (percent - 100);
+  let intervalEstimated = 0.005 * (2 * INITIAL_DEFAULTS.minInterval - totalTime) * (percent - 100);
 
   intervalEstimated = Math.max(INITIAL_DEFAULTS.minInterval, intervalEstimated); // interval is less than 30sec
 
@@ -22,10 +21,7 @@ const getIntervalTime = (totalTime, percent) => {
   console.log({ intervalEstimated });
   const numOfIntervals = Math.floor(totalTime / intervalEstimated);
   console.log({ numOfIntervals });
-  console.log(
-    "getIntervalTime=totalTime / numOfIntervals ",
-    totalTime / numOfIntervals
-  );
+  console.log("getIntervalTime=totalTime / numOfIntervals ", totalTime / numOfIntervals);
   return totalTime / numOfIntervals;
 };
 
@@ -55,9 +51,7 @@ const initialState = {
   //   INITIAL_DEFAULTS.percent
   // ),
   intervalTime: INITIAL_DEFAULTS.intervalTime,
-  numOfIntervals: Math.floor(
-    INITIAL_DEFAULTS.totalTime / INITIAL_DEFAULTS.intervalTime
-  ),
+  numOfIntervals: Math.floor(INITIAL_DEFAULTS.totalTime / INITIAL_DEFAULTS.intervalTime),
   // maxNumIntervals: Math.floor(
   //   INITIAL_DEFAULTS.totalTime / INITIAL_DEFAULTS.minInterval
   // ),
@@ -88,28 +82,10 @@ export const timersSlice = createSlice({
       }
 
       const updatedInterval = state.totalTime / state.numOfIntervals;
-      console.log({ updatedInterval });
-      if (updatedInterval < 30)
-        state.numOfIntervals = Math.floor(state.totalTime / 30);
-      console.log("NEW INTERVAL :", state.totalTime / state.numOfIntervals);
+      if (updatedInterval < 30) state.numOfIntervals = Math.floor(state.totalTime / 30);
       state.intervalTime = state.totalTime / state.numOfIntervals;
     },
-    // setTotalTime: (state, action) => {
-    //   state.totalTime = action.payload;
-    //   state.intervalTime = getIntervalTime(
-    //     state.totalTime,
-    //     state.intervalPercent
-    //   );
-    // },
 
-    // setIntervalPercent: (state, action) => {
-    //   state.intervalPercent = parseInt(action.payload); // between 0-100
-    //   state.intervalTime = getIntervalTime(
-    //     state.totalTime,
-    //     state.intervalPercent
-    //   );
-    //   console.log("setIntervalPercent", { state });
-    // },
     setNumOfIntervals: (state, action) => {
       state.numOfIntervals = parseInt(action.payload);
       state.intervalTime = state.totalTime / state.numOfIntervals;

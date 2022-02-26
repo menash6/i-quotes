@@ -2,28 +2,34 @@
 import { collection, getDocs } from "firebase/firestore/lite";
 import { ref, child, get } from "firebase/database";
 
-import { db, database } from "../../firebase.ts";
+import { db, database } from "../../firebase.js";
 
 export async function fetchQuotes() {
   const dbRef = ref(database, "sheets/");
-  console.log({ dbRef });
-  const snapshot = await get(child(dbRef, "all_quotes"));
-  console.log({ snapshot });
 
-  if (snapshot.exists()) {
-    const snapshotValue = snapshot.val();
-    // console.log("snapshot key and ref ", snapshot.key, snapshot.ref);
-    // console.log("snapshot toJSON() ", snapshot.toJSON());
-    // console.log("snapshot.val is ", snapshotValue);
-    const quoteInOneArray = [];
-    snapshot.forEach((child) => {
-      quoteInOneArray.push({ id: parseInt(child.key), ...child.val() });
-    });
+  console.log("🚀 ~ fetchQuotes ~ dbRef", dbRef);
 
-    return quoteInOneArray;
-    // resolve(snapshotValue);
-  } else {
-    console.warn("No quotes available");
+  try {
+    const snapshot = await get(child(dbRef, "all_quotes"));
+    console.log({ snapshot });
+
+    if (snapshot.exists()) {
+      const snapshotValue = snapshot.val();
+      // console.log("snapshot key and ref ", snapshot.key, snapshot.ref);
+      // console.log("snapshot toJSON() ", snapshot.toJSON());
+      // console.log("snapshot.val is ", snapshotValue);
+      const quoteInOneArray = [];
+      snapshot.forEach((child) => {
+        quoteInOneArray.push({ id: parseInt(child.key), ...child.val() });
+      });
+
+      return quoteInOneArray;
+      // resolve(snapshotValue);
+    } else {
+      console.warn("No quotes available");
+    }
+  } catch (error) {
+    console.error(error);
   }
 }
 
