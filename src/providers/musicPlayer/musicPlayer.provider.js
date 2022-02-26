@@ -9,6 +9,9 @@ import {
 
 import { getShuffledIndices } from "../quotesPlayer/quotesPlayer.provider";
 import { LOAD_STATUS } from "../../hooks/usePlaylistUtils";
+import useMusicCategories from "./../../features/musicPlayer/hooks/useMusicCategories";
+import useMusicFiles from "../../features/musicPlayer/hooks/useMusicFiles";
+import { musicUrl } from "./../../axiosInstance/constants";
 
 export const MusicPlayerContext = createContext({
   getCurrentIndex: () => {},
@@ -33,11 +36,10 @@ export const MusicPlayerContext = createContext({
 
 const defaultVol = 0.1;
 
-const MusicPlayerProvider = ({ children }) => {
-  const filesList = useSelector(selectFilteredMusicPlaylist);
+const MusicPlayerProvider = ({ filesList, children }) => {
+  // const filesList = useSelector(selectFilteredMusicPlaylist);
+  console.log("~🐵🐵🐵 filesList", filesList);
 
-  console.log({ filesList });
-  console.log("🚀 ~ MusicPlayerProvider ~ usePlaylist");
   const musicControls = usePlaylist({
     filesList,
     defaultVol,
@@ -49,14 +51,6 @@ const MusicPlayerProvider = ({ children }) => {
     shuffleMusic();
     console.log("🚀👀👀👀 ~useEffect MusicPlayerProvider ~ filesList", filesList);
   }, [filesList, shuffleMusic]);
-
-  // useEffect(() => {
-  //   // setShuffledIndices(getShuffledIndices(filesList.length));
-  //   // shuffledIndicesRef.current = getShuffledIndices(filesList.length);
-  //   shuffleMusic();
-  //   console.log("🚀 MusicPlayerProvider~ useEffect ~ filesList.length", filesList.length);
-  // }, [filesList, shuffleMusic]);
-  //! runs AFTER the render - not enough time for
 
   return (
     <MusicPlayerContext.Provider value={musicControls}>{children}</MusicPlayerContext.Provider>
