@@ -5,8 +5,8 @@ import Layout from "../components/layout/Layout";
 
 import MusicPlayerProvider from "../providers/musicPlayer/musicPlayer.provider";
 import QuotesPlayerProvider from "../providers/quotesPlayer/quotesPlayer.provider";
-import useMusicCategories from "../features/musicPlayer/hooks/useMusicCategories";
-import useMusicFiles from "../features/musicPlayer/hooks/useMusicFiles";
+import useMusicCategories from "../providers/musicPlayer/hooks/useMusicCategories";
+import useMusicFiles from "../providers/musicPlayer/hooks/useMusicFiles";
 import useRecordings from "../features/quotesPlayer/hooks/useRecordings";
 import PlayersDevtools from "./PlayersDevtools";
 import { useSelector } from "react-redux";

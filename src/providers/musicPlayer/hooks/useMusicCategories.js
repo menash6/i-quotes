@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import { useToast } from "../../../app/hooks/useToast";
 import { axiosInstance, getJWTHeader } from "../../../axiosInstance";
 // import { useUser } from "../../user/hooks/useUser";
-import { queryKeys } from "./../../../react-query/constants";
+import { queryKeys } from "../../../react-query/constants";
 
 async function getMusicCategories(user) {
   const { data } = await axiosInstance.get(`/music/categories`, {

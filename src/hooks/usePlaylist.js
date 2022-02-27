@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { Howler } from "howler";
 
 // import * as UTILS from "./usePlaylistUtils";
 import {
@@ -19,6 +18,7 @@ import {
   initList,
   FADE_DURATION,
   createRandomIndices,
+  shuffleByIndices,
 } from "./usePlaylistUtils";
 
 export default function usePlaylist({
@@ -26,8 +26,6 @@ export default function usePlaylist({
   defaultVol = 1,
   onEnd = null,
   onPlay = null,
-  // shuffledIndices,
-  // onPlay = () => {},
   autoPlay = true,
   baseUrl = "",
 }) {
@@ -41,15 +39,15 @@ export default function usePlaylist({
     volume: defaultVol,
   });
 
-  // const [playlistVol, setPlaylistVol] = useState(defaultVol);
-
   const [howlsCreatedNow, setHowlsCreatedNow] = useState(false);
   const [howlsShuffledNow, setHowlsShuffledNow] = useState(false);
   const [shouldVolUp, setShouldVolUp] = useState(false);
   const [shouldPlay, setShouldPlay] = useState(false);
-  // const [howls, setHowls] = useState(null);
   const howlsRef = useRef(null);
   const filesListRef = useRef(null);
+
+  // const howlsFilteredRef = useRef(null);
+  // const filesListFilteredRef = useRef(null);
 
   const setCurrTrackToNext = useCallback((length) => {
     setCurrTrack((prevState) => {
@@ -109,10 +107,6 @@ export default function usePlaylist({
     filesListRef.current = [...filesList];
     //todo create all filtered sub playlists
 
-    // shuffleByIndices({ array: filesListRef.current, shuffledIndices });
-    //create a copy of filesList
-    //shuffle the copy
-
     const newHowls = initList({
       baseUrl,
       filesList: filesListRef.current,
@@ -121,20 +115,13 @@ export default function usePlaylist({
       onPlay,
       defaultVol,
     });
+    console.log("~🔥🔥🔥🔥🔥🔥 filesList", filesList);
     if (newHowls) {
       //todo create filtered subPlaylists - according to filters/categories
       setHowlsCreatedNow(true);
 
       initCurrTrack({ howls: newHowls, setCurrTrack, defaultVol });
-      // setCurrTrack(() => {
-      //   return {
-      //     isPlaying: false,
-      //     isPaused: false,
-      //     isEnded: true, //!update!
-      //     index: 0,
-      //     loadStatus: getStateAsHowl(newHowls, 0),
-      //   };
-      // });
+
       loadCurrWindow({ howls: newHowls, currentIndex: 0, setCurrTrack });
       howlsRef.current = newHowls;
 
@@ -143,7 +130,7 @@ export default function usePlaylist({
     return () => {
       destroyList(newHowls);
     };
-  }, [filesList, defaultVol, onEndHandler, onPlay, onVolHandler]);
+  }, [filesList, defaultVol, onEndHandler, onPlay, onVolHandler, baseUrl]);
 
   /**
    * *when index updates load a 3 tracks/howls window - current, next and prev of
@@ -223,31 +210,6 @@ export default function usePlaylist({
     });
   };
 
-  const volUp = useCallback(() => {
-    console.log(" usePlaylist volUp!!!");
-    if (howlsRef.current && howlsRef.current[currTrack.index]) {
-      const currentHowl = howlsRef.current[currTrack.index];
-      const currVol = currentHowl.volume();
-      console.log({ currVol });
-      if (currVol === 1) return;
-      currentHowl.fade(currVol, 1, FADE_DURATION / 4);
-      setShouldVolUp(true);
-    }
-  }, [currTrack.index]);
-
-  const volDown = useCallback(() => {
-    console.log(" usePlaylist volDown!!!");
-    if (howlsRef.current && howlsRef.current[currTrack.index]) {
-      const currentHowl = howlsRef.current[currTrack.index];
-      const currVol = currentHowl.volume();
-      console.log({ currVol });
-      if (currVol === defaultVol) return;
-      setShouldVolUp(false);
-
-      currentHowl.fade(currVol, defaultVol, FADE_DURATION / 4);
-    }
-  }, [currTrack.index, defaultVol]);
-
   const play = useCallback(() => {
     console.log(" usePlaylist play!!!");
     // if (currTrack.isPlaying) return;
@@ -256,11 +218,6 @@ export default function usePlaylist({
     const currentHowl = howlsRef.current[currTrack.index];
     if (currentHowl.playing()) return;
     setShouldPlay(true);
-
-    // if (shouldVolUp) volUp();
-
-    // currentHowl.once("play", () => onPlay());
-    // currentHowl.once("end",()=> onEnd());
 
     const currentHowlState = currentHowl.state();
     if (currentHowlState === "unloaded") {
@@ -292,16 +249,35 @@ export default function usePlaylist({
       setHowlsCreatedNow(false);
       play();
     }
-    // if (howlsShuffledNow && shouldPlay) {
-    //   setHowlsShuffledNow(false);z
-    //   play();
-    // }
 
     console.log("🚀 ~ useEffect #4 ~ shouldPlay", shouldPlay);
-    // console.log("🚀 ~ useEffect #4 ~ howlsShuffledNow", howlsShuffledNow);
     console.log("🚀 ~ useEffect #4 ~ howlsCreatedNow", howlsCreatedNow);
   }, [howlsCreatedNow, play, shouldPlay]);
-  // }, [howlsCreatedNow, play, shouldPlay, howlsShuffledNow]);
+
+  const volUp = useCallback(() => {
+    console.log(" usePlaylist volUp!!!");
+    if (howlsRef.current && howlsRef.current[currTrack.index]) {
+      const currentHowl = howlsRef.current[currTrack.index];
+      const currVol = currentHowl.volume();
+      console.log({ currVol });
+      if (currVol === 1) return;
+      currentHowl.fade(currVol, 1, FADE_DURATION / 4);
+      setShouldVolUp(true);
+    }
+  }, [currTrack.index]);
+
+  const volDown = useCallback(() => {
+    console.log(" usePlaylist volDown!!!");
+    if (howlsRef.current && howlsRef.current[currTrack.index]) {
+      const currentHowl = howlsRef.current[currTrack.index];
+      const currVol = currentHowl.volume();
+      console.log({ currVol });
+      if (currVol === defaultVol) return;
+      setShouldVolUp(false);
+
+      currentHowl.fade(currVol, defaultVol, FADE_DURATION / 4);
+    }
+  }, [currTrack.index, defaultVol]);
 
   const pause = () => {
     console.log(" usePlaylist pause!!!");
@@ -353,7 +329,6 @@ export default function usePlaylist({
     (shuffledIndices = null) => {
       if (!shuffledIndices) {
         shuffledIndices = createRandomIndices(filesListRef.current.length);
-        //shuffle regularly - for the music - create your own...
       }
       // stop music if playing
       if (!howlsRef.current) return;
@@ -381,28 +356,6 @@ export default function usePlaylist({
     },
     [defaultVol]
   );
-
-  const shuffleByIndices = ({ array, shuffledIndices }) => {
-    if (!array || !shuffledIndices) return [];
-    if (shuffledIndices.length !== array.length) {
-      return;
-    }
-    let index = [...shuffledIndices];
-    // Fix all elements one by one
-    for (let i = 0; i < array.length; i++) {
-      // While index[i] and arr[i] are not fixed
-      while (index[i] !== i) {
-        let oldTargetI = index[index[i]];
-        let oldTargetE = array[index[i]];
-
-        array[index[i]] = array[i];
-        index[index[i]] = index[i];
-
-        index[i] = oldTargetI;
-        array[i] = oldTargetE;
-      }
-    }
-  };
 
   return {
     shuffle,

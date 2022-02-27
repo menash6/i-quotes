@@ -234,3 +234,25 @@ export const initCurrTrack = ({ howls, setCurrTrack, defaultVol }) => {
     };
   });
 };
+
+export const shuffleByIndices = ({ array, shuffledIndices }) => {
+  if (!array || !shuffledIndices) return [];
+  if (shuffledIndices.length !== array.length) {
+    return;
+  }
+  let index = [...shuffledIndices];
+  // Fix all elements one by one
+  for (let i = 0; i < array.length; i++) {
+    // While index[i] and arr[i] are not fixed
+    while (index[i] !== i) {
+      let oldTargetI = index[index[i]];
+      let oldTargetE = array[index[i]];
+
+      array[index[i]] = array[i];
+      index[index[i]] = index[i];
+
+      index[i] = oldTargetI;
+      array[i] = oldTargetE;
+    }
+  }
+};
