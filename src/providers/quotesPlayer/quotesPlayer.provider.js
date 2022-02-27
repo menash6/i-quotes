@@ -2,11 +2,6 @@ import React, { createContext, useEffect, useMemo, useCallback, useRef } from "r
 import usePlaylist from "../../hooks/usePlaylist";
 import { LOAD_STATUS, createRandomIndices } from "../../hooks/usePlaylistUtils";
 
-// import { useSelector } from "react-redux";
-// import {
-//   selectEndingQuotesOnePlaylist,
-//   selectFilteredQuotesPlaylists,
-// } from "../../features/quotesPlayer/quotesPlayerSlice";
 import { recordingsUrl } from "../../axiosInstance/constants";
 
 export const ALL_SPEAKERS = -1;
@@ -17,8 +12,7 @@ export const QuotesPlayerContext = createContext({
   getCurrentDuration: () => {},
   play: () => {},
   pause: () => {},
-  // next: () => {},
-  // prev: () => {},
+
   nextAndPlay: () => {},
   restart: () => {},
   shuffle: () => {},
@@ -27,12 +21,9 @@ export const QuotesPlayerContext = createContext({
   isPaused: false,
   isEnded: false,
   isStopped: false,
-  // setSpeaker: () => {},
-  // speakerSelection: 0,
 
   changeSpeakerMode: () => {},
-  // setSpeakerMode: () => {},
-  // speakerMode: ALL_SPEAKERS,
+
   amControls: null,
   slControls: null,
   ldControls: null,
@@ -53,23 +44,6 @@ export const getShuffledIndices = (length) => {
 };
 
 const QuotesPlayerProvider = ({ children, recordingsLists }) => {
-  console.log("~ recordingsLists", recordingsLists);
-  // const filteredQuotesPlaylists = useSelector(selectFilteredQuotesPlaylists);
-  // const endingQuotesOnePlaylist = useSelector(selectEndingQuotesOnePlaylist);
-
-  //todo- create REMEMBER IF IT ENDED - SO I DONT START AGAIN WHEN CHANGING A SPEAKER OR PROGRAM
-
-  // const [shouldPlay, setShouldPlay] = useState(false);
-  // const [speakerMode, setSpeakerMode] = useState(ALL_SPEAKERS);
-  // console.log("🚀 ~ QuotesPlayerProvider ~ speakerMode", speakerMode);
-
-  // const [shuffleKey, setShuffleKey] = useState(Math.random());
-
-  // console.log(
-  //   "🚀 ~ QuotesPlayerProvider ~ filteredQuotesPlaylists[0].length",
-  //   filteredQuotesPlaylists[0].length
-  // );
-
   const currSpeaker = useRef(0); // ? first speaker - maybe update to random?
   const isAllSpeakers = useRef(true);
 
@@ -77,28 +51,24 @@ const QuotesPlayerProvider = ({ children, recordingsLists }) => {
     filesList: recordingsLists.endingRecordings,
     baseUrl: recordingsUrl,
 
-    // filesList: endingQuotesOnePlaylist,
     autoPlay: false,
   });
 
   const amQuotesControls = usePlaylist({
     filesList: recordingsLists.amRecordings,
     baseUrl: recordingsUrl,
-    // filesList: filteredQuotesPlaylists[0],
     autoPlay: false,
   });
   const slQuotesControls = usePlaylist({
     filesList: recordingsLists.slRecordings,
     baseUrl: recordingsUrl,
 
-    // filesList: filteredQuotesPlaylists[1],
     autoPlay: false,
   });
   const ldQuotesControls = usePlaylist({
     filesList: recordingsLists.ldRecordings,
     baseUrl: recordingsUrl,
 
-    // filesList: filteredQuotesPlaylists[2],
     autoPlay: false,
   });
 
@@ -222,11 +192,8 @@ const QuotesPlayerProvider = ({ children, recordingsLists }) => {
       isPaused: allQuotesControlsArray[currSpeaker.current].isPaused,
       isStopped: allQuotesControlsArray[currSpeaker.current].isStopped,
       isEnded: allQuotesControlsArray[currSpeaker.current].isEnded, //todo at least one of them ended
-      // speakerMode,
       changeSpeakerMode,
-      // setSpeakerMode,
-      // speakerSelection: getSpeakerSelection(),
-      // setSpeaker,
+
       amControls: amQuotesControls,
       slControls: slQuotesControls,
       ldControls: ldQuotesControls,

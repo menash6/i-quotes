@@ -48,8 +48,6 @@ export function Timers(props) {
 
   const onTotalTimerComplete = () => {
     dispatch(timersActions.endTotalTimer());
-    dispatch(quotesPlayerActions.setIsPlayingMusic(false));
-    dispatch(quotesPlayerActions.setStatusPlayingQuote(STATUS.RUNNING));
 
     quotesControls.restart();
     musicControls.restart();
@@ -78,8 +76,6 @@ export function Timers(props) {
         let nextSpeaker = Math.floor(Math.random() * 3); //choose random speaker 0,1,2
         dispatch(quotesPlayerActions.setSpeaker(nextSpeaker));
       }
-      // dispatch(quotesPlayerActions.updateQuoteIndex());
-      dispatch(quotesPlayerActions.setStatusPlayingQuote(STATUS.RUNNING));
     }
     console.warn("onIntervalTimerComplete ended");
   };

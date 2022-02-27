@@ -1,85 +1,31 @@
-import { useState, useEffect, useRef, useContext } from "react";
-import {
-  IonGrid,
-  IonRow,
-  IonCol,
-  IonPopover,
-  IonButton,
-  IonIcon,
-  IonCard,
-  IonLabel,
-  IonBadge,
-  IonCardHeader,
-  IonChip,
-  IonToolbar,
-  IonButtons,
-} from "@ionic/react";
+import { useEffect, useRef, useContext } from "react";
+import { IonCard, IonCardHeader, IonText } from "@ionic/react";
+
 import TextTransition, { presets } from "react-text-transition";
 
-import { LOAD_STATUS } from "../../hooks/usePlaylistUtils";
-
-import { useSelector, useDispatch } from "react-redux";
-import {
-  // selectEndingQuoteTxt,
-  // selectEndingQuotePath,
-  selectStatusPlayingQuote,
-  selectStatus,
-  // selectCurrentQuoteTxt,
-  // selectCurrentQuotePath,
-} from "./quotesPlayerSlice";
-
-import { selectStatusMusic } from "../musicPlayer/musicPlayerSlice";
+import { useSelector } from "react-redux";
 
 import { selectStatusTotalTimers, STATUS } from "../timers/timersSlice";
-import { quotesPlayerActions, selectDebugMode } from "./quotesPlayerSlice";
-
-import { IonText } from "@ionic/react";
+import { selectDebugMode } from "./quotesPlayerSlice";
 
 import "./QuotesPlayer.css";
 import { QuoteTyper } from "./QuoteTyper";
-import Typed from "typed.js";
 
 import { MusicPlayerContext } from "./../../providers/musicPlayer/musicPlayer.provider";
-
 import { QuotesPlayerContext } from "../../providers/quotesPlayer/quotesPlayer.provider";
 
 import PlaylistPlayer from "../../components/PlaylistPlayer";
-import { pauseOutline, playOutline } from "ionicons/icons";
 
 const QuotesPlayer = ({ ref }) => {
   const quotesTyperRef = useRef(null);
 
   const statusTotalTimer = useSelector(selectStatusTotalTimers);
-  const statusPlayingQuote = useSelector(selectStatusPlayingQuote);
-  const dispatch = useDispatch();
 
   const currDebugMode = useSelector(selectDebugMode);
 
-  // const [quoteDuration, setQuoteDuration] = useState(-1);
-  const [isTyping, setIsTyping] = useState(false);
-
-  // const musicControls = useContext(MusicPlayerContext);
   const MusicControls = useContext(MusicPlayerContext);
   const volUp = MusicControls.volUp;
   const quotesControls = useContext(QuotesPlayerContext);
-
-  // const quotesPlaylistStatus = currentTrackStatus();
-
-  const text =
-    statusTotalTimer === STATUS.ENDED
-      ? "endingQuoteText"
-      : quotesControls.currLoadStatus !== LOAD_STATUS.UNLOADED ||
-        quotesControls.currLoadStatus !== LOAD_STATUS.LOADING
-      ? "(" +
-        quotesControls.getCurrentIndex() +
-        ") " +
-        quotesControls.getCurrentTitle() +
-        "[" +
-        quotesControls.getCurrentDuration() +
-        "]"
-      : "loading...";
-
-  // statusTotalTimer === STATUS.ENDED ? "endingQuoteText" : "currentQuoteText";
 
   useEffect(() => {
     if (quotesControls.isEnded) volUp();
@@ -92,17 +38,11 @@ const QuotesPlayer = ({ ref }) => {
 
   useEffect(() => {
     if (quotesControls.isPaused) {
-      console.log("🚀 ~ useEffect ~ quotesControls.isPaused", quotesControls.isPaused);
-
-      console.log("🚀 ~ useEffect ~ QuotesTyperRef.current", quotesTyperRef.current);
       quotesTyperRef.current.stop();
     }
   }, [quotesControls.isPaused]);
   useEffect(() => {
     if (quotesControls.isStopped) {
-      console.log("🚀 ~ useEffect ~ quotesControls.isPaused", quotesControls.isStopped);
-
-      console.log("🚀 ~ useEffect ~ QuotesTyperRef.current", quotesTyperRef.current);
       quotesTyperRef.current.reset();
     }
   }, [quotesControls.isStopped]);
@@ -137,7 +77,7 @@ const QuotesPlayer = ({ ref }) => {
         <IonText
           className={
             "Quote-Placeholder ion-text-center " +
-            (statusPlayingQuote !== STATUS.READY ? " animated-square" : "")
+            (quotesControls.isStopped ? " animated-square" : "")
           }
         >
           <div id="typed-strings">
@@ -149,7 +89,7 @@ const QuotesPlayer = ({ ref }) => {
         <IonText
           className={
             "Quote-Placeholder ion-text-center " +
-            (statusPlayingQuote !== STATUS.READY ? " animated-square" : "")
+            (quotesControls.isStopped ? " animated-square" : "")
           }
         >
           <div id="typed-strings">
@@ -168,35 +108,6 @@ const QuotesPlayer = ({ ref }) => {
           />
         </IonText>
       )}
-
-      {/* {quotesTyperRef.current && (
-        <IonToolbar>
-          <IonButtons slot="start">
-            <IonButton
-              onClick={() => {
-                console.log(
-                  "🚀 ~ QuotesPlayer ~ quotesTyperRef.current STOP",
-                  quotesTyperRef.current
-                );
-                quotesTyperRef.current.stop();
-              }}
-            >
-              <IonIcon slot="icon-only" icon={pauseOutline} />
-            </IonButton>
-            <IonButton
-              onClick={() => {
-                console.log(
-                  "🚀 ~ QuotesPlayer ~ quotesTyperRef.current START",
-                  quotesTyperRef.current
-                );
-                quotesTyperRef.current.start();
-              }}
-            >
-              <IonIcon slot="icon-only" icon={playOutline} />
-            </IonButton>
-          </IonButtons>
-        </IonToolbar>
-      )} */}
 
       {currDebugMode && (
         <>

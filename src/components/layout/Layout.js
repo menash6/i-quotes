@@ -1,4 +1,4 @@
-import { IonCol, IonContent, IonRow, IonGrid, IonToggle } from "@ionic/react";
+import { IonCol, IonContent, IonRow, IonGrid } from "@ionic/react";
 import { ToolBar } from "./ToolBar";
 import QuotesPlayer from "../../features/quotesPlayer/QuotesPlayer";
 import { Timers } from "../../features/timers/Timers";

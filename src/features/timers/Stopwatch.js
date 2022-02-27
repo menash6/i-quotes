@@ -35,18 +35,9 @@ export const Stopwatch = ({ totalDuration = 120, numOfIntervals = 6 }) => {
   const onEndIntervalTimerComplete = () => {
     if (statusTotalTimer === STATUS.ENDED) {
       quotesControls.endingControls.nextAndPlay();
-
-      //todo ending quotes - next and play
-      // if (isAllSpeakers) {
-      //   let nextSpeaker = Math.floor(Math.random() * 3); //choose random speaker 0,1,2
-      //   dispatch(quotesPlayerActions.setSpeaker(nextSpeaker));
-      // }
-      // dispatch(quotesPlayerActions.setStatusPlayingQuote(STATUS.RUNNING));
-      // dispatch(setIsPlayingQuote(true));
     }
     console.warn("onIntervalEnded STOPWATCH");
   };
-  // const isAllSpeakers = useSelector(selectIsAllSpeakers);
 
   const { updateStatus, remainingTime, remainingIntervalSeconds, activeInterval } =
     useIntervalTimer({

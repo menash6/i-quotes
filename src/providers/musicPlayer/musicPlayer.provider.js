@@ -1,16 +1,8 @@
 import React, { createContext, useState, useEffect, useRef } from "react";
-// import usePlaylist, { PLAYLIST_STATUS } from "./../hooks/usePlaylist";
-import { useSelector } from "react-redux";
 import usePlaylist from "../../hooks/usePlaylist";
-import {
-  selectAllMusicPlaylist,
-  selectFilteredMusicPlaylist,
-} from "../../features/musicPlayer/musicPlayerSlice";
 
-import { getShuffledIndices } from "../quotesPlayer/quotesPlayer.provider";
 import { LOAD_STATUS } from "../../hooks/usePlaylistUtils";
-import useMusicCategories from "./../../features/musicPlayer/hooks/useMusicCategories";
-import useMusicFiles from "../../features/musicPlayer/hooks/useMusicFiles";
+
 import { musicUrl } from "./../../axiosInstance/constants";
 
 export const MusicPlayerContext = createContext({
@@ -37,9 +29,6 @@ export const MusicPlayerContext = createContext({
 const defaultVol = 0.1;
 
 const MusicPlayerProvider = ({ filesList, children }) => {
-  // const filesList = useSelector(selectFilteredMusicPlaylist);
-  console.log("~🐵🐵🐵 filesList", filesList);
-
   const musicControls = usePlaylist({
     baseUrl: musicUrl,
     filesList,
@@ -50,7 +39,6 @@ const MusicPlayerProvider = ({ filesList, children }) => {
 
   useEffect(() => {
     shuffleMusic();
-    console.log("🚀👀👀👀 ~useEffect MusicPlayerProvider ~ filesList", filesList);
   }, [filesList, shuffleMusic]);
 
   return (

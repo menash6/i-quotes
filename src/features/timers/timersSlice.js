@@ -1,29 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { timersDefaults } from "../quotesPlayer/quotesPlayerAPI";
 
-/**
- * @param  {} percent
- * @param  {} totalTime
- * ?NOT USED RIGHT NOW
- * returns Interval(percent,totalTime) = I(p,T) = I=(0.3-0.005T)P+0.5T
- */
-const getIntervalTime = (totalTime, percent) => {
-  console.log("getIntervalTimes");
-  console.log({ totalTime }, { percent });
-  if (totalTime <= 30) return totalTime;
-  if (totalTime <= 60) return totalTime / 2;
-  let intervalEstimated = 0.005 * (2 * INITIAL_DEFAULTS.minInterval - totalTime) * (percent - 100);
+// const getIntervalTime = (totalTime, percent) => {
+//   console.log("getIntervalTimes");
+//   console.log({ totalTime }, { percent });
+//   if (totalTime <= 30) return totalTime;
+//   if (totalTime <= 60) return totalTime / 2;
+//   let intervalEstimated = 0.005 * (2 * INITIAL_DEFAULTS.minInterval - totalTime) * (percent - 100);
 
-  intervalEstimated = Math.max(INITIAL_DEFAULTS.minInterval, intervalEstimated); // interval is less than 30sec
+//   intervalEstimated = Math.max(INITIAL_DEFAULTS.minInterval, intervalEstimated); // interval is less than 30sec
 
-  // const intervalIdea =
-  //   (INITIAL_DEFAULTS.minInterval - 0.5 * totalTime) * 0.01 * percent - 100;
-  console.log({ intervalEstimated });
-  const numOfIntervals = Math.floor(totalTime / intervalEstimated);
-  console.log({ numOfIntervals });
-  console.log("getIntervalTime=totalTime / numOfIntervals ", totalTime / numOfIntervals);
-  return totalTime / numOfIntervals;
-};
+//   console.log({ intervalEstimated });
+//   const numOfIntervals = Math.floor(totalTime / intervalEstimated);
+//   console.log({ numOfIntervals });
+//   console.log("getIntervalTime=totalTime / numOfIntervals ", totalTime / numOfIntervals);
+//   return totalTime / numOfIntervals;
+// };
 
 const INITIAL_DEFAULTS = {
   totalTime: 600,
@@ -44,31 +35,14 @@ Object.freeze(STATUS);
 const initialState = {
   status: STATUS.READY, // RUNNING,PAUSED,ENDED,OVERTIME
   totalTime: INITIAL_DEFAULTS.totalTime,
-  // intervalTime: null, //determined by intervalPercent
-  // intervalPercent: INITIAL_DEFAULTS.percent,
-  // intervalTime: getIntervalTime(
-  //   INITIAL_DEFAULTS.totalTime,
-  //   INITIAL_DEFAULTS.percent
-  // ),
   intervalTime: INITIAL_DEFAULTS.intervalTime,
   numOfIntervals: Math.floor(INITIAL_DEFAULTS.totalTime / INITIAL_DEFAULTS.intervalTime),
-  // maxNumIntervals: Math.floor(
-  //   INITIAL_DEFAULTS.totalTime / INITIAL_DEFAULTS.minInterval
-  // ),
 };
 
 export const timersSlice = createSlice({
   name: "timers",
   initialState,
   reducers: {
-    // new timers recucers
-    // setTimersPlan: (state, action) => {
-    //   state.planIndex = action.payload;
-    //   state.activeTimer =
-    //     timersDefaults[action.payload].total /
-    //       timersDefaults[action.payload].interval -
-    //     1;
-    // },
     setStatusTimer: (state, action) => {
       state.status = action.payload;
     },
@@ -120,11 +94,7 @@ export const selectIntervalTime = (state) => state.timers.intervalTime;
 export const selectIntervalPercent = (state) => state.timers.intervalPercent;
 
 export const selectNumOfIntervals = (state) => state.timers.numOfIntervals;
-// export const selectNumOfIntervals = (state) =>
-//   Math.floor(state.timers.totalTime / state.timers.intervalTime);
 
-// export const selectIntervalTimeRemaining = (state) =>
-//   state.timers.intervalTimeRemaining;
 export const selectPlanIndex = (state) => state.timers.planIndex;
 export const selectActiveTimer = (state) => state.timers.activeTimer;
 export const selectIsRunning = (state) => state.timers.isRunning;

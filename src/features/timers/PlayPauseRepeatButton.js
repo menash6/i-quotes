@@ -75,16 +75,10 @@ export const PlayPauseRepeatButton = ({}) => {
           color="light"
           onClick={() => {
             if (statusTotalTimer === STATUS.RUNNING) {
-              //if playing then pause
               dispatch(timersActions.setStatusTimer(STATUS.PAUSED));
-              dispatch(quotesPlayerActions.setIsPlayingMusicAndQuotes(false));
-              //statusPlayingQuote
-              // dispatch(setIsPlayingMusic(false));
-              // dispatch(setIsPlayingQuote(false));
-              console.log("paused");
+
               musicControls.pause();
               quotesControls.pause();
-              // typed.current.stop();
               //todo typer pause()
             } else {
               //if it was paused... play it again
@@ -97,14 +91,9 @@ export const PlayPauseRepeatButton = ({}) => {
                 shuffleQuotes();
                 quotesControls.endingControls.restart(); //stop them
                 quotesControls.endingControls.shuffle(); //shuffle them for next time
-
-                dispatch(quotesPlayerActions.restartQuotesAndMusic());
               } else {
                 dispatch(timersActions.setStatusTimer(STATUS.RUNNING));
-                dispatch(quotesPlayerActions.setIsPlayingMusicAndQuotes(true));
 
-                // dispatch(setIsPlayingMusic(true));
-                // dispatch(setIsPlayingQuote(true));
                 console.log("play");
                 musicControls.play();
                 //todo typer play()

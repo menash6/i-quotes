@@ -53,7 +53,6 @@ export const ToolBar = () => {
 
     console.log("onTimerRestart");
     dispatch(timersActions.restartTotalTimer());
-    dispatch(quotesPlayerActions.restartQuotesAndMusic());
   };
 
   const showPopupHandler = (event, component) => {

@@ -1,22 +1,12 @@
 import React from "react";
-import { useState } from "react";
 import Typed from "typed.js";
-import { selectStatusPlayingQuote } from "./quotesPlayerSlice";
-import { useSelector } from "react-redux";
-// import { STATUS } from "../timers/timersSlice";
 
 export const QuoteTyper = React.forwardRef((props, ref) => {
   const { durationLetter } = props;
-  // ({ ref, text, duration, onComplete, isPaused }) => {
 
-  // Create reference to store the DOM element containing the animation
-  // const el = React.useRef(null);
-  // Create reference to store the Typed instance itself
   const typed = React.useRef(null);
 
   React.useEffect(() => {
-    // const durationLetter = Math.floor((duration * 1000) / text.length);
-
     const options = {
       // strings: [text],
       stringsElement: "#typed-strings",
