@@ -41,6 +41,7 @@ const MusicPlayerProvider = ({ filesList, children }) => {
   console.log("~🐵🐵🐵 filesList", filesList);
 
   const musicControls = usePlaylist({
+    baseUrl: musicUrl,
     filesList,
     defaultVol,
     // shuffledIndices: shuffledIndicesRef.current,

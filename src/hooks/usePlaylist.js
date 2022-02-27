@@ -29,6 +29,7 @@ export default function usePlaylist({
   // shuffledIndices,
   // onPlay = () => {},
   autoPlay = true,
+  baseUrl = "",
 }) {
   const [currTrack, setCurrTrack] = useState({
     index: 0,
@@ -113,6 +114,7 @@ export default function usePlaylist({
     //shuffle the copy
 
     const newHowls = initList({
+      baseUrl,
       filesList: filesListRef.current,
       onEndHandler,
       onVolHandler,

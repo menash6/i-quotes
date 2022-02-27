@@ -11,38 +11,43 @@ import MusicPlayerProvider from "./providers/musicPlayer/musicPlayer.provider";
 import QuotesPlayerProvider from "./providers/quotesPlayer/quotesPlayer.provider";
 import useMusicCategories from "./features/musicPlayer/hooks/useMusicCategories";
 import useMusicFiles from "./features/musicPlayer/hooks/useMusicFiles";
-import { musicUrl } from "./axiosInstance/constants";
+import { musicUrl, recordingsUrl } from "./axiosInstance/constants";
+import useRecordings from "./features/quotesPlayer/hooks/useRecordings";
 
-const App: React.FC = () => {
+const App = () => {
   const status = useSelector(selectStatus);
-  const statusMusic = useSelector(selectStatusMusic);
-  const dispatch = useDispatch();
+  // const statusMusic = useSelector(selectStatusMusic);
+  // const dispatch = useDispatch();
 
   const { musicCategories, isLoadingCategories, isSuccessCategories } = useMusicCategories();
   const { musicFiles, isLoadingMusicFiles, isSuccessMusicFiles } = useMusicFiles();
-  useEffect(() => {
-    dispatch(fetchAsyncQuotes());
-    // dispatch(fetchAsyncMusic());
-  }, [dispatch]);
+  const { recordings, isLoadingRecordings, isSuccessRecordings } = useRecordings();
+  console.log("~🔥🔥🔥🔥🔥🔥 recordings", recordings);
+
+  // useEffect(() => {
+  //   dispatch(fetchAsyncQuotes());
+  //   // dispatch(fetchAsyncMusic());
+  // }, [dispatch]);
 
   // if (statusMusic !== "loaded") return <h1>Loading</h1>;
-  if (status !== "loaded" || isLoadingMusicFiles) return <LoadingTimer />;
+  if (isLoadingMusicFiles || isLoadingRecordings) return <LoadingTimer />;
   // if (status !== "loaded" || statusMusic !== "loaded") return <LoadingTimer />;
   // return <LoadingTimer />;
 
-  let musicFilesParsed;
-  if (isSuccessMusicFiles) {
-    //mediaUrl
-    musicFilesParsed = musicFiles.data.map((e) => {
-      return { title: e.title, url: `${musicUrl}/${e.url}`, categories: e.categories };
-    });
-  }
-  console.log("~🐵🐵🐵 musicFilesParsed", musicFilesParsed);
+  // let musicFilesParsed;
+  // if (isSuccessMusicFiles) {
+  //   //mediaUrl
+  //   musicFilesParsed = musicFiles.data.map((e) => {
+  //     return { title: e.title, url: `${musicUrl}/${e.url}`, categories: e.categories };
+  //   });
+  // }
+
+  // console.log("~🐵🐵🐵 musicFilesParsed", musicFilesParsed);
 
   return (
     <>
-      <MusicPlayerProvider filesList={musicFilesParsed}>
-        <QuotesPlayerProvider>
+      <MusicPlayerProvider filesList={musicFiles.data}>
+        <QuotesPlayerProvider recordingsLists={recordings.data}>
           <IonApp>
             <Layout>
               {/* <QuotesPlayer /> */}

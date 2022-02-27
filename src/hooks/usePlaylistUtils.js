@@ -59,9 +59,6 @@ export const loadSrc = (howl) => {
 };
 
 export const loadCurrWindow = ({ howls, currentIndex, setCurrTrack }) => {
-  console.log("🚀 ~ loadCurrWindow ~ currentIndex", currentIndex);
-  console.log("🚀 ~ loadCurrWindow ~ howls", howls);
-
   if (howls[currentIndex] && howls[currentIndex].state() === "unloaded") {
     howls[currentIndex].load();
     //update State based on current howl
@@ -151,9 +148,17 @@ export const currTrackCheckPlayAndUpdate = ({ howl, setCurrTrack, shouldVolUp })
   howl.once("play", () => setCurTrackPlaying(setCurrTrack));
 };
 
-export const createHowl = ({ file, defaultVol, onEndHandler, length, onPlay, onVolHandler }) => {
+export const createHowl = ({
+  file,
+  defaultVol,
+  onEndHandler,
+  length,
+  onPlay,
+  onVolHandler,
+  baseUrl = "",
+}) => {
   const newHowl = new Howl({
-    src: file.url,
+    src: baseUrl ? `${baseUrl}/${file.url}` : file.url,
     volume: defaultVol,
     preload: false,
     html5: true,
@@ -177,11 +182,19 @@ export const createHowl = ({ file, defaultVol, onEndHandler, length, onPlay, onV
   return newHowl;
 };
 
-export const initList = ({ filesList, onEndHandler, defaultVol, onPlay, onVolHandler }) => {
+export const initList = ({
+  filesList,
+  onEndHandler,
+  defaultVol,
+  onPlay,
+  onVolHandler,
+  baseUrl = "",
+}) => {
   if (!filesList || filesList === []) return null;
   console.log("initList", { filesList });
   const newHowls = filesList.map((file) =>
     createHowl({
+      baseUrl,
       file,
       defaultVol,
       onEndHandler,
