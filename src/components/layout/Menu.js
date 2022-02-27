@@ -1,28 +1,10 @@
-import {
-  appsSharp,
-  chatboxEllipses,
-  earOutline,
-  happy,
-  happyOutline,
-  headsetOutline,
-  headsetSharp,
-  man,
-  manOutline,
-  people,
-  peopleOutline,
-  woman,
-  womanOutline,
-} from "ionicons/icons";
+import { appsSharp, chatboxEllipses, headsetSharp } from "ionicons/icons";
 import { filterCategories } from "../features/quotesPlayer/quotesPlayerAPI";
-import { UpdateNumIntervalsPopup } from "../components/UpdateNumIntervalsPopup";
 
 import {
-  IonSegment,
-  IonSegmentButton,
   IonLabel,
   IonIcon,
   IonButtons,
-  IonButton,
   IonContent,
   IonHeader,
   IonTitle,
@@ -38,13 +20,13 @@ import "./Menu.css";
 import { useSelector, useDispatch } from "react-redux";
 
 import {
-  setSpeaker,
   selectSpeaker,
-  setIsMixedSpeaker,
-  setFilter,
   selectMixedSpeakers,
   selectQuotesFilter,
 } from "../features/quotesPlayer/quotesPlayerSlice";
+
+import quotesPlayerActions from "../features/quotesPlayer/quotesPlayerSlice";
+
 import { IntervalPicker } from "../features/timers/IntervalPicker";
 
 const totalSpeakers = 3;
@@ -70,17 +52,8 @@ export default function Menu() {
   console.log({ currentSpeaker });
   console.log({ mixedSpeakers });
 
-  function nextValue() {
-    console.log("nextValue");
-    // console.log({ mixedSpeakers });
-
-    if (mixedSpeakers === true) return totalSpeakers;
-    else return currentSpeaker;
-  }
-
   return (
     <IonMenu
-      // type="reveal"
       className="MenuWidth"
       side="start"
       // menuId="first"
@@ -118,11 +91,11 @@ export default function Menu() {
             onIonChange={(e) => {
               if (e.detail.value == totalSpeakers) {
                 //choose random speaker 0,1,2 - different than the current speaker
-                dispatch(setIsMixedSpeaker(true));
-                dispatch(setSpeaker(radomNextSpeaker(currentSpeaker, 3)));
+                dispatch(quotesPlayerActions.setIsMixedSpeaker(true));
+                dispatch(quotesPlayerActions.setSpeaker(radomNextSpeaker(currentSpeaker, 3)));
               } else {
-                dispatch(setIsMixedSpeaker(false));
-                dispatch(setSpeaker(e.detail.value));
+                dispatch(quotesPlayerActions.setIsMixedSpeaker(false));
+                dispatch(quotesPlayerActions.setSpeaker(e.detail.value));
               }
             }}
           >
@@ -141,7 +114,7 @@ export default function Menu() {
             // interface="popover"
             value={currentFilter}
             onIonChange={(e) => {
-              dispatch(setFilter(e.detail.value));
+              dispatch(quotesPlayerActions.setFilter(e.detail.value));
             }}
           >
             <IonSelectOption className="ion-text-capitalize" value={1}>

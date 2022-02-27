@@ -18,7 +18,6 @@ import { SelectMusicFilter } from "../SelectMusicFilter";
 import { MusicPlayerContext } from "./../../providers/musicPlayer/musicPlayer.provider";
 
 import {
-  selectQuotesFilter,
   selectDebugMode,
   quotesPlayerActions,
 } from "../../features/quotesPlayer/quotesPlayerSlice";
@@ -51,7 +50,6 @@ export const ToolBar = () => {
     endingControls.restart();
     endingControls.shuffle();
 
-    console.log("onTimerRestart");
     dispatch(timersActions.restartTotalTimer());
   };
 
@@ -96,9 +94,11 @@ export const ToolBar = () => {
               <IonButton onClick={(e) => showPopupHandler(e, <SelectSpeaker />)}>
                 <IonIcon icon={headsetOutline} />
               </IonButton>
+              {/* not filtering quotes right now  - maybe will do it with the characters
+              
               <IonButton onClick={(e) => showPopupHandler(e, <SelectQuotesFilter />)}>
-                <IonIcon icon={filterOutline} />
-              </IonButton>
+                <IonIcon icon={filterOutline} /> 
+              </IonButton> */}
             </>
           )}
 

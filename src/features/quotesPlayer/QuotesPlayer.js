@@ -1,12 +1,11 @@
 import { useEffect, useRef, useContext } from "react";
-import { IonCard, IonCardHeader, IonText } from "@ionic/react";
+import { IonText } from "@ionic/react";
 
 import TextTransition, { presets } from "react-text-transition";
 
 import { useSelector } from "react-redux";
 
 import { selectStatusTotalTimers, STATUS } from "../timers/timersSlice";
-import { selectDebugMode } from "./quotesPlayerSlice";
 
 import "./QuotesPlayer.css";
 import { QuoteTyper } from "./QuoteTyper";
@@ -14,14 +13,10 @@ import { QuoteTyper } from "./QuoteTyper";
 import { MusicPlayerContext } from "./../../providers/musicPlayer/musicPlayer.provider";
 import { QuotesPlayerContext } from "../../providers/quotesPlayer/quotesPlayer.provider";
 
-import PlaylistPlayer from "../../components/PlaylistPlayer";
-
 const QuotesPlayer = ({ ref }) => {
   const quotesTyperRef = useRef(null);
 
   const statusTotalTimer = useSelector(selectStatusTotalTimers);
-
-  const currDebugMode = useSelector(selectDebugMode);
 
   const MusicControls = useContext(MusicPlayerContext);
   const volUp = MusicControls.volUp;
@@ -107,22 +102,6 @@ const QuotesPlayer = ({ ref }) => {
             springConfig={presets.wobbly}
           />
         </IonText>
-      )}
-
-      {currDebugMode && (
-        <>
-          <IonCard color="medium">
-            <IonCardHeader>Music Playlist</IonCardHeader>
-
-            <PlaylistPlayer playlistControls={MusicControls} color={"medium"} />
-          </IonCard>
-          <IonCard color="dark">
-            <IonCardHeader>Quotes Playlists</IonCardHeader>
-            <PlaylistPlayer playlistControls={quotesControls.amControls} color={"success"} />
-            <PlaylistPlayer playlistControls={quotesControls.slControls} color={"primary"} />
-            <PlaylistPlayer playlistControls={quotesControls.ldControls} color={"danger"} />
-          </IonCard>
-        </>
       )}
     </>
   );

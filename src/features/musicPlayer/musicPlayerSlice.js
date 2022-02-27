@@ -13,13 +13,10 @@ export const musicPlayerSlice = createSlice({
   initialState,
   reducers: {
     setFilter: (state, action) => {
-      console.warn("setFilter" + action.payload);
       state.filter = parseInt(action.payload);
     },
   },
 });
-
-export const { setFilter } = musicPlayerSlice.actions;
 
 export const musicPlayerActions = musicPlayerSlice.actions;
 export const selectMusicFilter = (state) => state.musicPlayer.filter;

@@ -2,7 +2,6 @@ import { STATUS } from "./timersSlice";
 import useIntervalTimer from "../../hooks/useIntervalTimer";
 
 import * as Utils from "./CirclesUtils";
-// import { calculateCircleSize, get2Colors } from "./CirclesUtils";
 
 export function CirclesAnimation({
   newKey,
@@ -18,20 +17,14 @@ export function CirclesAnimation({
   const spaceBetwenCircles = (Utils.outerEdge - Utils.innerEdge) / numOfTimers;
   const strokeWidth = Math.min(spaceBetwenCircles / 2, Utils.maxWidth);
 
-  const {
-    updateStatus,
-    remainingTime,
-    remainingIntervalSeconds,
-    activeInterval,
-  } = useIntervalTimer({
+  const { activeInterval } = useIntervalTimer({
     updateStatus: isPlaying ? STATUS.RUNNING : STATUS.READY,
     // isPlaying: statusTotalTimer === STATUS.RUNNING,
     totalDuration: intervalDuration,
     intervalDuration: intervalDuration * numOfTimers,
     numOfIntervals: numOfTimers,
     onEnded: () => console.warn("CIRLCES ANIMATION onEnded STOPWATCH"),
-    onIntervalEnded: () =>
-      console.warn("CIRLCES ANIMATION onIntervalEnded STOPWATCH"),
+    onIntervalEnded: () => console.warn("CIRLCES ANIMATION onIntervalEnded STOPWATCH"),
   }); //update with the timer
 
   for (let i = 0; i < timers.length; i++) {
@@ -39,8 +32,6 @@ export function CirclesAnimation({
     if (i === activeInterval) currentTimerDuration = intervalDuration;
     if (i < activeInterval) currentTimerDuration = intervalDuration;
     if (i > activeInterval) currentTimerDuration = 0;
-
-    // console.log({ i, activeInterval, currentTimerDuration, strokeWidth });
 
     const calculatedSize = Utils.calculateCircleSize({
       strokeWidth,

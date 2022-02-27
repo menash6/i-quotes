@@ -1,9 +1,9 @@
 import { STATUS } from "./timersSlice";
 
 import * as Utils from "./CirclesUtils";
-// import { calculateCircleSize, get2Colors } from "./CirclesUtils";
-import { useSelector } from "react-redux";
-import { selectMusicFilter } from "../musicPlayer/musicPlayerSlice";
+
+import { useContext } from "react";
+import { MusicPlayerContext } from "../../providers/musicPlayer/musicPlayer.provider";
 
 export function CirclesTimer({
   newKey,
@@ -16,16 +16,8 @@ export function CirclesTimer({
   children, //play and pause button
 }) {
   const isPlaying = statusTotalTimer === STATUS.RUNNING;
-  // console.log("CirclesTimer", {
-  //   statusTotalTimer,
-  //   intervalDuration,
-  //   intervalRemaining,
-  //   numOfTimers,
-  //   activeInterval,
-  //   children,
-  // });
 
-  const currFilter = useSelector(selectMusicFilter);
+  const { currCategoryName } = useContext(MusicPlayerContext);
 
   const timers = new Array(numOfTimers);
   const spaceBetwenCircles = (Utils.outerEdge - Utils.innerEdge) / numOfTimers;
@@ -37,23 +29,18 @@ export function CirclesTimer({
     if (i < activeInterval) currentTimerDuration = intervalDuration;
     if (i > activeInterval) currentTimerDuration = 0;
 
-    // console.log({ i, activeInterval, currentTimerDuration, strokeWidth });
-
     const calculatedSize = Utils.calculateCircleSize({
       strokeWidth,
       numOfTimers,
       activeInterval: i,
     });
 
-    // const colors = Utils.get2Colors(colorsRainbow, i);
-    // console.log({ colors });
-    const colorsByFilter = Utils.getFilteredColors(currFilter);
+    const colorsByFilter = Utils.getFilteredColors(currCategoryName);
+    // const colorsByFilter = Utils.getFilteredColors(currFilter);
 
     timers[i] = Utils.CreateCircleTimer(
       {
-        // colors: Utils.get2Colors(Utils.colorsRainbow, i),
         colors: Utils.get2Colors(colorsByFilter, i),
-        // colors: rotate(colorsRainbow, i),
         strokeWidth,
         key: newKey,
         isPlaying: i >= activeInterval ? isPlaying : false,

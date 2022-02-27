@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { STATUS } from "../timers/timersSlice";
-
 import { ALL_SPEAKERS } from "../../providers/quotesPlayer/quotesPlayer.provider";
 
 const INITIAL_DEFAULTS = {
@@ -12,18 +10,12 @@ const INITIAL_DEFAULTS = {
 
 const initialState = {
   debugMode: false,
-  showTotalQuotes: false,
+
   speakerMode: ALL_SPEAKERS,
   currentSpeaker: 0, // 0 for marcus, 1 for stacey, 2 for lila
   prevSpeaker: 0,
   isAllSpeakers: true,
   filter: INITIAL_DEFAULTS.filter,
-  currentQuoteIndex: 0,
-  status: "idle",
-  isLoading: true,
-  isPlayingQuote: false,
-  statusPlayingQuote: STATUS.READY, //PLAYING, PAUSED, ENDED, READY
-  hasError: false,
 };
 
 export const quotesPlayerSlice = createSlice({
@@ -35,7 +27,6 @@ export const quotesPlayerSlice = createSlice({
     },
 
     setFilter: (state, action) => {
-      console.warn("setFilter" + action.payload);
       state.filter = parseInt(action.payload);
       state.currentQuoteIndex = 0;
     },
@@ -52,8 +43,6 @@ export const quotesPlayerSlice = createSlice({
   },
 });
 
-export const { setFilter, setSpeaker } = quotesPlayerSlice.actions;
-
 export const quotesPlayerActions = quotesPlayerSlice.actions;
 
 export const selectSpeakerMode = (state) => state.quotesPlayer.speakerMode;
@@ -63,6 +52,5 @@ export const selectIsAllSpeakers = (state) => state.quotesPlayer.isAllSpeakers;
 
 export const selectQuotesFilter = (state) => state.quotesPlayer.filter;
 export const selectSpeaker = (state) => state.quotesPlayer.currentSpeaker;
-export const selectPrevSpeaker = (state) => state.quotesPlayer.prevSpeaker;
 
 export default quotesPlayerSlice.reducer;

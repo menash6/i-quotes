@@ -385,30 +385,19 @@ export default function usePlaylist({
   const shuffleByIndices = ({ array, shuffledIndices }) => {
     if (!array || !shuffledIndices) return [];
     if (shuffledIndices.length !== array.length) {
-      console.log("🚀 ~ shuffleByIndices ~ shuffledIndices.length !== array.length");
-      console.warn("🚀 ~ shuffleByIndices ~ array.length", array.length);
-      console.warn("🚀 ~ shuffleByIndices ~ shuffledIndices.length", shuffledIndices.length);
       return;
     }
     let index = [...shuffledIndices];
-    console.log("🚀🚀🚀 ~ shuffleByIndices ~ shuffledIndices", shuffledIndices);
     // Fix all elements one by one
     for (let i = 0; i < array.length; i++) {
       // While index[i] and arr[i] are not fixed
       while (index[i] !== i) {
-        // Store values of the target (or correct)
-        // position before placing arr[i] there
         let oldTargetI = index[index[i]];
         let oldTargetE = array[index[i]];
 
-        // Place array[i] at its target (or correct)
-        // position. Also copy corrected index for
-        // new position
         array[index[i]] = array[i];
         index[index[i]] = index[i];
 
-        // Copy old target values to array[i] and
-        // index[i]
         index[i] = oldTargetI;
         array[i] = oldTargetE;
       }
@@ -435,7 +424,5 @@ export default function usePlaylist({
     restart,
     nextAndPlay,
     stop,
-
-    // shuffle,
   };
 }

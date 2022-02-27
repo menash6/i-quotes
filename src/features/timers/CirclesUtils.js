@@ -4,18 +4,6 @@ export const outerEdge = 240;
 export const innerEdge = 56;
 export const maxWidth = 25;
 
-const colorsRainbowOLD = [
-  ["#8B00FF", 0.14285714285],
-  ["#0000FF", 0.14285714285],
-  ["#0099cc", 0.14285714285],
-  ["#00FF00", 0.14285714285],
-  ["#FFFF00", 0.14285714285],
-  ["#FF7F00", 0.14285714285],
-  ["#FF0000", 0.14285714285],
-];
-
-// d941ca-ef476f-f78c6b-ffd166-eeeb10-83d483-06d6a0-0cb0a9-118ab2-2166b5
-
 export const colorsRainbow = [
   "#0cb0a9",
 
@@ -30,66 +18,77 @@ export const colorsRainbow = [
   "#06d6a0",
 ];
 
-// export const colorsRainbow = [
-//   "#0fb002",
-//   "#03a4d2",
-//   "#045dbe",
-//   "#070faf",
-//   "#6C0E61",
-//   "#d30081",
-//   "#fd0002",
-//   "#ffcc01",
-//   "#ff9205",
-//   "#91cb05",
-// ];
-
-// export const colorsRainbow = [
-//   "#ea6e0a",
-//   "#f60010",
-//   "#bc29a1",
-//   "#6129ba",
-//   "#195ebf",
-//   "#1291bb",
-//   "#10afbd",
-//   "#13c09a",
-//   "#0dd921",
-//   "#dfd112",
-// ];
-
-// export const colorsRainbow = [
-//   "#f29e4c",
-//   "#54478c",
-//   "#2c699a",
-//   "#048ba8",
-//   "#0db39e",
-//   "#16db93",
-//   "#83e377",
-//   "#b9e769",
-//   "#efea5a",
-//   "#f1c453",
-// ];
-
-// export const colorsRainbow = [
-//   //older rainbow
-//   "#8B00FF",
-//   "#0000FF",
-//   "#0099cc",
-//   "#00FF00",
-//   "#FFFF00",
-//   "#FF7F00",
-//   "#FF0000",
-// ];
-
-export const getFilteredColors = (currFilter) => {
-  if (currFilter === -1) return colorsRainbow;
-  return colorsByFilter[currFilter];
+export const getFilteredColors = (currCategoryName) => {
+  if (currCategoryName === "All") return colorsRainbow;
+  // if (currFilter === -1) return colorsRainbow;
+  return colorsByFilter[currCategoryName];
 };
 
-export const colorsByFilter = [
-  // ["#eb531c", "#ec6b20", "#ec7c20", "#ee9322", "#eea422", "#f2bb23", "#f5d95a"],
+export const colorsByFilter = {
+  Morning: [
+    "#f5d95a",
+    "#d64b19",
+    "#eb531c",
+    "#ec6b20",
+    "#ec7c20",
+    "#ee9322",
+    "#eea422",
+    "#f0b023",
+    "#f2bb23",
+    "#f4ca3f",
+  ],
+  Focus: [
+    "#caf0f8",
+    "#023e8a",
+    "#015ba0",
+    "#0077b6",
+    "#0096c7",
+    "#00b4d8",
+    "#48cae4",
+    "#6cd5ea",
+    "#90e0ef",
+    "#ade8f4",
+  ],
+  Workout: [
+    // green yellow orange workout
+    "#f10000",
+    "#007f5f",
+    "#2b9348",
+    "#95c944",
+    "#cae442",
+    "#ffff3f",
+    "#fce137",
+    "#f8c22f",
+    "#f79224",
+    "#f56118",
+  ],
+  Night: [
+    "#4361ee",
+    "#9410ab",
+    "#7209b7",
+    "#640ab2",
+    "#560bad",
+    "#480ca8",
+    "#3a0ca3",
+    "#3d22b6",
+    "#3f37c9",
+    "#414cdc",
+  ],
+  Mindfulness: [
+    "#9ae3a2",
+    "#1a745c",
+    "#03664c",
+    "#147355",
+    "#24825e",
+    "#369069",
+    "#479e73",
+    "#55ab7a",
+    "#67b985",
+    "#79c78f",
+  ],
+};
 
-  // d64b19-eb531c-ec6b20-ec7c20-ee9322-eea422-f0b023-f2bb23-f4ca3f-f5d95a
-
+export const colorsByFilterOLD = [
   [
     "#f5d95a",
 
@@ -279,10 +278,6 @@ export const get2Colors = (colorsArray, index) => {
   ];
 };
 
-const rotate = (arr, count = 1) => {
-  return [...arr.slice(count, arr.length), ...arr.slice(0, count)];
-};
-
 export const calculateCircleSize = ({ strokeWidth, numOfTimers, activeInterval: i }) => {
   if (numOfTimers === 1) return outerEdge;
   // if (numOfTimers === 2) {
@@ -309,15 +304,6 @@ export const calculateCircleSize = ({ strokeWidth, numOfTimers, activeInterval: 
   return calculatedSize;
 };
 
-const colorsOdd = [
-  ["#004777", 0.33],
-  ["#F7B801", 0.33],
-];
-const colorsEven = [
-  ["#F7B801", 0.33],
-  ["#004777", 0.33],
-];
-
 export const CreateCircleTimer = ({
   isLoop = false,
   colors,
@@ -341,7 +327,6 @@ export const CreateCircleTimer = ({
       colors={colors}
       size={size}
       onComplete={() => {
-        console.warn("CountdownCircleTimer ON COMPLETE");
         return [isLoop, 200];
       }}
     >

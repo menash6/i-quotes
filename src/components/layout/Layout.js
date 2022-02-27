@@ -4,37 +4,9 @@ import QuotesPlayer from "../../features/quotesPlayer/QuotesPlayer";
 import { Timers } from "../../features/timers/Timers";
 import { PlayPauseRepeatButton } from "../../features/timers/PlayPauseRepeatButton";
 import { useRef } from "react";
-import { useSelector } from "react-redux";
-import { selectMusicFilter } from "../../features/musicPlayer/musicPlayerSlice";
 
 const Layout = (props) => {
   const quoteTextRef = useRef(null);
-
-  const currFilter = useSelector(selectMusicFilter);
-
-  if (currFilter === 0) {
-    document.body.classList.remove("morning", "focus", "workout", "night", "mindfulness");
-    document.body.classList.add("morning");
-  }
-  if (currFilter === 1) {
-    document.body.classList.remove("morning", "focus", "workout", "night", "mindfulness");
-    document.body.classList.add("focus");
-  }
-  if (currFilter === 2) {
-    document.body.classList.remove("morning", "focus", "workout", "night", "mindfulness");
-    document.body.classList.add("workout");
-  }
-  if (currFilter === 3) {
-    document.body.classList.remove("morning", "focus", "workout", "night", "mindfulness");
-    document.body.classList.add("night");
-  }
-  if (currFilter === 4) {
-    document.body.classList.remove("morning", "focus", "workout", "night", "mindfulness");
-    document.body.classList.add("mindfulness");
-  }
-  if (currFilter === -1) {
-    document.body.classList.remove("morning", "focus", "workout", "night", "mindfulness");
-  }
 
   return (
     <IonContent id="main">

@@ -1,35 +1,10 @@
-import React from "react";
 import { filterCategories } from "./quotesPlayerAPI";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  IonRadio,
-  IonRow,
-  IonSegment,
-  IonSegmentButton,
-  IonIcon,
-} from "@ionic/react";
+import { useDispatch } from "react-redux";
+import { IonSegment, IonSegmentButton, IonIcon, IonLabel } from "@ionic/react";
 
-import {
-  sunnyOutline,
-  moonOutline,
-  barbellOutline,
-  scanCircleOutline,
-} from "ionicons/icons";
+import { sunnyOutline, moonOutline, barbellOutline, scanCircleOutline } from "ionicons/icons";
 
-import { useState } from "react";
-import {
-  IonContent,
-  IonHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar,
-  IonItem,
-  IonLabel,
-  IonDatetime,
-  IonFooter,
-} from "@ionic/react";
-
-import { setFilter } from "./quotesPlayerSlice";
+import quotesPlayerActions from "./quotesPlayerSlice";
 
 import "./Filters.css";
 
@@ -42,7 +17,7 @@ export default function Filters({ currentFilter }) {
         color="danger"
         value={currentFilter}
         onIonChange={(e) => {
-          dispatch(setFilter(e.detail.value));
+          dispatch(quotesPlayerActions.setFilter(e.detail.value));
         }}
       >
         <IonSegmentButton value={1}>

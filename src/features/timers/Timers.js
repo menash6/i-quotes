@@ -56,20 +56,10 @@ export function Timers(props) {
     quotesControls.endingControls.play();
 
     //todo start ENDING QUOTES NEW PLAYLIST
-
-    // dispatch(quotesPlayerActions.setFilter()
-    //update states - timer ended
-    // last quote session
-    //play last quote + change the text of the quote as well.... -get it from the DB - simple
-
-    console.warn("onEndTotalTimer Ended");
   };
   const onIntervalTimerComplete = () => {
     quotesControls.nextAndPlay();
-    musicControls.volDown(); //TODO CHNAGE BACK
-
-    // next();
-    // play();
+    musicControls.volDown(); //TODO CHANGE BACK
 
     if (statusTotalTimer === STATUS.RUNNING) {
       if (isAllSpeakers) {
@@ -79,13 +69,6 @@ export function Timers(props) {
     }
     console.warn("onIntervalTimerComplete ended");
   };
-
-  // console.log("to USEINTERVAL TIMER", {
-  //   statusTotalTimer,
-  //   totalTime,
-  //   intervalTime,
-  //   numOfIntervals,
-  // });
 
   const { updateStatus, remainingTime, remainingIntervalSeconds, activeInterval } =
     useIntervalTimer({

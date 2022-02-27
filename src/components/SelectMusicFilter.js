@@ -1,24 +1,51 @@
 import { IonLabel, IonListHeader, IonRadioGroup, IonRadio, IonItem, IonIcon } from "@ionic/react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { selectMusicFilter, musicPlayerActions } from "./../features/musicPlayer/musicPlayerSlice";
-
 import { sunnyOutline, moonOutline, barbellOutline, locateOutline } from "ionicons/icons";
 import { selectStatusTotalTimers, STATUS } from "../features/timers/timersSlice";
 import { useContext } from "react";
 import { QuotesPlayerContext } from "../providers/quotesPlayer/quotesPlayer.provider";
 import { timersActions } from "./../features/timers/timersSlice";
+import { MusicPlayerContext } from "../providers/musicPlayer/musicPlayer.provider";
+
+const categoriesIcons = {
+  Morning: sunnyOutline,
+  Focus: locateOutline,
+  Workout: barbellOutline,
+  Night: moonOutline,
+  Mindfulness: { src: "assetsmeditation-svgrepo-com.svg" },
+};
+
+const createCategoryRadioButton = ({ id, name }) => {
+  if (name === "Mindfulness") {
+    return (
+      <IonItem key={id}>
+        <IonLabel>Mindfulness</IonLabel>
+        <IonRadio slot="start" value={id} />
+        <IonIcon src="assets\meditation-svgrepo-com.svg" />
+      </IonItem>
+    );
+  }
+
+  return (
+    <IonItem key={id}>
+      <IonLabel>{name}</IonLabel>
+      <IonRadio slot="start" value={id} />
+      <IonIcon icon={categoriesIcons[name]} />
+    </IonItem>
+  );
+};
 
 export const SelectMusicFilter = () => {
   const dispatch = useDispatch();
-  const currentFilter = useSelector(selectMusicFilter);
   const statusTotalTimer = useSelector(selectStatusTotalTimers);
   const quotesControls = useContext(QuotesPlayerContext);
+  const { allMusicCategories, currCategory, setCategory } = useContext(MusicPlayerContext);
 
   return (
     <>
       <IonRadioGroup
-        value={currentFilter}
+        value={currCategory}
         onIonChange={(e) => {
           if (statusTotalTimer === STATUS.ENDED) {
             //todo if ENDED stop quotes?? and restart timer and other playlists...
@@ -27,51 +54,21 @@ export const SelectMusicFilter = () => {
             quotesControls.endingControls.restart();
             quotesControls.endingControls.shuffle();
           }
-          dispatch(musicPlayerActions.setFilter(e.detail.value));
-          console.log("🚀 ~ SelectMusicFilter ~ e.detail.value", e.detail.value);
-          console.log("🚀 ~ SelectMusicFilter ~  typeof e.detail.value", typeof e.detail.value);
+          setCategory(e.detail.value);
         }}
       >
         <IonListHeader>
           <IonLabel>
             <IonLabel>Choose Your Vibe</IonLabel>
           </IonLabel>
-          {/* <IonLabel>Choose Your Program</IonLabel> */}
         </IonListHeader>
 
         <IonItem>
           <IonLabel>All</IonLabel>
-          <IonRadio slot="start" value={-1} />
+          <IonRadio slot="start" value={""} />
         </IonItem>
 
-        <IonItem>
-          <IonLabel>Morning</IonLabel>
-          <IonRadio slot="start" value={0} />
-          <IonIcon icon={sunnyOutline} />
-        </IonItem>
-
-        <IonItem>
-          <IonLabel>Focus</IonLabel>
-          <IonRadio slot="start" value={1} />
-          <IonIcon icon={locateOutline} />
-          {/* <IonIcon icon={scanCircleOutline} /> */}
-        </IonItem>
-
-        <IonItem>
-          <IonLabel>Workout</IonLabel>
-          <IonRadio slot="start" value={2} />
-          <IonIcon icon={barbellOutline} />
-        </IonItem>
-        <IonItem>
-          <IonLabel>Night</IonLabel>
-          <IonRadio slot="start" value={3} />
-          <IonIcon icon={moonOutline} />
-        </IonItem>
-        <IonItem>
-          <IonLabel>Mindfullness</IonLabel>
-          <IonRadio slot="start" value={4} />
-          <IonIcon src="assets\meditation-svgrepo-com.svg" />
-        </IonItem>
+        {allMusicCategories.map((e) => createCategoryRadioButton({ id: e._id, name: e.name }))}
       </IonRadioGroup>
     </>
   );
