@@ -10,7 +10,9 @@ import useMusicFiles from "../providers/musicPlayer/hooks/useMusicFiles";
 import useRecordings from "../features/quotesPlayer/hooks/useRecordings";
 
 import Menu from "../components/layout/Menu";
-import { useState } from "react";
+import SwiperCategories from "./../components/layout/SwiperCategories";
+import PageLayout from "../components/layout/PageLayout";
+import SwiperLayout from "./../components/layout/SwiperLayout";
 
 const App = () => {
   const { musicCategories } = useMusicCategories();
@@ -25,10 +27,13 @@ const App = () => {
         <QuotesPlayerProvider recordingsLists={recordings.data}>
           <IonApp>
             <Menu />
-            <Layout>
-              {/* <QuotesPlayer /> */}
-              {/* <Timers/> */}
-            </Layout>
+
+            <PageLayout>
+              {/* <SwiperLayout /> */}
+
+              <SwiperCategories />
+            </PageLayout>
+            {/* <Layout></Layout> */}
           </IonApp>
         </QuotesPlayerProvider>
       </MusicPlayerProvider>

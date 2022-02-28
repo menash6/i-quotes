@@ -1,12 +1,4 @@
-import {
-  IonCol,
-  IonContent,
-  IonRow,
-  IonGrid,
-  IonPopover,
-  IonFooter,
-  IonToolbar,
-} from "@ionic/react";
+import { IonCol, IonContent, IonRow, IonGrid, IonPopover, IonFooter } from "@ionic/react";
 import { ToolBar } from "./ToolBar";
 import QuotesPlayer from "../../features/quotesPlayer/QuotesPlayer";
 import { Timers } from "../../features/timers/Timers";
@@ -17,27 +9,10 @@ import BottomButtons from "./BottomButtons";
 import { IntervalPicker } from "./../../features/timers/IntervalPicker";
 import SelectSpeaker from "../SelectSpeaker";
 import { SelectMusicFilter } from "./../SelectMusicFilter";
+import SwiperCategories from "./SwiperCategories";
 
-const Layout = (props) => {
+const Layout = ({ color = "white" }) => {
   const quoteTextRef = useRef(null);
-
-  // // const [present, dismiss] = useIonPopover(BottomModal, { onHide: () => dismiss() });
-  // const [popoverState, setShowPopover] = useState({ showPopover: false, event: undefined });
-
-  // // const [popoverState, setShowPopover] = useState({
-  // //   showPopover: false,
-  // //   component: (
-  // //     <BottomModal dismiss={() => setShowPopover({ showPopover: false, event: undefined })} />
-  // //   ),
-  // // });
-
-  // // const showPopupHandler = (event) => {
-  // //   event.persist();
-  // //   setShowPopover({
-  // //     showPopover: true,
-  // //     event,
-  // //   });
-  // // };
 
   const [popoverState, setShowPopover] = useState({
     showPopover: false,
@@ -59,7 +34,18 @@ const Layout = (props) => {
 
   return (
     <>
-      <IonContent id="main">
+      <div className="type-wrap">
+        <span ref={quoteTextRef} />
+      </div>
+      <IonContent
+        id="main"
+        style={{
+          backgroundImage: `linear-gradient(45deg, ${color}, transparent)`,
+          // backgroundColor: color,
+          // "--background": `linear-gradient(45deg, ${color})!important`,
+          // backgroundImage: `linear-gradient(45deg, ${color})!important`,
+        }}
+      >
         <IonPopover
           cssClass="my-custom-class"
           event={popoverState.event}
@@ -75,9 +61,6 @@ const Layout = (props) => {
           showMusicFilter={showMusicFilter}
         />
 
-        <div className="type-wrap">
-          <span ref={quoteTextRef} />
-        </div>
         <IonGrid className="ion-padding Grid-Fixed-Width" fixed>
           <IonRow className="ion-justify-content-center ion-align-items-center">
             <IonCol>
@@ -87,7 +70,6 @@ const Layout = (props) => {
           <Timers>
             <PlayPauseRepeatButton quoteText={quoteTextRef.current} />
           </Timers>
-          {/* <BottomModalButton setShowPopover={setShowPopover} /> */}
         </IonGrid>
       </IonContent>
       <IonFooter>
