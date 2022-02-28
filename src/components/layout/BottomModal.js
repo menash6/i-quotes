@@ -13,11 +13,7 @@ import React, { useState } from "react";
 import { IntervalPicker } from "../../features/timers/IntervalPicker";
 import CenteredGrid from "./CenteredGrid";
 import BottomModalSegments from "./BottomModalSegments";
-import { closeOutline } from "ionicons/icons";
-import { ToolBar } from "./ToolBar";
-import MusicButton from "./MusicButton";
-import PlaylistPlayer from "./../PlaylistPlayer";
-import { Stopwatch } from "./../../features/timers/Stopwatch";
+
 import SelectSpeaker from "../SelectSpeaker";
 
 const BottomModal = ({ onHide }) => {

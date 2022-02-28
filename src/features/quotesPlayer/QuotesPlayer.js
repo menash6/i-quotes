@@ -1,10 +1,7 @@
 import { useEffect, useRef, useContext } from "react";
 import { IonText } from "@ionic/react";
-
 import TextTransition, { presets } from "react-text-transition";
-
 import { useSelector } from "react-redux";
-
 import { selectStatusTotalTimers, STATUS } from "../timers/timersSlice";
 
 import "./QuotesPlayer.css";

@@ -8,14 +8,11 @@ import QuotesPlayerProvider from "../providers/quotesPlayer/quotesPlayer.provide
 import useMusicCategories from "../providers/musicPlayer/hooks/useMusicCategories";
 import useMusicFiles from "../providers/musicPlayer/hooks/useMusicFiles";
 import useRecordings from "../features/quotesPlayer/hooks/useRecordings";
-import PlayersDevtools from "./PlayersDevtools";
-import { useSelector } from "react-redux";
-import { selectDebugMode } from "./../features/quotesPlayer/quotesPlayerSlice";
+
 import Menu from "../components/layout/Menu";
-import BottomModalButton from "../components/layout/BottomModalButton";
+import { useState } from "react";
 
 const App = () => {
-  const currDebugMode = useSelector(selectDebugMode);
   const { musicCategories } = useMusicCategories();
   const { musicFiles, isLoadingMusicFiles } = useMusicFiles();
   const { recordings, isLoadingRecordings } = useRecordings();

@@ -20,20 +20,20 @@ import { MusicPlayerContext } from "./../../providers/musicPlayer/musicPlayer.pr
 
 import { QuotesPlayerContext } from "../../providers/quotesPlayer/quotesPlayer.provider";
 
-export const ToolBar = () => {
-  const [popoverState, setShowPopover] = useState({
-    showPopover: false,
-    component: null,
-    event: undefined,
-  });
-  const showPopupHandler = (event, component) => {
-    event.persist();
-    setShowPopover({
-      showPopover: true,
-      event,
-      component,
-    });
-  };
+export const ToolBar = ({ showIntervalPicker, showSelectSpeaker, showMusicFilter }) => {
+  // const [popoverState, setShowPopover] = useState({
+  //   showPopover: false,
+  //   component: null,
+  //   event: undefined,
+  // });
+  // const showPopupHandler = (event, component) => {
+  //   event.persist();
+  //   setShowPopover({
+  //     showPopover: true,
+  //     event,
+  //     component,
+  //   });
+  // };
 
   const dispatch = useDispatch();
 
@@ -59,14 +59,14 @@ export const ToolBar = () => {
 
   return (
     <>
-      <IonPopover
+      {/* <IonPopover
         cssClass="my-custom-class"
         event={popoverState.event}
         isOpen={popoverState.showPopover}
         onDidDismiss={() => setShowPopover({ showPopover: false, event: undefined })}
       >
         {popoverState.component}
-      </IonPopover>
+      </IonPopover> */}
 
       <IonToolbar color="primary">
         <IonButtons slot="start">
@@ -79,13 +79,13 @@ export const ToolBar = () => {
           </IonButton>
           {statusTotalTimer !== STATUS.ENDED && (
             <>
-              <IonButton onClick={(e) => showPopupHandler(e, <IntervalPicker />)}>
+              <IonButton onClick={showIntervalPicker}>
+                {/* <IonButton onClick={(e) => showPopupHandler(e, <IntervalPicker />)}> */}
                 <IonIcon icon={chatbubbleEllipses} />
               </IonButton>
-              {/* <IonButton onClick={(e) => showPopupHandler(e, <BottomModal />)}>
-                <IonIcon icon={headsetOutline} />
-              </IonButton> */}
-              <IonButton onClick={(e) => showPopupHandler(e, <SelectSpeaker />)}>
+
+              <IonButton onClick={showSelectSpeaker}>
+                {/* <IonButton onClick={(e) => showPopupHandler(e, <SelectSpeaker />)}> */}
                 <IonIcon icon={headsetOutline} />
               </IonButton>
               {/* not filtering quotes right now  - maybe will do it with the characters
@@ -96,7 +96,8 @@ export const ToolBar = () => {
             </>
           )}
 
-          <IonButton onClick={(e) => showPopupHandler(e, <SelectMusicFilter />)}>
+          <IonButton onClick={showMusicFilter}>
+            {/* <IonButton onClick={(e) => showPopupHandler(e, <SelectMusicFilter />)}> */}
             <IonIcon icon={appsOutline} />
           </IonButton>
         </IonButtons>

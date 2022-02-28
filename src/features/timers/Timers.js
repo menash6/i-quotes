@@ -24,7 +24,7 @@ import TotalTimer from "./TotalTimer";
 import { QuotesPlayerContext } from "../../providers/quotesPlayer/quotesPlayer.provider";
 import { MusicPlayerContext } from "./../../providers/musicPlayer/musicPlayer.provider";
 
-export function Timers(props) {
+export function Timers({ children }) {
   const statusTotalTimer = useSelector(selectStatusTotalTimers);
   const totalTime = useSelector(selectTotalTime);
   const intervalTime = useSelector(selectIntervalTime);
@@ -91,7 +91,7 @@ export function Timers(props) {
             intervalDuration={2}
             numOfTimers={numOfIntervals}
           >
-            {props.children}
+            {children}
           </CirclesAnimation>
         ) : (
           <CirclesTimer
@@ -103,7 +103,7 @@ export function Timers(props) {
             intervalRemaining={remainingIntervalSeconds}
             activeInterval={activeInterval}
           >
-            {props.children}
+            {children}
           </CirclesTimer>
         )}
       </MusicControls>
