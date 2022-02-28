@@ -1,4 +1,12 @@
-import { IonButton, IonButtons, IonIcon, IonPopover, IonToggle, IonToolbar } from "@ionic/react";
+import {
+  IonButton,
+  IonButtons,
+  IonIcon,
+  IonMenuButton,
+  IonPopover,
+  IonToggle,
+  IonToolbar,
+} from "@ionic/react";
 import { appsOutline, chatbubbleEllipses, headsetOutline, reload } from "ionicons/icons";
 import { useState, useContext } from "react";
 import SelectSpeaker from "../SelectSpeaker";
@@ -10,10 +18,6 @@ import { selectStatusTotalTimers, timersActions, STATUS } from "../../features/t
 import { SelectMusicFilter } from "../SelectMusicFilter";
 import { MusicPlayerContext } from "./../../providers/musicPlayer/musicPlayer.provider";
 
-import {
-  selectDebugMode,
-  quotesPlayerActions,
-} from "../../features/quotesPlayer/quotesPlayerSlice";
 import { QuotesPlayerContext } from "../../providers/quotesPlayer/quotesPlayer.provider";
 
 export const ToolBar = () => {
@@ -22,11 +26,18 @@ export const ToolBar = () => {
     component: null,
     event: undefined,
   });
+  const showPopupHandler = (event, component) => {
+    event.persist();
+    setShowPopover({
+      showPopover: true,
+      event,
+      component,
+    });
+  };
+
   const dispatch = useDispatch();
 
   const statusTotalTimer = useSelector(selectStatusTotalTimers);
-
-  const currDebugMode = useSelector(selectDebugMode);
 
   const { restart: restartMusic, shuffle: shuffleMusic } = useContext(MusicPlayerContext);
   const {
@@ -46,15 +57,6 @@ export const ToolBar = () => {
     dispatch(timersActions.restartTotalTimer());
   };
 
-  const showPopupHandler = (event, component) => {
-    event.persist();
-    setShowPopover({
-      showPopover: true,
-      event,
-      component,
-    });
-  };
-
   return (
     <>
       <IonPopover
@@ -68,22 +70,21 @@ export const ToolBar = () => {
 
       <IonToolbar color="primary">
         <IonButtons slot="start">
-          <IonButton onClick={onTimerRestart}>
-            <IonIcon icon={reload} />
-          </IonButton>
+          <IonMenuButton />
         </IonButtons>
 
         <IonButtons slot="end">
-          <IonToggle
-            checked={currDebugMode}
-            onIonChange={(e) => dispatch(quotesPlayerActions.setDebugMode(e.detail.checked))}
-          />
-
+          <IonButton onClick={onTimerRestart}>
+            <IonIcon icon={reload} />
+          </IonButton>
           {statusTotalTimer !== STATUS.ENDED && (
             <>
               <IonButton onClick={(e) => showPopupHandler(e, <IntervalPicker />)}>
                 <IonIcon icon={chatbubbleEllipses} />
               </IonButton>
+              {/* <IonButton onClick={(e) => showPopupHandler(e, <BottomModal />)}>
+                <IonIcon icon={headsetOutline} />
+              </IonButton> */}
               <IonButton onClick={(e) => showPopupHandler(e, <SelectSpeaker />)}>
                 <IonIcon icon={headsetOutline} />
               </IonButton>

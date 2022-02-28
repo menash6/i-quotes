@@ -42,8 +42,6 @@ import {
   volumeHighOutline,
   shuffleOutline,
 } from "ionicons/icons";
-import { stringify } from "querystring";
-import { type } from "./../app/store";
 
 const parseTitle = (title) => {
   if (!title.includes("[") && !title.includes("(")) return title;
@@ -58,9 +56,6 @@ const PlaylistPlayer = ({ playlistControls, color }) => {
 
   return (
     <>
-      {/* <IonCard color={color}> */}
-      {/* <IonCardHeader> */}
-      {/* <IonCard color={color}> */}
       <IonToolbar color={color}>
         <IonChip>
           <IonLabel>{playlistControls.currLoadStatus}</IonLabel>
@@ -154,21 +149,13 @@ const PlaylistPlayer = ({ playlistControls, color }) => {
             <IonIcon slot="icon-only" icon={volumeHighOutline} color={color} />
           </IonButton>
         </IonButtons>
+      </IonToolbar>
+      <IonToolbar>
         <IonCardSubtitle>
           ({playlistControls.getCurrentIndex()}) <IonText>"{title}"</IonText> [
           {playlistControls.getCurrentDuration()} sec]
         </IonCardSubtitle>
       </IonToolbar>
-      {/* </IonCardContent> */}
-      {/* </IonCard> */}
-
-      {/* <IonCard color="light">
-        <IonCardTitle>
-          ({playlistControls.getCurrentIndex()}) [{playlistControls.getCurrentDuration()}]
-        </IonCardTitle>
-        <IonCardSubtitle>{title} </IonCardSubtitle>
-      </IonCard> */}
-      {/* </IonCard> */}
     </>
   );
 };

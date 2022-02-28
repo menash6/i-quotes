@@ -10,17 +10,17 @@ const PlayersDevtools = () => {
   const quotesControls = useContext(QuotesPlayerContext);
   return (
     <>
-      <IonCard color="medium">
-        <IonCardHeader>Music Playlist</IonCardHeader>
+      {/* <IonCard color="medium"> */}
+      <IonCardHeader>Music Playlist</IonCardHeader>
 
-        <PlaylistPlayer playlistControls={MusicControls} color={"medium"} />
-      </IonCard>
-      <IonCard color="dark">
-        <IonCardHeader>Quotes Playlists</IonCardHeader>
-        <PlaylistPlayer playlistControls={quotesControls.amControls} color={"success"} />
-        <PlaylistPlayer playlistControls={quotesControls.slControls} color={"primary"} />
-        <PlaylistPlayer playlistControls={quotesControls.ldControls} color={"danger"} />
-      </IonCard>
+      <PlaylistPlayer playlistControls={MusicControls} color={"medium"} />
+      {/* </IonCard> */}
+      {/* <IonCard color="dark"> */}
+      <IonCardHeader>Quotes Playlists</IonCardHeader>
+      <PlaylistPlayer playlistControls={quotesControls.amControls} color={"success"} />
+      <PlaylistPlayer playlistControls={quotesControls.slControls} color={"primary"} />
+      <PlaylistPlayer playlistControls={quotesControls.ldControls} color={"danger"} />
+      {/* </IonCard> */}
     </>
   );
 };

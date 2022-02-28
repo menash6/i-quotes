@@ -1,45 +1,22 @@
-import { IonItem, IonRange, IonIcon, IonButton, IonText } from "@ionic/react";
-import {
-  addCircleOutline,
-  addCircleSharp,
-  addOutline,
-  personAddOutline,
-  personRemoveOutline,
-  removeCircleSharp,
-  removeOutline,
-  sunny,
-  thermometer,
-} from "ionicons/icons";
-import { RangeValue } from "@ionic/core";
-import {
-  timersActions,
-  selectIntervalTime,
-  // selectIntervalPercent,
-  selectNumOfIntervals,
-  selectMaxNumIntervals,
-} from "./timersSlice";
+import { IonItem, IonRange, IonIcon, IonButton, IonText, IonLabel } from "@ionic/react";
+import { addOutline, removeOutline } from "ionicons/icons";
+import { timersActions, selectNumOfIntervals, selectMaxNumIntervals } from "./timersSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { quotesPlayerActions } from "../quotesPlayer/quotesPlayerSlice";
 
 export const IntervalPicker = () => {
-  // const [value, setValue] = useState(0);
-  // const [intervalValue, setIntervalValue] = useState();
   const dispatch = useDispatch();
-  // const intervalTime = useSelector(selectIntervalTime);
-  // const intervalPercent = useSelector(selectIntervalPercent);
   const maxNumIntervals = useSelector(selectMaxNumIntervals);
   const numIntervals = useSelector(selectNumOfIntervals);
 
   return (
     <>
-      <IonItem>
-        <IonText color="dark">
-          <h6> Total Quotes : {numIntervals} </h6>
-        </IonText>
+      <IonItem className="ion-text-center">
+        <IonLabel className="ion-text-center">
+          <IonText color="dark">Total Quotes : {numIntervals}</IonText>
+        </IonLabel>
       </IonItem>
 
       <IonItem>
-        {/* <IonLabel position="stacked">Quotes: {numIntervals}</IonLabel> */}
         <IonRange
           debounce={500} //todo implement waiting for 0.5 second for the same value like in REACT VIDEO 2021
           value={numIntervals}
@@ -60,9 +37,7 @@ export const IntervalPicker = () => {
             slot="start"
             color="dark"
             fill="clear"
-            onClick={() =>
-              dispatch(timersActions.setNumOfIntervals(numIntervals - 1))
-            }
+            onClick={() => dispatch(timersActions.setNumOfIntervals(numIntervals - 1))}
           >
             <IonIcon icon={removeOutline} />
           </IonButton>
@@ -72,9 +47,7 @@ export const IntervalPicker = () => {
             slot="end"
             color="dark"
             fill="clear"
-            onClick={() =>
-              dispatch(timersActions.setNumOfIntervals(numIntervals + 1))
-            }
+            onClick={() => dispatch(timersActions.setNumOfIntervals(numIntervals + 1))}
           >
             <IonIcon icon={addOutline} />
           </IonButton>

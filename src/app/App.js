@@ -11,6 +11,8 @@ import useRecordings from "../features/quotesPlayer/hooks/useRecordings";
 import PlayersDevtools from "./PlayersDevtools";
 import { useSelector } from "react-redux";
 import { selectDebugMode } from "./../features/quotesPlayer/quotesPlayerSlice";
+import Menu from "../components/layout/Menu";
+import BottomModalButton from "../components/layout/BottomModalButton";
 
 const App = () => {
   const currDebugMode = useSelector(selectDebugMode);
@@ -25,11 +27,11 @@ const App = () => {
       <MusicPlayerProvider filesList={musicFiles.data} musicCategories={musicCategories.data}>
         <QuotesPlayerProvider recordingsLists={recordings.data}>
           <IonApp>
+            <Menu />
             <Layout>
               {/* <QuotesPlayer /> */}
               {/* <Timers/> */}
             </Layout>
-            {currDebugMode && <PlayersDevtools />}
           </IonApp>
         </QuotesPlayerProvider>
       </MusicPlayerProvider>

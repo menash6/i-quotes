@@ -1,4 +1,12 @@
-import { IonLabel, IonListHeader, IonRadioGroup, IonRadio, IonItem, IonIcon } from "@ionic/react";
+import {
+  IonLabel,
+  IonListHeader,
+  IonRadioGroup,
+  IonRadio,
+  IonItem,
+  IonIcon,
+  IonText,
+} from "@ionic/react";
 import React from "react";
 import { manOutline, peopleOutline, womanOutline } from "ionicons/icons";
 import { useSelector, useDispatch } from "react-redux";
@@ -27,8 +35,10 @@ const SelectSpeaker = () => {
         }}
       >
         <IonListHeader>
-          <IonLabel> Mode:{speakerMode}</IonLabel>
-          <IonLabel>Who do you want to hear??</IonLabel>
+          {/* <IonLabel> Mode:{speakerMode}</IonLabel> */}
+          <IonLabel className="ion-text-center">
+            <IonText>Who do you want to hear??</IonText>
+          </IonLabel>
         </IonListHeader>
         <IonItem>
           <IonLabel>All (Mix)</IonLabel>
