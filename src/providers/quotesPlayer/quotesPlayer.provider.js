@@ -50,7 +50,6 @@ const QuotesPlayerProvider = ({ children, recordingsLists }) => {
   const endingQuotesControls = usePlaylist({
     filesList: recordingsLists.endingRecordings,
     baseUrl: recordingsUrl,
-
     autoPlay: false,
   });
 

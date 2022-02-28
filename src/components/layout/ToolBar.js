@@ -1,19 +1,12 @@
 import { IonButton, IonButtons, IonIcon, IonPopover, IonToggle, IonToolbar } from "@ionic/react";
-import {
-  appsOutline,
-  chatbubbleEllipses,
-  filterOutline,
-  headsetOutline,
-  reload,
-  shuffle,
-} from "ionicons/icons";
+import { appsOutline, chatbubbleEllipses, headsetOutline, reload } from "ionicons/icons";
 import { useState, useContext } from "react";
 import SelectSpeaker from "../SelectSpeaker";
 import { IntervalPicker } from "../../features/timers/IntervalPicker";
 
 import { useDispatch, useSelector } from "react-redux";
 import { selectStatusTotalTimers, timersActions, STATUS } from "../../features/timers/timersSlice";
-import { SelectQuotesFilter } from "../SelectQuotesFilter";
+// import { SelectQuotesFilter } from "../SelectQuotesFilter";
 import { SelectMusicFilter } from "../SelectMusicFilter";
 import { MusicPlayerContext } from "./../../providers/musicPlayer/musicPlayer.provider";
 

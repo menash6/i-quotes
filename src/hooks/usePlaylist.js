@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 
-// import * as UTILS from "./usePlaylistUtils";
 import {
   LOAD_STATUS,
   setCurTrackEnded,
@@ -21,14 +20,7 @@ import {
   shuffleByIndices,
 } from "./usePlaylistUtils";
 
-export default function usePlaylist({
-  filesList,
-  defaultVol = 1,
-  onEnd = null,
-  onPlay = null,
-  autoPlay = true,
-  baseUrl = "",
-}) {
+export default function usePlaylist({ filesList, defaultVol = 1, autoPlay = true, baseUrl = "" }) {
   const [currTrack, setCurrTrack] = useState({
     index: 0,
     loadStatus: LOAD_STATUS.UNLOADED,
@@ -40,14 +32,12 @@ export default function usePlaylist({
   });
 
   const [howlsCreatedNow, setHowlsCreatedNow] = useState(false);
-  const [howlsShuffledNow, setHowlsShuffledNow] = useState(false);
+  // const [howlsShuffledNow, setHowlsShuffledNow] = useState(false);
   const [shouldVolUp, setShouldVolUp] = useState(false);
   const [shouldPlay, setShouldPlay] = useState(false);
-  const howlsRef = useRef(null);
-  const filesListRef = useRef(null);
 
-  // const howlsFilteredRef = useRef(null);
-  // const filesListFilteredRef = useRef(null);
+  const tracks = useRef(null);
+  const tracksFiltered = useRef(null);
 
   const setCurrTrackToNext = useCallback((length) => {
     setCurrTrack((prevState) => {
@@ -64,14 +54,8 @@ export default function usePlaylist({
       console.log("🚀 ~ onEndHandler", onEndHandler);
       console.log("🚀 ~ onEndHandler autoPlay", autoPlay);
 
-      if (onEnd) onEnd();
       setCurTrackEnded(setCurrTrack);
 
-      // setCurrTrack((prevState) => {
-      //   console.log("🚀 ~ setCurrTrack ~ prevState", prevState);
-
-      //   return { ...prevState, isEnded: true, isPlaying: false, isPaused: false };
-      // });
       if (!autoPlay) {
         console.log("🚀 ~AM I HERE???? autoPlay", autoPlay);
         setShouldPlay(false);
@@ -81,16 +65,16 @@ export default function usePlaylist({
       setShouldPlay(true);
       setCurrTrackToNext(length);
     },
-    [autoPlay, onEnd, setCurrTrackToNext]
+    [autoPlay, setCurrTrackToNext]
   );
 
   const onVolHandler = useCallback(() => {
     setCurrTrack((prevState) => {
-      const currVol = howlsRef.current[prevState.index].volume();
+      const currVol = tracksFiltered.current[prevState.index].howl.volume();
       return { ...prevState, volume: currVol };
     }, []);
 
-    // setPlaylistVol(howlsRef.current[currTrack.index].volume());
+    // setPlaylistVol(howlsFiltered.current[currTrack.index].volume());
   }, []);
 
   /**
@@ -98,39 +82,32 @@ export default function usePlaylist({
    */
 
   useEffect(() => {
-    console.log("🚀 ~ useEffect #1 INIT ~ defaultVol", defaultVol);
     console.log("🚀 ~ useEffect #1 INIT ~ filesList", filesList);
-    // if ((howls) &&(shouldPlay)) {
-    // destroyList(howls);
-    //? check if file list actually changed???
-
-    filesListRef.current = [...filesList];
     //todo create all filtered sub playlists
 
-    const newHowls = initList({
+    const newTracks = initList({
       baseUrl,
-      filesList: filesListRef.current,
+      filesList,
       onEndHandler,
       onVolHandler,
-      onPlay,
       defaultVol,
     });
-    console.log("~🔥🔥🔥🔥🔥🔥 filesList", filesList);
-    if (newHowls) {
+    if (newTracks) {
       //todo create filtered subPlaylists - according to filters/categories
       setHowlsCreatedNow(true);
 
-      initCurrTrack({ howls: newHowls, setCurrTrack, defaultVol });
+      initCurrTrack({ tracks: newTracks, setCurrTrack, defaultVol });
 
-      loadCurrWindow({ howls: newHowls, currentIndex: 0, setCurrTrack });
-      howlsRef.current = newHowls;
+      loadCurrWindow({ tracks: newTracks, currentIndex: 0, setCurrTrack });
+      tracks.current = newTracks;
+      tracksFiltered.current = newTracks;
 
-      console.log("🚀 ~ useEffect ~ howlsRef.current", howlsRef.current);
+      console.log("🚀 ~ useEffect ~ tracksFiltered.current", tracksFiltered.current);
     }
     return () => {
-      destroyList(newHowls);
+      destroyList(newTracks);
     };
-  }, [filesList, defaultVol, onEndHandler, onPlay, onVolHandler, baseUrl]);
+  }, [filesList, defaultVol, onEndHandler, baseUrl, onVolHandler]);
 
   /**
    * *when index updates load a 3 tracks/howls window - current, next and prev of
@@ -138,35 +115,34 @@ export default function usePlaylist({
    */
   useEffect(() => {
     console.log("🚀 useEffect #2 LOAD ~ loadCurrWindow");
-    console.log("🚀 useEffect #2 LOAD ~ howlsRef.current", howlsRef.current);
+    console.log("🚀 useEffect #2 LOAD ~ howlsRef.current", tracksFiltered.current);
     console.log("🚀 useEffect #2 LOAD ~ currTrack.index", currTrack.index);
-    if (!howlsRef.current || !howlsRef.current[currTrack.index]) return;
+    if (!tracksFiltered.current || !tracksFiltered.current[currTrack.index]) return;
     loadCurrWindow({
-      howls: howlsRef.current,
+      tracks: tracksFiltered.current,
       currentIndex: currTrack.index,
       setCurrTrack,
     });
   }, [currTrack.index]);
 
   /**
-   * ? do I need howls as a dependency... or should I trust the state
    * * when current index updates play if autoplay or shouldPlay
    */
 
   useEffect(() => {
-    console.log("🚀 useEffect #3 UPDATE ~ howlsRef.current", howlsRef.current);
+    console.log("🚀 useEffect #3 UPDATE ~ howlsFiltered.current", tracksFiltered.current);
     console.log("🚀 useEffect #3 UPDATE ~ shouldPlay", shouldPlay);
     console.log("🚀 useEffect #3 UPDATE ~ currTrack.index", currTrack.index);
-    if (!howlsRef.current || !howlsRef.current[currTrack.index]) return;
+    if (!tracksFiltered.current || !tracksFiltered.current[currTrack.index]) return;
     if (!shouldPlay) return;
-    const currHowl = howlsRef.current[currTrack.index];
+    const currHowl = tracksFiltered.current[currTrack.index].howl;
     if (currHowl.playing()) return;
     console.log("🚀 ~ useEffect ~ currHowl.playing()", currHowl.playing());
 
     const howlState = currHowl.state();
     if (howlState === "loading" || howlState === "unloaded") {
       //update the state like the howl loading or unloaded until it loads
-      setCurrTrackByHowl({ howls: howlsRef.current, setCurrTrack }); // to unloaded or loading
+      setCurrTrackByHowl({ tracks: tracksFiltered.current, setCurrTrack }); // to unloaded or loading
       currTrackLoadAndPlay({ howl: currHowl, setCurrTrack }); //load and then play
     }
     if (howlState === "loaded") {
@@ -176,36 +152,35 @@ export default function usePlaylist({
   }, [currTrack.index, shouldPlay, shouldVolUp]);
 
   const stop = useCallback(() => {
-    if (!howlsRef.current || !howlsRef.current[currTrack.index]) return;
-    howlsRef.current[currTrack.index].stop();
+    if (!tracksFiltered.current || !tracksFiltered.current[currTrack.index]) return;
+    tracksFiltered.current[currTrack.index].howl.stop();
     setShouldPlay(false);
     setCurTrackStopped(setCurrTrack);
-    // setCurTrackEnded(setCurrTrack); //!new change! separating between ENDED and STOPPED
   }, [currTrack.index]);
 
   const next = () => {
-    if (!howlsRef.current || !howlsRef.current[currTrack.index]) return;
-    howlsRef.current[currTrack.index].stop();
+    if (!tracksFiltered.current || !tracksFiltered.current[currTrack.index].howl) return;
+    tracksFiltered.current[currTrack.index].howl.stop();
     setCurrTrack((prevState) => {
-      const nextIndex = getNextIndex(prevState.index, filesList.length);
+      const nextIndex = getNextIndex(prevState.index, tracksFiltered.current.length);
       console.log({ nextIndex });
       return {
         index: nextIndex,
-        loadStatus: getStateAsHowl(howlsRef.current, nextIndex),
+        loadStatus: getStateAsHowl(tracksFiltered.current, nextIndex),
       };
     });
   };
   const prev = () => {
     console.log(" usePlaylist prev!!!");
-    if (!howlsRef.current || !howlsRef.current[currTrack.index]) return;
-    howlsRef.current[currTrack.index].stop();
+    if (!tracksFiltered.current || !tracksFiltered.current[currTrack.index]) return;
+    tracksFiltered.current[currTrack.index].howl.stop();
 
     setCurrTrack((prevState) => {
-      const prevIndex = getPrevIndex(prevState.index, filesList.length);
+      const prevIndex = getPrevIndex(prevState.index, tracksFiltered.current.length);
       console.log({ prevIndex });
       return {
         index: prevIndex,
-        loadStatus: getStateAsHowl(howlsRef.current, prevIndex),
+        loadStatus: getStateAsHowl(tracksFiltered.current, prevIndex),
       };
     });
   };
@@ -213,35 +188,39 @@ export default function usePlaylist({
   const play = useCallback(() => {
     console.log(" usePlaylist play!!!");
     // if (currTrack.isPlaying) return;
-    if (!howlsRef.current || !howlsRef.current[currTrack.index]) return;
+    if (!tracksFiltered.current || !tracksFiltered.current[currTrack.index]) return;
 
-    const currentHowl = howlsRef.current[currTrack.index];
-    if (currentHowl.playing()) return;
+    const currHowl = tracksFiltered.current[currTrack.index].howl;
+    if (currHowl.playing()) return;
     setShouldPlay(true);
 
-    const currentHowlState = currentHowl.state();
-    if (currentHowlState === "unloaded") {
-      console.warn("currentHowl is unloaded when trying to play", { currentHowl });
-      currTrackLoadAndPlay({ currentHowl, setCurrTrack });
+    if (!shouldVolUp) {
+      currHowl.volume(defaultVol);
+    }
+
+    const currHowlState = currHowl.state();
+    if (currHowlState === "unloaded") {
+      console.warn("currHowl is unloaded when trying to play", { currHowl });
+      currTrackLoadAndPlay({ currHowl, setCurrTrack });
       return;
     }
 
-    if (currentHowlState === "loaded") {
+    if (currHowlState === "loaded") {
       setCurTrackLoaded(setCurrTrack);
-      currTrackCheckPlayAndUpdate({ howl: currentHowl, setCurrTrack, shouldVolUp });
+      currTrackCheckPlayAndUpdate({ howl: currHowl, setCurrTrack, shouldVolUp });
     }
 
-    if (currentHowlState === "loading") {
+    if (currHowlState === "loading") {
       //once load.. play
-      currentHowl.once("load", () => {
+      currHowl.once("load", () => {
         setCurTrackLoaded(setCurrTrack);
-        currTrackCheckPlayAndUpdate({ howl: currentHowl, setCurrTrack, shouldVolUp });
+        currTrackCheckPlayAndUpdate({ howl: currHowl, setCurrTrack, shouldVolUp });
       });
     }
-  }, [currTrack.index, shouldVolUp]);
+  }, [currTrack.index, defaultVol, shouldVolUp]);
 
   /**
-   * * after new howls were created- checks if should play and then play
+   * * after new tracks were created- checks if should play and then play
    * *
    */
   useEffect(() => {
@@ -256,26 +235,26 @@ export default function usePlaylist({
 
   const volUp = useCallback(() => {
     console.log(" usePlaylist volUp!!!");
-    if (howlsRef.current && howlsRef.current[currTrack.index]) {
-      const currentHowl = howlsRef.current[currTrack.index];
-      const currVol = currentHowl.volume();
+    if (tracksFiltered.current && tracksFiltered.current[currTrack.index]) {
+      const currHowl = tracksFiltered.current[currTrack.index].howl;
+      const currVol = currHowl.volume();
       console.log({ currVol });
       if (currVol === 1) return;
-      currentHowl.fade(currVol, 1, FADE_DURATION / 4);
+      currHowl.fade(currVol, 1, FADE_DURATION / 4);
       setShouldVolUp(true);
     }
   }, [currTrack.index]);
 
   const volDown = useCallback(() => {
     console.log(" usePlaylist volDown!!!");
-    if (howlsRef.current && howlsRef.current[currTrack.index]) {
-      const currentHowl = howlsRef.current[currTrack.index];
-      const currVol = currentHowl.volume();
+    if (tracksFiltered.current && tracksFiltered.current[currTrack.index]) {
+      const currHowl = tracksFiltered.current[currTrack.index].howl;
+      const currVol = currHowl.volume();
       console.log({ currVol });
       if (currVol === defaultVol) return;
       setShouldVolUp(false);
 
-      currentHowl.fade(currVol, defaultVol, FADE_DURATION / 4);
+      currHowl.fade(currVol, defaultVol, FADE_DURATION / 4);
     }
   }, [currTrack.index, defaultVol]);
 
@@ -283,9 +262,9 @@ export default function usePlaylist({
     console.log(" usePlaylist pause!!!");
     setShouldPlay(false);
     if (currTrack.isEnded) return;
-    if (!howlsRef.current || !howlsRef.current[currTrack.index]) return;
+    if (!tracksFiltered.current || !tracksFiltered.current[currTrack.index]) return;
 
-    howlsRef.current[currTrack.index].pause();
+    tracksFiltered.current[currTrack.index].howl.pause();
     setCurrTrack((prevState) => {
       return { ...prevState, isPaused: true, isPlaying: false };
     });
@@ -295,13 +274,14 @@ export default function usePlaylist({
     setShouldPlay(true);
   };
   const getCurrentTitle = () => {
-    return filesListRef.current && filesListRef.current[currTrack.index]
-      ? filesListRef.current[currTrack.index].title
+    return tracksFiltered.current && tracksFiltered.current[currTrack.index]
+      ? tracksFiltered.current[currTrack.index].title
       : "loading title";
   };
+
   const getCurrentDuration = () => {
-    if (!howlsRef.current || !howlsRef.current[currTrack.index]) return;
-    return howlsRef.current[currTrack.index].duration();
+    if (!tracksFiltered.current || !tracksFiltered.current[currTrack.index]) return;
+    return tracksFiltered.current[currTrack.index].howl.duration();
   };
   const getCurrentIndex = () => {
     return currTrack.index;
@@ -312,52 +292,80 @@ export default function usePlaylist({
     setShouldPlay(false);
     setShouldVolUp(false);
 
-    if (howlsRef.current) {
-      if (howlsRef.current[currTrack.index]) {
-        // howlsRef.current[currTrack.index].stop();
-        // Howler.stop();
-      }
+    if (tracksFiltered.current) {
+      // if (tracksFiltered.current[currTrack.index]) {
+      //   // howlsRef.current[currTrack.index].stop();
+      //   // Howler.stop();
+      // }
 
-      initCurrTrack({ howls: howlsRef.current, setCurrTrack, defaultVol });
-      // setCurrTrack(() => {
-      //   return { index: 0, loadStatus: getStateAsHowl(howlsRef.current, 0) };
-      // });
+      initCurrTrack({ tracks: tracksFiltered.current, setCurrTrack, defaultVol });
     }
-  }, [currTrack.index, defaultVol]);
+  }, [defaultVol]);
 
   const shuffle = useCallback(
     (shuffledIndices = null) => {
       if (!shuffledIndices) {
-        shuffledIndices = createRandomIndices(filesListRef.current.length);
+        shuffledIndices = createRandomIndices(tracksFiltered.current.length);
       }
       // stop music if playing
-      if (!howlsRef.current) return;
-      howlsRef.current.forEach((howl) => {
-        if (howl) howl.stop();
+      if (!tracksFiltered.current) return;
+      tracksFiltered.current.forEach((howl) => {
+        if (howl.howl) howl.howl.stop();
       });
 
       setCurTrackStopped(setCurrTrack);
 
-      shuffleByIndices({ array: filesListRef.current, shuffledIndices });
-      shuffleByIndices({ array: howlsRef.current, shuffledIndices });
+      // shuffleByIndices({ array: filesListRef.current, shuffledIndices });
+      shuffleByIndices({ array: tracksFiltered.current, shuffledIndices });
 
-      setHowlsShuffledNow(true);
+      // setHowlsShuffledNow(true);
 
       loadCurrWindow({
-        howls: howlsRef.current,
+        tracks: tracksFiltered.current,
         currentIndex: 0,
         setCurrTrack,
       });
 
-      initCurrTrack({ howls: howlsRef.current, setCurrTrack, defaultVol });
-      // restart();
-      // if (shouldPlay) play();
-      //restart if should play?? - set index to zero
+      initCurrTrack({ tracks: tracksFiltered.current, setCurrTrack, defaultVol });
     },
     [defaultVol]
   );
 
+  const filterByCategoryId = useCallback(
+    (categoryId) => {
+      // stop music if playing
+      if (!tracksFiltered.current) return;
+      tracksFiltered.current.forEach((howl) => {
+        if (howl.howl) howl.howl.stop();
+      });
+
+      setCurTrackStopped(setCurrTrack);
+
+      if (categoryId === "") {
+        tracksFiltered.current = tracks.current;
+      } else {
+        // filter tracks and update tracksFiltered
+        tracksFiltered.current = tracks.current.filter((e) => {
+          return e.categories.filter((e) => e._id === categoryId).length > 0;
+        });
+      }
+
+      loadCurrWindow({
+        tracks: tracksFiltered.current,
+        currentIndex: 0,
+        setCurrTrack,
+      });
+
+      initCurrTrack({ tracks: tracksFiltered.current, setCurrTrack, defaultVol });
+      if (shouldPlay) {
+        play();
+      }
+    },
+    [defaultVol, play, shouldPlay]
+  );
+
   return {
+    filterByCategoryId,
     shuffle,
     getCurrentIndex,
     getCurrentTitle,

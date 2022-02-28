@@ -79,7 +79,6 @@ const MusicPlayerProvider = ({ filesList, children, musicCategories }) => {
     baseUrl: musicUrl,
     filesList,
     defaultVol,
-    // shuffledIndices: shuffledIndicesRef.current,
   });
   const shuffleMusic = musicControls.shuffle;
 
@@ -88,7 +87,12 @@ const MusicPlayerProvider = ({ filesList, children, musicCategories }) => {
   }, [filesList, shuffleMusic]);
 
   const setCategory = (id) => {
-    setCurrCategory(id);
+    setCurrCategory((prev) => {
+      if (prev !== id) {
+        musicControls.filterByCategoryId(id);
+      }
+      return id;
+    });
     setThemeByCategory(musicCategoriesMap[id]);
   };
 
