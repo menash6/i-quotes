@@ -25,6 +25,7 @@ const PageLayout = ({ children }) => {
   const showSelectSpeaker = (e) => showPopupHandler(e, <SelectSpeaker />);
   const showMusicFilter = (e) => showPopupHandler(e, <SelectMusicFilter />);
 
+  const color = "black";
   return (
     <>
       <ToolBar
@@ -32,24 +33,30 @@ const PageLayout = ({ children }) => {
         showSelectSpeaker={showSelectSpeaker}
         showMusicFilter={showMusicFilter}
       />
-      <IonPopover
-        cssClass="my-custom-class"
-        event={popoverState.event}
-        isOpen={popoverState.showPopover}
-        onDidDismiss={() => setShowPopover({ showPopover: false, event: undefined })}
-      >
-        {popoverState.component}
-      </IonPopover>
-      <IonContent
-        id="main"
-        // style={{
-        //   backgroundImage: `linear-gradient(45deg, ${color}, transparent)`,
-        //   // backgroundColor: color,
-        //   // "--background": `linear-gradient(45deg, ${color})!important`,
-        //   // backgroundImage: `linear-gradient(45deg, ${color})!important`,
-        // }}
-      >
+      <IonContent id="main" className="ion-justify-content-center ion-align-items-center">
+        <IonPopover
+          cssClass="my-custom-class"
+          event={popoverState.event}
+          isOpen={popoverState.showPopover}
+          onDidDismiss={() => setShowPopover({ showPopover: false, event: undefined })}
+        >
+          {popoverState.component}
+        </IonPopover>
+        {/* <IonContent
+        // id="main"
+        style={{
+          backgroundImage: `linear-gradient(45deg, ${color}, transparent)`,
+          // backgroundColor: color,
+          // "--background": `linear-gradient(45deg, ${color})!important`,
+          // backgroundImage: `linear-gradient(45deg, ${color})!important`,
+        }}
+      > */}
+
+        {/* <IonContent> */}
         {children}
+        {/* </IonContent> */}
+
+        {/* </IonContent> */}
       </IonContent>
       <IonFooter>
         <BottomButtons

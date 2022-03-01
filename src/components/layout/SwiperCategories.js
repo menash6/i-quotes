@@ -43,6 +43,8 @@ const SwiperCategories = () => {
     <Swiper
       slidesPerView={1}
       loop={true}
+      style={{ height: "100%" }}
+      // onSwiper={(swiper) => console.log("💚💚💚", swiper)}
       // onSlideChange={(swiper) => {
       //   updateNavigationColor({ slides, swiper });
       // }}
@@ -53,13 +55,11 @@ const SwiperCategories = () => {
           <SwiperSlide
             key={slide._id}
             // virtualIndex={index}
-
-            // style={{
-            //   color: isDark ? "white" : "black",
-            //   backgroundImage: `linear-gradient(45deg, var(--ion-color-step-${
-            //     isDark ? "950" : "150"
-            //   }), ${isDark ? "var(--ion-color-step-650)" : "transparent"})`,
-            // }}
+            style={{
+              // color: isDark ? "white" : "black",
+              backgroundColor: slide.color,
+              height: "100%",
+            }}
           >
             <SwiperLayout color={slide.color} uniqueId={slide._id} />
             {/* <SwiperLayout color={slide.color} timers={timers} quotesPlayer={quotesPlayer} /> */}

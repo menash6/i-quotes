@@ -31,11 +31,9 @@ const App = () => {
               <Menu />
 
               <PageLayout>
-                {/* <SwiperLayout /> */}
-
+                {/* <PageLayout id="main"> */}
                 <SwiperCategories />
               </PageLayout>
-              {/* <Layout></Layout> */}
             </IonApp>
           </TimersProvider>
         </QuotesPlayerProvider>
