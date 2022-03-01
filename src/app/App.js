@@ -13,6 +13,7 @@ import Menu from "../components/layout/Menu";
 import SwiperCategories from "./../components/layout/SwiperCategories";
 import PageLayout from "../components/layout/PageLayout";
 import SwiperLayout from "./../components/layout/SwiperLayout";
+import TimersProvider from "../providers/timers/timers.provider";
 
 const App = () => {
   const { musicCategories } = useMusicCategories();
@@ -25,16 +26,18 @@ const App = () => {
     <>
       <MusicPlayerProvider filesList={musicFiles.data} musicCategories={musicCategories.data}>
         <QuotesPlayerProvider recordingsLists={recordings.data}>
-          <IonApp>
-            <Menu />
+          <TimersProvider>
+            <IonApp>
+              <Menu />
 
-            <PageLayout>
-              {/* <SwiperLayout /> */}
+              <PageLayout>
+                {/* <SwiperLayout /> */}
 
-              <SwiperCategories />
-            </PageLayout>
-            {/* <Layout></Layout> */}
-          </IonApp>
+                <SwiperCategories />
+              </PageLayout>
+              {/* <Layout></Layout> */}
+            </IonApp>
+          </TimersProvider>
         </QuotesPlayerProvider>
       </MusicPlayerProvider>
     </>

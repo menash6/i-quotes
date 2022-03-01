@@ -22,8 +22,6 @@ const QuoteText = ({ uniqueId = "" }) => {
 
   useEffect(() => {
     if (quotesControls.isPlaying) {
-      console.log("~🔵💛💛💛💛 quotesControls.isPlaying", quotesControls.isPlaying);
-
       quotesTyperRef.current.start();
     }
     //todo changing back to the same speaker - I want to restart!
@@ -31,14 +29,12 @@ const QuoteText = ({ uniqueId = "" }) => {
 
   useEffect(() => {
     if (quotesControls.isPaused) {
-      console.log("~🔵🔵🔵🔵 quotesControls.isPaused", quotesControls.isPaused);
       quotesTyperRef.current.stop();
     }
   }, [quotesControls.isPaused]);
 
   useEffect(() => {
     if (quotesControls.isStopped) {
-      console.log("~🔵💚💚💚💚 quotesControls.isStopped", quotesControls.isStopped);
       quotesTyperRef.current.reset();
     }
   }, [quotesControls.isStopped]);

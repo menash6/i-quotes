@@ -42,7 +42,7 @@ const SwiperCategories = () => {
   return (
     <Swiper
       slidesPerView={1}
-      // loop={true}
+      loop={true}
       // onSlideChange={(swiper) => {
       //   updateNavigationColor({ slides, swiper });
       // }}

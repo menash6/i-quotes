@@ -23,6 +23,7 @@ import {
 import TotalTimer from "./TotalTimer";
 import { QuotesPlayerContext } from "../../providers/quotesPlayer/quotesPlayer.provider";
 import { MusicPlayerContext } from "./../../providers/musicPlayer/musicPlayer.provider";
+import { TimersContext } from "./../../providers/timers/timers.provider";
 
 export function Timers({ children }) {
   const statusTotalTimer = useSelector(selectStatusTotalTimers);
@@ -33,6 +34,9 @@ export function Timers({ children }) {
   const isVisible = usePageVisibility();
   const isAllSpeakers = useSelector(selectIsAllSpeakers);
 
+  const { activeInterval, remainingIntervalSeconds, updateStatus, remainingTime } =
+    useContext(TimersContext);
+
   useEffect(() => {
     if (statusTotalTimer === STATUS.READY) setNewKeyChangeCircles((prevKey) => prevKey + 1);
   }, [statusTotalTimer]);
@@ -41,45 +45,45 @@ export function Timers({ children }) {
     setNewKeyChangeCircles((prevKey) => prevKey + 1);
   }, [totalTime, numOfIntervals, isVisible]);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const quotesControls = useContext(QuotesPlayerContext);
-  const musicControls = useContext(MusicPlayerContext);
+  // const quotesControls = useContext(QuotesPlayerContext);
+  // const musicControls = useContext(MusicPlayerContext);
 
-  const onTotalTimerComplete = () => {
-    dispatch(timersActions.endTotalTimer());
+  // const onTotalTimerComplete = () => {
+  //   dispatch(timersActions.endTotalTimer());
 
-    quotesControls.restart();
-    musicControls.restart();
-    quotesControls.shuffle();
-    musicControls.shuffle();
-    quotesControls.endingControls.play();
+  //   quotesControls.restart();
+  //   musicControls.restart();
+  //   quotesControls.shuffle();
+  //   musicControls.shuffle();
+  //   quotesControls.endingControls.play();
 
-    //todo start ENDING QUOTES NEW PLAYLIST
-  };
-  const onIntervalTimerComplete = () => {
-    quotesControls.nextAndPlay();
-    musicControls.volDown(); //TODO CHANGE BACK
+  //   //todo start ENDING QUOTES NEW PLAYLIST
+  // };
+  // const onIntervalTimerComplete = () => {
+  //   quotesControls.nextAndPlay();
+  //   musicControls.volDown(); //TODO CHANGE BACK
 
-    if (statusTotalTimer === STATUS.RUNNING) {
-      if (isAllSpeakers) {
-        let nextSpeaker = Math.floor(Math.random() * 3); //choose random speaker 0,1,2
-        dispatch(quotesPlayerActions.setSpeaker(nextSpeaker));
-      }
-    }
-    console.warn("onIntervalTimerComplete ended");
-  };
+  //   if (statusTotalTimer === STATUS.RUNNING) {
+  //     if (isAllSpeakers) {
+  //       let nextSpeaker = Math.floor(Math.random() * 3); //choose random speaker 0,1,2
+  //       dispatch(quotesPlayerActions.setSpeaker(nextSpeaker));
+  //     }
+  //   }
+  //   console.warn("onIntervalTimerComplete ended");
+  // };
 
-  const { updateStatus, remainingTime, remainingIntervalSeconds, activeInterval } =
-    useIntervalTimer({
-      updateStatus: statusTotalTimer,
-      // isPlaying: statusTotalTimer === STATUS.RUNNING,
-      totalDuration: totalTime,
-      intervalDuration: intervalTime,
-      numOfIntervals: numOfIntervals,
-      onEnded: () => onTotalTimerComplete(),
-      onIntervalEnded: () => onIntervalTimerComplete(),
-    });
+  // const { updateStatus, remainingTime, remainingIntervalSeconds, activeInterval } =
+  //   useIntervalTimer({
+  //     updateStatus: statusTotalTimer,
+  //     // isPlaying: statusTotalTimer === STATUS.RUNNING,
+  //     totalDuration: totalTime,
+  //     intervalDuration: intervalTime,
+  //     numOfIntervals: numOfIntervals,
+  //     onEnded: () => onTotalTimerComplete(),
+  //     onIntervalEnded: () => onIntervalTimerComplete(),
+  //   });
 
   return (
     <>
