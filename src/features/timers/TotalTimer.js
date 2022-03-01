@@ -38,7 +38,7 @@ function getSeconds(duration) {
 
 function getISOString(seconds) {
   //pickerFormat="HH:mm:ss" to seconds
-  console.log("getISOString", { seconds });
+  // console.log("getISOString", { seconds });
   return new Date(seconds * 1000).toISOString().substr(11, 8);
 }
 
@@ -58,13 +58,10 @@ const TotalTimer = ({ remainingTime }) => {
           pickerFormat="H:mm:ss"
           value={getISOString(totalTime)} // value="00:10:00"
           // onIonChange={(e) => setTimerDuration(getSeconds(e.detail.value))}
-          onIonChange={(e) =>
-            dispatch(timersActions.setTotalTime(getSeconds(e.detail.value)))
-          }
+          onIonChange={(e) => dispatch(timersActions.setTotalTime(getSeconds(e.detail.value)))}
         ></IonDatetime>
       )}
-      {(statusTotalTimer === STATUS.RUNNING ||
-        statusTotalTimer === STATUS.PAUSED) &&
+      {(statusTotalTimer === STATUS.RUNNING || statusTotalTimer === STATUS.PAUSED) &&
         showTimer(remainingTime)}
       {statusTotalTimer === STATUS.ENDED && <Stopwatch />}
     </>

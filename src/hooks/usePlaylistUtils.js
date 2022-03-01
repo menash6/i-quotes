@@ -199,9 +199,9 @@ export const initList = ({ filesList, onEndHandler, defaultVol, onVolHandler, ba
 };
 
 export const getStateAsHowl = (tracks, index) => {
-  console.log({ getStateAsHowl });
-  console.log({ tracks });
-  console.log("~ index", index);
+  // console.log({ getStateAsHowl });
+  // console.log({ tracks });
+  // console.log("~ index", index);
   if (tracks && tracks[index].howl) {
     if (tracks[index].howl.state() === "loaded") return LOAD_STATUS.LOADED;
     if (tracks[index].howl.state() === "loading") return LOAD_STATUS.LOADING;

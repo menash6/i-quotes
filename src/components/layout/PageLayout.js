@@ -25,7 +25,6 @@ const PageLayout = ({ children }) => {
   const showSelectSpeaker = (e) => showPopupHandler(e, <SelectSpeaker />);
   const showMusicFilter = (e) => showPopupHandler(e, <SelectMusicFilter />);
 
-  const color = "black";
   return (
     <>
       <ToolBar

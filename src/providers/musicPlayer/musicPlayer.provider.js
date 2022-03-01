@@ -25,6 +25,7 @@ export const MusicPlayerContext = createContext({
   currCategory: "",
   currCategoryName: "All",
   setCategory: () => {},
+  setCategoryByName: () => {},
   allMusicCategories: [],
 });
 
@@ -96,11 +97,22 @@ const MusicPlayerProvider = ({ filesList, children, musicCategories }) => {
     setThemeByCategory(musicCategoriesMap[id]);
   };
 
+  function getCategoryId(map, value) {
+    return Object.keys(map).find((key) => map[key] === value);
+  }
+
+  const setCategoryByName = (name) => {
+    const categoryId = getCategoryId(musicCategoriesMap, name);
+    console.log("~🔷🔷🔷🔷🔷🔷 categoryId", categoryId);
+    setCategory(categoryId);
+  };
+
   const musicContextValue = {
     ...musicControls,
     allMusicCategories,
     currCategory,
     setCategory,
+    setCategoryByName,
     currCategoryName: musicCategoriesMap[currCategory],
   };
 
