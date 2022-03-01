@@ -42,21 +42,7 @@ const PageLayout = ({ children }) => {
         >
           {popoverState.component}
         </IonPopover>
-        {/* <IonContent
-        // id="main"
-        style={{
-          backgroundImage: `linear-gradient(45deg, ${color}, transparent)`,
-          // backgroundColor: color,
-          // "--background": `linear-gradient(45deg, ${color})!important`,
-          // backgroundImage: `linear-gradient(45deg, ${color})!important`,
-        }}
-      > */}
-
-        {/* <IonContent> */}
         {children}
-        {/* </IonContent> */}
-
-        {/* </IonContent> */}
       </IonContent>
       <IonFooter>
         <BottomButtons

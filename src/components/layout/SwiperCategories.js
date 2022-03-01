@@ -1,40 +1,17 @@
 import { Swiper, SwiperSlide } from "swiper/react/swiper-react";
-
+import chroma from "chroma-js";
 import "swiper/swiper.min.css";
-// import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
-// import "swiper/css";
-
-// import { Swiper, SwiperSlide } from "swiper/react";
-// import { Pagination } from "swiper";
-// import "swiper/modules/pagination/pagination.min.css";
-
-// Import Swiper styles
-// import "swiper/css";
-// import "swiper/swiper-bundle.min.css";
-// import "swiper/swiper.min.css";
-// import "swiper/css/virtual";
-// import "swiper/css/navigation";
-
-// import SwiperCore from "swiper";
-// import SwiperCore, { Navigation } from "swiper";
-// import { Pagination } from "swiper";
-
-// install Swiper modules
-// SwiperCore.use([ Pagination]);
-// SwiperCore.use([Navigation, Pagination]);
 
 import SwiperLayout from "./SwiperLayout";
 
 const SwiperCategories = () => {
   const slides = [
     { _id: 1, currCategoryName: "All", color: "white" },
-    { _id: 2, currCategoryName: "Morning", color: "yellow" },
-    { _id: 3, currCategoryName: "Focus", color: "blue" },
-    { _id: 4, currCategoryName: "Workout", color: "green" },
-    { _id: 5, currCategoryName: "Night", color: "purple" },
-    { _id: 6, currCategoryName: "Mindfulness", color: "orange" },
+    { _id: 2, currCategoryName: "Morning", color: "#2ea2e6" },
+    { _id: 3, currCategoryName: "Focus", color: "#0077b6" },
+    { _id: 4, currCategoryName: "Workout", color: "#f0841f" },
+    { _id: 5, currCategoryName: "Night", color: "#12006d" },
+    { _id: 6, currCategoryName: "Mindfulness", color: "#03664c" },
   ];
   return (
     <Swiper
@@ -52,11 +29,9 @@ const SwiperCategories = () => {
           <SwiperSlide
             key={slide._id}
             // virtualIndex={index}
-            style={{
-              // color: isDark ? "white" : "black",
-              backgroundColor: slide.color,
-              height: "100%",
-            }}
+            style={{ backgroundImage: `linear-gradient(45deg,${slide.color},transparent)` }}
+            // style={{ backgroundImage: `linear-gradient(45deg,${slide.color},transparent)` }}
+            // style={{ backgroundColor: slide.color }}
           >
             <SwiperLayout
               color={slide.color}
