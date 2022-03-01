@@ -10,8 +10,8 @@ import { QuoteTyper } from "./QuoteTyper";
 import { MusicPlayerContext } from "./../../providers/musicPlayer/musicPlayer.provider";
 import { QuotesPlayerContext } from "../../providers/quotesPlayer/quotesPlayer.provider";
 
-const QuotesPlayer = ({ ref }) => {
-  const quotesTyperRef = useRef(null);
+const QuotesPlayer = ({ quotesTyperRef }) => {
+  // const quotesTyperRef = useRef(null);
 
   const statusTotalTimer = useSelector(selectStatusTotalTimers);
 

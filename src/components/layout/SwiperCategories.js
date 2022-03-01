@@ -1,5 +1,6 @@
-import React from "react";
+import { Swiper, SwiperSlide } from "swiper/react/swiper-react";
 
+import "swiper/swiper.min.css";
 // import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
@@ -7,9 +8,6 @@ import React from "react";
 
 // import { Swiper, SwiperSlide } from "swiper/react";
 // import { Pagination } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react/swiper-react";
-
-import "swiper/swiper.min.css";
 // import "swiper/modules/pagination/pagination.min.css";
 
 // Import Swiper styles
@@ -23,25 +21,28 @@ import "swiper/swiper.min.css";
 // import SwiperCore, { Navigation } from "swiper";
 // import { Pagination } from "swiper";
 
-import SwiperLayout from "./SwiperLayout";
-
 // install Swiper modules
 // SwiperCore.use([ Pagination]);
 // SwiperCore.use([Navigation, Pagination]);
 
-const SwiperCategories = ({ timers, quotesPlayer }) => {
+import SwiperLayout from "./SwiperLayout";
+import { useRef } from "react";
+import QuotesPlayer from "./../../features/quotesPlayer/QuotesPlayer";
+
+const SwiperCategories = () => {
+  // const quotesTyperRef = useRef(null);
+
+  // const quotesPlayer = <QuotesPlayer quotesTyperRef={quotesTyperRef} />;
+
   const slides = [
-    { _id: 1, color: "yellow" },
-    { _id: 2, color: "green" },
-    { _id: 3, color: "red" },
+    { _id: 1, color: "lightCyan" },
+    { _id: 2, color: "lightGreen" },
+    { _id: 3, color: "lightBlue" },
   ];
-  // const slides = mergedQuotes(quotes, user?.quotes);
   return (
     <Swiper
-      // modules={[Navigation]}
       slidesPerView={1}
       // loop={true}
-      // navigation
       // onSlideChange={(swiper) => {
       //   updateNavigationColor({ slides, swiper });
       // }}
@@ -60,7 +61,7 @@ const SwiperCategories = ({ timers, quotesPlayer }) => {
             //   }), ${isDark ? "var(--ion-color-step-650)" : "transparent"})`,
             // }}
           >
-            <SwiperLayout color={slide.color} />
+            <SwiperLayout color={slide.color} uniqueId={slide._id} />
             {/* <SwiperLayout color={slide.color} timers={timers} quotesPlayer={quotesPlayer} /> */}
           </SwiperSlide>
         );

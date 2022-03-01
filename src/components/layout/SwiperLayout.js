@@ -1,17 +1,18 @@
 import React from "react";
 import { IonGrid, IonRow, IonCol } from "@ionic/react";
-import QuotesPlayer from "../../features/quotesPlayer/QuotesPlayer";
 
 import { Timers } from "./../../features/timers/Timers";
 import { PlayPauseRepeatButton } from "./../../features/timers/PlayPauseRepeatButton";
+import QuoteText from "../../features/quotesPlayer/QuoteText";
 
-const SwiperLayout = ({ color }) => {
+const SwiperLayout = ({ color, quotesPlayer, uniqueId }) => {
   console.log("~ color", color);
   return (
     <IonGrid className="ion-padding Grid-Fixed-Width" fixed style={{ backgroundColor: color }}>
       <IonRow className="ion-justify-content-center ion-align-items-center">
         <IonCol>
-          <QuotesPlayer />
+          {/* <QuoteText /> */}
+          <QuoteText uniqueId={uniqueId} />
         </IonCol>
       </IonRow>
       <Timers>

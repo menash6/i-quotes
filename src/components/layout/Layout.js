@@ -34,9 +34,6 @@ const Layout = ({ color = "white" }) => {
 
   return (
     <>
-      <div className="type-wrap">
-        <span ref={quoteTextRef} />
-      </div>
       <IonContent
         id="main"
         style={{
