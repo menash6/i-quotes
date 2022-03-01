@@ -1,65 +1,87 @@
 import { useEffect, useRef, useContext } from "react";
-import { IonText } from "@ionic/react";
+import { IonButton, IonText } from "@ionic/react";
 import TextTransition, { presets } from "react-text-transition";
 
 import "./QuotesPlayer.css";
-import { QuoteTyper } from "./QuoteTyper";
+import { TypedController } from "./TypedController";
 
 import { QuotesPlayerContext } from "../../providers/quotesPlayer/quotesPlayer.provider";
+import TypingQuote from "./TypingQuote";
+import { useSelector } from "react-redux";
+import { selectStatusTotalTimers, STATUS } from "../timers/timersSlice";
+
+const calculateDurationLetter = ({ text, textDuration }) => {
+  return Math.floor((textDuration * 1000) / text.length);
+};
 
 const QuoteText = ({ uniqueId = "" }) => {
   const quotesTyperRef = useRef(null);
   const quotesControls = useContext(QuotesPlayerContext);
 
+  const statusTotalTimer = useSelector(selectStatusTotalTimers);
+
   useEffect(() => {
-    if (quotesControls.isPlaying) quotesTyperRef.current.start();
+    if (quotesControls.isPlaying) {
+      console.log("~🔵💛💛💛💛 quotesControls.isPlaying", quotesControls.isPlaying);
+
+      quotesTyperRef.current.start();
+    }
     //todo changing back to the same speaker - I want to restart!
   }, [quotesControls.isPlaying]);
 
   useEffect(() => {
     if (quotesControls.isPaused) {
+      console.log("~🔵🔵🔵🔵 quotesControls.isPaused", quotesControls.isPaused);
       quotesTyperRef.current.stop();
     }
   }, [quotesControls.isPaused]);
+
   useEffect(() => {
     if (quotesControls.isStopped) {
+      console.log("~🔵💚💚💚💚 quotesControls.isStopped", quotesControls.isStopped);
       quotesTyperRef.current.reset();
     }
   }, [quotesControls.isStopped]);
 
-  const calculateDurationLetter = () => {
-    const currDuration = quotesControls.getCurrentDuration();
-    const currText = quotesControls.getCurrentTitle();
+  useEffect(() => {
+    if (quotesControls.endingControls.isPlaying) {
+      quotesTyperRef.current.start();
+    }
+  }, [quotesControls.endingControls.isPlaying]);
 
-    return Math.floor((currDuration * 1000) / currText.length);
-  };
+  const showTyping =
+    statusTotalTimer === STATUS.ENDED ? true : quotesControls.isPaused || quotesControls.isPlaying;
+
+  const quoteText =
+    statusTotalTimer === STATUS.ENDED
+      ? quotesControls.endingControls.getCurrentTitle()
+      : quotesControls.getCurrentTitle();
+
+  const quoteTextDuration =
+    statusTotalTimer === STATUS.ENDED
+      ? quotesControls.endingControls.getCurrentDuration()
+      : quotesControls.getCurrentDuration();
+
+  const durationLetter = calculateDurationLetter({
+    text: quoteText,
+    textDuration: quoteTextDuration,
+  });
 
   return (
     <div>
-      <QuoteTyper
-        style={{ display: quotesControls.isPlaying || quotesControls.isPaused ? "none" : null }}
-        ref={quotesTyperRef}
-        durationLetter={calculateDurationLetter()}
-        uniqueId={uniqueId}
-      />
-      <IonText
-        className={
-          "Quote-Placeholder ion-text-center " +
-          (quotesControls.isStopped ? " animated-square" : "")
-        }
-      >
-        <div id={"typed-strings" + uniqueId}>
-          <p>{quotesControls.getCurrentTitle()}</p>
+      <IonText className={"Quote-Placeholder ion-text-center "}>
+        <div style={{ display: showTyping ? null : "none" }}>
+          <TypedController
+            ref={quotesTyperRef}
+            durationLetter={durationLetter}
+            uniqueId={uniqueId}
+          />
+          <TypingQuote uniqueId={uniqueId} quoteText={quoteText} />
         </div>
-        <span
-          id={"typed" + uniqueId}
-          style={{ display: quotesControls.isPaused || quotesControls.isPlaying ? null : "none" }}
-        ></span>
+
         <TextTransition
-          style={{
-            display: !quotesControls.isPaused && !quotesControls.isPlaying ? null : "none",
-          }}
-          text={'"' + quotesControls.getCurrentTitle() + '"'}
+          style={{ display: !showTyping ? null : "none" }}
+          text={'"' + quoteText + '"'}
           springConfig={presets.wobbly}
         />
       </IonText>
@@ -68,3 +90,27 @@ const QuoteText = ({ uniqueId = "" }) => {
 };
 
 export default QuoteText;
+//  <div>
+//       <IonButton onClick={() => quotesTyperRef.current.toggle()}>toggle</IonButton>
+//       <IonText className={"Quote-Placeholder ion-text-center "}>
+//         {/* {true ? ( */}
+//         {showTyping ? (
+//           <>
+//             <TypedController
+//               ref={quotesTyperRef}
+//               durationLetter={durationLetter}
+//               uniqueId={uniqueId}
+//             />
+//             <TypingQuote uniqueId={uniqueId} quoteText={quoteText} />
+//           </>
+//         ) : (
+//           <TextTransition
+//             // style={{
+//             //   display: !quotesControls.isPaused && !quotesControls.isPlaying ? null : "none",
+//             // }}
+//             text={'"' + quoteText + '"'}
+//             springConfig={presets.wobbly}
+//           />
+//         )}
+//       </IonText>
+//     </div>

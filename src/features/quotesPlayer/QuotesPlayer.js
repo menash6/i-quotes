@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { selectStatusTotalTimers, STATUS } from "../timers/timersSlice";
 
 import "./QuotesPlayer.css";
-import { QuoteTyper } from "./QuoteTyper";
+import { TypedController } from "./TypedController";
 
 import { MusicPlayerContext } from "./../../providers/musicPlayer/musicPlayer.provider";
 import { QuotesPlayerContext } from "../../providers/quotesPlayer/quotesPlayer.provider";
@@ -59,7 +59,7 @@ const QuotesPlayer = ({ quotesTyperRef }) => {
 
   return (
     <>
-      <QuoteTyper
+      <TypedController
         style={{ display: quotesControls.isPlaying || quotesControls.isPaused ? "none" : null }}
         ref={quotesTyperRef}
         durationLetter={calculateDurationLetter()}

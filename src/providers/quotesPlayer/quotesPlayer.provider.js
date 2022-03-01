@@ -176,6 +176,10 @@ const QuotesPlayerProvider = ({ children, recordingsLists }) => {
     console.log("🚀 ~ useEffect ~filteredQuotesPlaylists shuffle()");
   }, [shuffle]);
 
+  // useEffect(() => { // ! control volume up... transferred from quotesPlayer
+  //   if (quotesControls.isEnded) volUp();
+  // }, [quotesControls.isEnded, volUp]);
+
   const allSpeakersQuotesControls = useMemo(() => {
     return {
       shuffle,

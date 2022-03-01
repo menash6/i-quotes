@@ -1,7 +1,7 @@
 import React from "react";
 import Typed from "typed.js";
 
-export const QuoteTyper = React.forwardRef((props, ref) => {
+export const TypedController = React.forwardRef((props, ref) => {
   const { durationLetter, uniqueId = "" } = props;
 
   const typed = React.useRef(null);
