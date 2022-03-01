@@ -6,9 +6,7 @@ export const maxWidth = 25;
 
 export const colorsRainbow = [
   "#0cb0a9",
-
   "#2166b5",
-
   "#d941ca",
   "#ef476f",
   "#f78c6b",

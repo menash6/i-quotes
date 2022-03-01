@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { MusicPlayerContext } from "../../providers/musicPlayer/musicPlayer.provider";
 
 export function CirclesTimer({
+  categoryName,
   newKey,
   statusTotalTimer,
   // isPlaying,
@@ -17,7 +18,7 @@ export function CirclesTimer({
 }) {
   const isPlaying = statusTotalTimer === STATUS.RUNNING;
 
-  const { currCategoryName } = useContext(MusicPlayerContext);
+  // const { currCategoryName } = useContext(MusicPlayerContext);
 
   const timers = new Array(numOfTimers);
   const spaceBetwenCircles = (Utils.outerEdge - Utils.innerEdge) / numOfTimers;
@@ -35,7 +36,8 @@ export function CirclesTimer({
       activeInterval: i,
     });
 
-    const colorsByFilter = Utils.getFilteredColors(currCategoryName);
+    const colorsByFilter = Utils.getFilteredColors(categoryName);
+    // const colorsByFilter = Utils.getFilteredColors(currCategoryName);
     // const colorsByFilter = Utils.getFilteredColors(currFilter);
 
     timers[i] = Utils.CreateCircleTimer(

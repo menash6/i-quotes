@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import useIntervalTimer from "../../hooks/useIntervalTimer";
+import { useSelector } from "react-redux";
 import { usePageVisibility } from "react-page-visibility";
 import { CirclesTimer } from "./CirclesTimer";
 import { CirclesAnimation } from "./CirclesAnimation";
@@ -9,7 +8,6 @@ import MusicControls from "../../components/layout/MusicControls";
 
 import TotalTimerLayout from "../../components/layout/TotalTimerLayout";
 
-import { quotesPlayerActions, selectIsAllSpeakers } from "../quotesPlayer/quotesPlayerSlice";
 import "./Timers.css";
 
 import {
@@ -18,21 +16,17 @@ import {
   selectIntervalTime,
   selectNumOfIntervals,
   STATUS,
-  timersActions,
 } from "./timersSlice";
 import TotalTimer from "./TotalTimer";
-import { QuotesPlayerContext } from "../../providers/quotesPlayer/quotesPlayer.provider";
-import { MusicPlayerContext } from "./../../providers/musicPlayer/musicPlayer.provider";
 import { TimersContext } from "./../../providers/timers/timers.provider";
 
-export function Timers({ children }) {
+export function Timers({ children, categoryName }) {
   const statusTotalTimer = useSelector(selectStatusTotalTimers);
   const totalTime = useSelector(selectTotalTime);
   const intervalTime = useSelector(selectIntervalTime);
   const numOfIntervals = useSelector(selectNumOfIntervals);
   const [newKeyChangeCircles, setNewKeyChangeCircles] = useState(0);
   const isVisible = usePageVisibility();
-  const isAllSpeakers = useSelector(selectIsAllSpeakers);
 
   const { activeInterval, remainingIntervalSeconds, updateStatus, remainingTime } =
     useContext(TimersContext);
@@ -44,46 +38,6 @@ export function Timers({ children }) {
   useEffect(() => {
     setNewKeyChangeCircles((prevKey) => prevKey + 1);
   }, [totalTime, numOfIntervals, isVisible]);
-
-  // const dispatch = useDispatch();
-
-  // const quotesControls = useContext(QuotesPlayerContext);
-  // const musicControls = useContext(MusicPlayerContext);
-
-  // const onTotalTimerComplete = () => {
-  //   dispatch(timersActions.endTotalTimer());
-
-  //   quotesControls.restart();
-  //   musicControls.restart();
-  //   quotesControls.shuffle();
-  //   musicControls.shuffle();
-  //   quotesControls.endingControls.play();
-
-  //   //todo start ENDING QUOTES NEW PLAYLIST
-  // };
-  // const onIntervalTimerComplete = () => {
-  //   quotesControls.nextAndPlay();
-  //   musicControls.volDown(); //TODO CHANGE BACK
-
-  //   if (statusTotalTimer === STATUS.RUNNING) {
-  //     if (isAllSpeakers) {
-  //       let nextSpeaker = Math.floor(Math.random() * 3); //choose random speaker 0,1,2
-  //       dispatch(quotesPlayerActions.setSpeaker(nextSpeaker));
-  //     }
-  //   }
-  //   console.warn("onIntervalTimerComplete ended");
-  // };
-
-  // const { updateStatus, remainingTime, remainingIntervalSeconds, activeInterval } =
-  //   useIntervalTimer({
-  //     updateStatus: statusTotalTimer,
-  //     // isPlaying: statusTotalTimer === STATUS.RUNNING,
-  //     totalDuration: totalTime,
-  //     intervalDuration: intervalTime,
-  //     numOfIntervals: numOfIntervals,
-  //     onEnded: () => onTotalTimerComplete(),
-  //     onIntervalEnded: () => onIntervalTimerComplete(),
-  //   });
 
   return (
     <>
@@ -99,6 +53,7 @@ export function Timers({ children }) {
           </CirclesAnimation>
         ) : (
           <CirclesTimer
+            categoryName={categoryName}
             newKey={newKeyChangeCircles}
             statusTotalTimer={updateStatus}
             // isPlaying={statusTotalTimer === STATUS.RUNNING}

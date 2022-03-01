@@ -9,7 +9,7 @@ import QuoteText from "../../features/quotesPlayer/QuoteText";
 
 import "./centered-grid.css";
 
-const SwiperLayout = ({ color, quotesPlayer, uniqueId }) => {
+const SwiperLayout = ({ color, quotesPlayer, uniqueId, categoryName }) => {
   console.log("~ color", color);
 
   const swiperSlide = useSwiperSlide();
@@ -18,38 +18,17 @@ const SwiperLayout = ({ color, quotesPlayer, uniqueId }) => {
   console.log("~💚💚💚 swiper", swiper);
 
   return (
-    // <IonContent className="ion-justify-content-center ion-align-items-center">
     <IonGrid className="ion-padding Grid-Fixed-Width" fixed>
-      {/* <IonGrid className="ion-padding Grid-Fixed-Width" fixed style={{ backgroundColor: color }}> */}
       <IonRow className="ion-justify-content-center ion-align-items-center">
         <IonCol>
-          {/* <QuoteText /> */}
           <QuoteText uniqueId={uniqueId} />
         </IonCol>
       </IonRow>
-      <Timers>
+      <Timers categoryName={categoryName}>
         <PlayPauseRepeatButton />
       </Timers>
     </IonGrid>
-    // </IonContent>
   );
-  // return <Layout color={color} />;
 };
 
 export default SwiperLayout;
-// <IonGrid
-//   className="ion-padding Grid-Fixed-Width"
-//   fixed
-//   style={{
-//     backgroundImage: `linear-gradient(45deg, ${color}, transparent)`,
-//     // backgroundColor: color,
-//     // "--background": `linear-gradient(45deg, ${color})!important`,
-//     // backgroundImage: `linear-gradient(45deg, ${color})!important`,
-//   }}import QuotesPlayer from './../../features/quotesPlayer/QuotesPlayer';
-
-// >
-//   <IonRow className="ion-justify-content-center ion-align-items-center">
-//     <IonCol>{quotesPlayer}</IonCol>
-//   </IonRow>
-//   {timers}
-// </IonGrid>
