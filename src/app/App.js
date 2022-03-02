@@ -1,4 +1,4 @@
-import { IonApp } from "@ionic/react";
+import { IonApp, IonButton } from "@ionic/react";
 
 import { LoadingTimer } from "../components/LoadingTimer";
 import Layout from "../components/layout/Layout";
@@ -14,6 +14,7 @@ import SwiperCategories from "./../components/layout/SwiperCategories";
 import PageLayout from "../components/layout/PageLayout";
 import SwiperLayout from "./../components/layout/SwiperLayout";
 import TimersProvider from "../providers/timers/timers.provider";
+import { useRef, useState } from "react";
 
 const App = () => {
   const { musicCategories } = useMusicCategories();

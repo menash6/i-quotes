@@ -1,4 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react/swiper-react";
+import { Controller } from "swiper";
+
 import chroma from "chroma-js";
 import "swiper/swiper.min.css";
 
@@ -7,7 +9,7 @@ import { useContext } from "react";
 import { MusicPlayerContext } from "../../providers/musicPlayer/musicPlayer.provider";
 
 const SwiperCategories = () => {
-  const { setCategoryByName } = useContext(MusicPlayerContext);
+  const { setCategoryByName, setControlledSwiper } = useContext(MusicPlayerContext);
 
   const slides = [
     { _id: 0, currCategoryName: "All", color: "white" },
@@ -22,7 +24,12 @@ const SwiperCategories = () => {
       slidesPerView={1}
       loop={true}
       style={{ height: "100%" }}
-      // onSwiper={(swiper) => console.log("💚💚💚", swiper)}
+      modules={[Controller]}
+      onSwiper={(swiper) => {
+        console.log("💚💚💚", swiper);
+
+        setControlledSwiper(swiper);
+      }}
       onSlideChange={(swiper) => {
         console.log("💜💜💜💜💜", { slides, swiper });
         console.log("~ swiper.realIndex", swiper.realIndex);

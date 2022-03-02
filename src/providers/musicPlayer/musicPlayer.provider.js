@@ -27,6 +27,9 @@ export const MusicPlayerContext = createContext({
   setCategory: () => {},
   setCategoryByName: () => {},
   allMusicCategories: [],
+  controlledSwiper: null,
+  setControlledSwiper: () => {},
+  getSlideId: () => {},
 });
 
 const defaultVol = 0.1;
@@ -72,6 +75,7 @@ const setThemeByCategory = (categoryName) => {
 
 const MusicPlayerProvider = ({ filesList, children, musicCategories }) => {
   const [currCategory, setCurrCategory] = useState("");
+  const [controlledSwiper, setControlledSwiper] = useState(null);
 
   const allMusicCategories = musicCategories;
   const musicCategoriesMap = createCategoriesMap(allMusicCategories);
@@ -103,8 +107,29 @@ const MusicPlayerProvider = ({ filesList, children, musicCategories }) => {
 
   const setCategoryByName = (name) => {
     const categoryId = getCategoryId(musicCategoriesMap, name);
-    console.log("~🔷🔷🔷🔷🔷🔷 categoryId", categoryId);
     setCategory(categoryId);
+  };
+
+  const getSlideId = (currCategory) => {
+    console.log("~ currCategory", currCategory);
+    const categoryName = musicCategories[currCategory];
+    switch (categoryName) {
+      // case "All":
+      //   return 0;
+      case "Morning":
+        return 1;
+      case "Focus":
+        return 2;
+      case "Workout":
+        return 3;
+      case "Night":
+        return 4;
+      case "Mindfulness":
+        return 5;
+
+      default:
+        return 0;
+    }
   };
 
   const musicContextValue = {
@@ -114,6 +139,9 @@ const MusicPlayerProvider = ({ filesList, children, musicCategories }) => {
     setCategory,
     setCategoryByName,
     currCategoryName: musicCategoriesMap[currCategory],
+    setControlledSwiper,
+    controlledSwiper,
+    getSlideId,
   };
 
   return (

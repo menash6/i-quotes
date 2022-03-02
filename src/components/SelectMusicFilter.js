@@ -40,7 +40,8 @@ export const SelectMusicFilter = () => {
   const dispatch = useDispatch();
   const statusTotalTimer = useSelector(selectStatusTotalTimers);
   const quotesControls = useContext(QuotesPlayerContext);
-  const { allMusicCategories, currCategory, setCategory } = useContext(MusicPlayerContext);
+  const { allMusicCategories, currCategory, setCategory, controlledSwiper, getSlideId } =
+    useContext(MusicPlayerContext);
 
   return (
     <>
@@ -54,7 +55,10 @@ export const SelectMusicFilter = () => {
             quotesControls.endingControls.restart();
             quotesControls.endingControls.shuffle();
           }
-          setCategory(e.detail.value);
+          //! slide to the right slider
+          console.log("🔴🔴🔴🔴🔴~ e.detail.value", e.detail.value);
+          controlledSwiper.slideTo(getSlideId(e.detail.value), 500, true);
+          // setCategory(e.detail.value);
         }}
       >
         <IonListHeader>
