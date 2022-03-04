@@ -7,7 +7,6 @@ const BottomButtons = ({ showIntervalPicker, showSelectSpeaker, showMusicFilter 
       <IonRow>
         <IonCol>
           <IonButton
-            style={{ background: "red" }}
             // color="light"
             fill="solid"
             expand="block"

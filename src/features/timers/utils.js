@@ -15,3 +15,17 @@ export const secondsToTime = (remainingSeconds) => {
     return `${hours}:${mins}:${secs}`;
   }
 };
+
+export const getSeconds = (duration) => {
+  //pickerFormat="HH:mm:ss" to seconds
+  const durationHours = parseInt(duration.substring(0, 2)); //get HH
+  const durationMins = parseInt(duration.substring(3, 5)); //get mm
+  const durationSeconds = parseInt(duration.substring(6, 8)); //get ss
+  return durationHours * 3600 + durationMins * 60 + durationSeconds;
+};
+
+export const getISOString = (seconds) => {
+  //pickerFormat="HH:mm:ss" to seconds
+  // console.log("getISOString", { seconds });
+  return new Date(seconds * 1000).toISOString().substr(11, 8);
+};

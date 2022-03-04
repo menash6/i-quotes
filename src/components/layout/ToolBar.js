@@ -1,4 +1,12 @@
-import { IonButton, IonButtons, IonIcon, IonMenuButton, IonToolbar } from "@ionic/react";
+import {
+  IonButton,
+  IonButtons,
+  IonIcon,
+  IonLabel,
+  IonMenuButton,
+  IonTitle,
+  IonToolbar,
+} from "@ionic/react";
 import { appsOutline, chatbubbleEllipses, headsetOutline, reload } from "ionicons/icons";
 import { useContext } from "react";
 
@@ -8,13 +16,18 @@ import { selectStatusTotalTimers, timersActions, STATUS } from "../../features/t
 import { MusicPlayerContext } from "./../../providers/musicPlayer/musicPlayer.provider";
 
 import { QuotesPlayerContext } from "../../providers/quotesPlayer/quotesPlayer.provider";
+import { getCategoryIcon } from "../SelectMusicFilter";
 
 export const ToolBar = ({ showIntervalPicker, showSelectSpeaker, showMusicFilter }) => {
   const dispatch = useDispatch();
 
   const statusTotalTimer = useSelector(selectStatusTotalTimers);
 
-  const { restart: restartMusic, shuffle: shuffleMusic } = useContext(MusicPlayerContext);
+  const {
+    restart: restartMusic,
+    shuffle: shuffleMusic,
+    currCategoryName,
+  } = useContext(MusicPlayerContext);
   const {
     restart: restartQuotes,
     shuffle: shuffleQuotes,
@@ -37,20 +50,24 @@ export const ToolBar = ({ showIntervalPicker, showSelectSpeaker, showMusicFilter
       <IonButtons slot="start">
         <IonMenuButton />
       </IonButtons>
+      <IonTitle className="ion-text-center">
+        {/* {currCategoryName} */}
+        {getCategoryIcon(currCategoryName, "large")}
+      </IonTitle>
 
       <IonButtons slot="end">
-        <IonButton onClick={onTimerRestart}>
+        {/* <IonButton onClick={onTimerRestart}>
           <IonIcon icon={reload} />
-        </IonButton>
+        </IonButton> */}
         {statusTotalTimer !== STATUS.ENDED && (
           <>
-            <IonButton onClick={showIntervalPicker}>
+            {/* <IonButton onClick={showIntervalPicker}>
               <IonIcon icon={chatbubbleEllipses} />
             </IonButton>
 
             <IonButton onClick={showSelectSpeaker}>
               <IonIcon icon={headsetOutline} />
-            </IonButton>
+            </IonButton> */}
 
             {/* <IonButton onClick={(e) => showPopupHandler(e, <SelectQuotesFilter />)}>
                 <IonIcon icon={filterOutline} /> 

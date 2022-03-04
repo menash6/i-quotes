@@ -1,19 +1,53 @@
 import { IonLabel, IonListHeader, IonRadioGroup, IonRadio, IonItem, IonIcon } from "@ionic/react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { sunnyOutline, moonOutline, barbellOutline, locateOutline } from "ionicons/icons";
+import {
+  sunnyOutline,
+  moonOutline,
+  barbellOutline,
+  locateOutline,
+  chatbubblesOutline,
+} from "ionicons/icons";
 import { selectStatusTotalTimers, STATUS } from "../features/timers/timersSlice";
 import { useContext } from "react";
 import { QuotesPlayerContext } from "../providers/quotesPlayer/quotesPlayer.provider";
 import { timersActions } from "./../features/timers/timersSlice";
 import { MusicPlayerContext } from "../providers/musicPlayer/musicPlayer.provider";
 
-const categoriesIcons = {
+export const categoriesIcons = {
   Morning: sunnyOutline,
   Focus: locateOutline,
   Workout: barbellOutline,
   Night: moonOutline,
   Mindfulness: { src: "assetsmeditation-svgrepo-com.svg" },
+};
+
+export const categoriesIconsJsx = {
+  Morning: sunnyOutline,
+  Focus: locateOutline,
+  Workout: barbellOutline,
+  Night: moonOutline,
+  Mindfulness: { src: "assetsmeditation-svgrepo-com.svg" },
+};
+
+export const getCategoryIcon = (name, size = "large") => {
+  switch (name) {
+    case "Morning":
+      return <IonIcon size={size} icon={sunnyOutline} />;
+    case "Focus":
+      return <IonIcon size={size} icon={locateOutline} />;
+    case "Workout":
+      return <IonIcon size={size} icon={barbellOutline} />;
+    case "Night":
+      return <IonIcon size={size} icon={moonOutline} />;
+    case "Mindfulness":
+      return <IonIcon size={size} src="assets\meditation-svgrepo-com.svg" />;
+
+    default:
+      //All
+
+      return <IonIcon size={size} icon={chatbubblesOutline} />;
+  }
 };
 
 const createCategoryRadioButton = ({ id, name }) => {
