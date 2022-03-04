@@ -12,9 +12,9 @@ import "./centered-grid.css";
 const SwiperLayout = ({ color, quotesPlayer, uniqueId, categoryName }) => {
   // console.log("~ color", color);
 
-  const swiperSlide = useSwiperSlide();
+  // const swiperSlide = useSwiperSlide();
   // console.log("~💚💚💚 swiperSlide", swiperSlide);
-  const swiper = useSwiper();
+  // const swiper = useSwiper();
   // console.log("~💚💚💚 swiper", swiper);
 
   return (

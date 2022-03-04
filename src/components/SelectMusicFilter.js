@@ -55,9 +55,10 @@ export const SelectMusicFilter = () => {
             quotesControls.endingControls.restart();
             quotesControls.endingControls.shuffle();
           }
-          //! slide to the right slider
-          console.log("🔴🔴🔴🔴🔴~ e.detail.value", e.detail.value);
-          controlledSwiper.slideTo(getSlideId(e.detail.value), 500, true);
+          const nextSlide = getSlideId(e.detail.value);
+
+          // controlledSwiper.slideTo(nextSlide, 0, false);
+          controlledSwiper.slideToLoop(nextSlide, 0, false);
           // setCategory(e.detail.value);
         }}
       >

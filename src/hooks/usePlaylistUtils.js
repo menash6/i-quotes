@@ -179,7 +179,6 @@ export const createHowl = ({
 
 export const initList = ({ filesList, onEndHandler, defaultVol, onVolHandler, baseUrl = "" }) => {
   if (!filesList || filesList === []) return null;
-  console.log("😍😍😍😍😍😍initList", { filesList });
   const newHowls = filesList.map((file) => {
     return {
       howl: createHowl({

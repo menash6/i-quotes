@@ -23,16 +23,11 @@ const SwiperCategories = () => {
     <Swiper
       slidesPerView={1}
       loop={true}
+      // rewind={true}
       style={{ height: "100%" }}
       modules={[Controller]}
-      onSwiper={(swiper) => {
-        console.log("💚💚💚", swiper);
-
-        setControlledSwiper(swiper);
-      }}
+      onSwiper={(swiper) => setControlledSwiper(swiper)}
       onSlideChange={(swiper) => {
-        console.log("💜💜💜💜💜", { slides, swiper });
-        console.log("~ swiper.realIndex", swiper.realIndex);
         const currSlideIndex = swiper.realIndex;
         setCategoryByName(slides[currSlideIndex].currCategoryName);
       }}
@@ -42,7 +37,6 @@ const SwiperCategories = () => {
         return (
           <SwiperSlide
             key={slide._id}
-            // virtualIndex={index}
             style={{ backgroundImage: `linear-gradient(45deg,${slide.color},transparent)` }}
           >
             <SwiperLayout

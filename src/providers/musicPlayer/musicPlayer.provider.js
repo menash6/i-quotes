@@ -111,8 +111,7 @@ const MusicPlayerProvider = ({ filesList, children, musicCategories }) => {
   };
 
   const getSlideId = (currCategory) => {
-    console.log("~ currCategory", currCategory);
-    const categoryName = musicCategories[currCategory];
+    const categoryName = musicCategoriesMap[currCategory];
     switch (categoryName) {
       // case "All":
       //   return 0;
