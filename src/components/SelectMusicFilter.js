@@ -7,6 +7,7 @@ import {
   barbellOutline,
   locateOutline,
   chatbubblesOutline,
+  appsOutline,
 } from "ionicons/icons";
 import { selectStatusTotalTimers, STATUS } from "../features/timers/timersSlice";
 import { useContext } from "react";
@@ -30,23 +31,23 @@ export const categoriesIconsJsx = {
   Mindfulness: { src: "assetsmeditation-svgrepo-com.svg" },
 };
 
-export const getCategoryIcon = (name, size = "large") => {
+export const getCategoryIcon = (name) => {
   switch (name) {
     case "Morning":
-      return <IonIcon size={size} icon={sunnyOutline} />;
+      return <IonIcon icon={sunnyOutline} />;
     case "Focus":
-      return <IonIcon size={size} icon={locateOutline} />;
+      return <IonIcon icon={locateOutline} />;
     case "Workout":
-      return <IonIcon size={size} icon={barbellOutline} />;
+      return <IonIcon icon={barbellOutline} />;
     case "Night":
-      return <IonIcon size={size} icon={moonOutline} />;
+      return <IonIcon icon={moonOutline} />;
     case "Mindfulness":
-      return <IonIcon size={size} src="assets\meditation-svgrepo-com.svg" />;
+      return <IonIcon src="assets\meditation-svgrepo-com.svg" />;
 
     default:
       //All
 
-      return <IonIcon size={size} icon={chatbubblesOutline} />;
+      return <IonIcon icon={appsOutline} />;
   }
 };
 

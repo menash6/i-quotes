@@ -50,10 +50,10 @@ export const ToolBar = ({ showIntervalPicker, showSelectSpeaker, showMusicFilter
       <IonButtons slot="start">
         <IonMenuButton />
       </IonButtons>
-      <IonTitle className="ion-text-center">
-        {/* {currCategoryName} */}
-        {getCategoryIcon(currCategoryName, "large")}
-      </IonTitle>
+      {/* <IonTitle className="ion-text-center"> */}
+      {/* {currCategoryName} */}
+      {/* {getCategoryIcon(currCategoryName, "large")} */}
+      {/* </IonTitle> */}
 
       <IonButtons slot="end">
         {/* <IonButton onClick={onTimerRestart}>
@@ -76,7 +76,8 @@ export const ToolBar = ({ showIntervalPicker, showSelectSpeaker, showMusicFilter
         )}
 
         <IonButton onClick={showMusicFilter}>
-          <IonIcon icon={appsOutline} />
+          {getCategoryIcon(currCategoryName)}
+          {/* <IonIcon icon={appsOutline} /> */}
         </IonButton>
       </IonButtons>
     </IonToolbar>
