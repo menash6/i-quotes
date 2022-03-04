@@ -3,7 +3,7 @@ import { ToolBar } from "./ToolBar";
 import { IntervalPicker } from "./../../features/timers/IntervalPicker";
 import SelectSpeaker from "../SelectSpeaker";
 import { SelectMusicFilter } from "./../SelectMusicFilter";
-import { IonPopover, IonContent, IonFooter } from "@ionic/react";
+import { IonPopover, IonContent, IonFooter, IonToolbar } from "@ionic/react";
 import BottomButtons from "./BottomButtons";
 
 const PageLayout = ({ children }) => {

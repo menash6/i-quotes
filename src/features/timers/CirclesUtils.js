@@ -1,6 +1,7 @@
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
-export const outerEdge = 240;
+export const outerEdge = 280;
+// export const outerEdge = 240;
 export const innerEdge = 56;
 export const maxWidth = 25;
 

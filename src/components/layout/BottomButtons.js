@@ -3,11 +3,13 @@ import { chatbubbleOutline, headsetOutline } from "ionicons/icons";
 
 const BottomButtons = ({ showIntervalPicker, showSelectSpeaker, showMusicFilter }) => {
   return (
-    <IonToolbar color="light">
+    <IonToolbar color="primary">
       <IonRow>
         <IonCol>
           <IonButton
-            fill="clear"
+            style={{ background: "red" }}
+            // color="light"
+            fill="solid"
             expand="block"
             value="intervalPicker"
             onClick={showIntervalPicker}
@@ -16,7 +18,13 @@ const BottomButtons = ({ showIntervalPicker, showSelectSpeaker, showMusicFilter 
           </IonButton>
         </IonCol>
         <IonCol>
-          <IonButton fill="clear" expand="block" value="selectSpeaker" onClick={showSelectSpeaker}>
+          <IonButton
+            // color="light"
+            fill="solid"
+            expand="block"
+            value="selectSpeaker"
+            onClick={showSelectSpeaker}
+          >
             <IonIcon icon={headsetOutline} />
           </IonButton>
         </IonCol>

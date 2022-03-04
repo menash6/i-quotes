@@ -14,6 +14,7 @@ export default function MusicButton({ prevOrNext }) {
 
   return (
     <IonButton
+      className="ion-no-padding ion-no-margin"
       color="dark"
       disabled={statusTotalTimer === STATUS.PAUSED || currentTrackStatus === LOAD_STATUS.LOADING}
       fill="clear"

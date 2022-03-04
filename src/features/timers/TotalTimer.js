@@ -9,23 +9,10 @@ import {
 } from "../../features/timers/timersSlice";
 
 import { useSelector, useDispatch } from "react-redux";
+import { secondsToTime } from "./utils";
 
 function showTimer(remainingTime) {
-  const totalSeconds = Math.ceil(remainingTime);
-  let hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60));
-  let mins = Math.floor((totalSeconds % (60 * 60)) / 60);
-  let secs = Math.floor(totalSeconds % 60);
-
-  secs = secs > 9 ? secs : "0" + secs;
-  mins = mins > 9 ? mins : "0" + mins;
-
-  if (hours <= 0) {
-    //no hours - show only mins and secs
-    return <IonLabel className="Timer">{`${mins}:${secs}`}</IonLabel>;
-  } else {
-    hours = hours > 9 ? hours : "0" + hours;
-    return <IonLabel className="Timer">{`${hours}:${mins}:${secs}`}</IonLabel>;
-  }
+  return <IonLabel className="Timer">{secondsToTime(remainingTime)}</IonLabel>;
 }
 
 function getSeconds(duration) {
@@ -48,11 +35,12 @@ const TotalTimer = ({ remainingTime }) => {
   const totalTime = useSelector(selectTotalTime);
   const dispatch = useDispatch();
 
+  console.log("secondsToTime(remainingTime)", typeof secondsToTime(remainingTime));
   return (
     <>
       {statusTotalTimer === STATUS.READY && (
         <IonDatetime
-          className=" Timer animated-square"
+          className="Timer pulse"
           mode="ios"
           display-format={isTotalTimeHours ? "HH:mm:ss" : "mm:ss"}
           pickerFormat="H:mm:ss"
@@ -63,6 +51,7 @@ const TotalTimer = ({ remainingTime }) => {
       )}
       {(statusTotalTimer === STATUS.RUNNING || statusTotalTimer === STATUS.PAUSED) &&
         showTimer(remainingTime)}
+
       {statusTotalTimer === STATUS.ENDED && <Stopwatch />}
     </>
   );
@@ -70,26 +59,14 @@ const TotalTimer = ({ remainingTime }) => {
 
 export default TotalTimer;
 
-function showTimer2(remainingTime) {
-  let hours = Math.floor(remainingTime / 3600);
-  let mins = Math.floor(remainingTime / 60) - hours * 60;
-  // let mins = Math.floor(remainingTime / 60);
-  let secs = Math.ceil(remainingTime % 60);
-  // mins = mins > 9 ? mins : mins === 0 ? "0" : "0" + mins;
-  secs = secs > 9 ? secs : "0" + secs;
-  mins = mins > 9 ? mins : "0" + mins;
-  if (hours <= 0) hours = "";
-  else {
-    hours = hours > 9 ? hours : "0" + hours;
-    hours = hours + ":";
-  }
+// showTimer(remainingTime)}
 
-  return <IonLabel className="Timer">{`${hours}${mins}:${secs}`}</IonLabel>;
-}
-function showTimerNEW(secs, mins) {
-  // let mins = Math.floor(remainingTime / 60);
-  // let secs = remainingTime % 60;
-  // mins = mins > 9 ? mins : mins === 0 ? "0" : "0" + mins;
-  secs = secs > 9 ? secs : "0" + secs;
-  return <IonLabel className="Timer">{`${mins}:${secs}`}</IonLabel>;
-}
+// <IonDatetime
+//   className="Timer pulse"
+//   mode="ios"
+//   display-format={isTotalTimeHours ? "HH:mm:ss" : "mm:ss"}
+//   pickerFormat="H:mm:ss"
+//   value={secondsToTime(remainingTime)} // value="00:10:00"
+//   // onIonChange={(e) => setTimerDuration(getSeconds(e.detail.value))}
+//   onIonChange={(e) => dispatch(timersActions.setTotalTime(getSeconds(e.detail.value)))}
+// ></IonDatetime>       )}
