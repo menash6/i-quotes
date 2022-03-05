@@ -316,6 +316,7 @@ export const CreateCircleTimer = ({
 }) => {
   return (
     <CountdownCircleTimer
+      trailColor="#c0c0c044"
       rotation="counterclockwise"
       trailStrokeWidth={0.9 * strokeWidth}
       strokeWidth={strokeWidth} //make it wider for less circles to fill the space

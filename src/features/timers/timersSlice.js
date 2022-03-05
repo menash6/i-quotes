@@ -80,7 +80,7 @@ export const timersSlice = createSlice({
 export const timersActions = timersSlice.actions;
 export const selectStatusTotalTimers = (state) => state.timers.status;
 export const selectIsTotalTimeHours = (state) => {
-  console.log({ state });
+  // console.log({ state });
   return state.timers.totalTime >= 3600;
 };
 

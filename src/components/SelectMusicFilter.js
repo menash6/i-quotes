@@ -91,6 +91,7 @@ export const SelectMusicFilter = () => {
             quotesControls.endingControls.shuffle();
           }
           const nextSlide = getSlideId(e.detail.value);
+          console.log("🚀🚀🚀 nextSlide", nextSlide);
 
           // controlledSwiper.slideTo(nextSlide, 0, false);
           controlledSwiper.slideToLoop(nextSlide, 0, false);

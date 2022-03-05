@@ -460,6 +460,7 @@ body.workout {
   --ion-color-step-950: #6a4118;
 }
 
+/* todo  remove - to avoid change of colors in dark mode*/
 @media (prefers-color-scheme: dark) {
   /*
    * Dark Colors

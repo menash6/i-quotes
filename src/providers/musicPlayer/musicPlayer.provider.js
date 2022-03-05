@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useState } from "react";
 import usePlaylist from "../../hooks/usePlaylist";
 import { LOAD_STATUS } from "../../hooks/usePlaylistUtils";
 import { musicUrl } from "./../../axiosInstance/constants";
+import { categoryStyles } from "./../../theme/constants";
 
 export const MusicPlayerContext = createContext({
   getCurrentIndex: () => {},
@@ -30,6 +31,7 @@ export const MusicPlayerContext = createContext({
   controlledSwiper: null,
   setControlledSwiper: () => {},
   getSlideId: () => {},
+  getCategoryStyleByName: () => {},
 });
 
 const defaultVol = 0.1;
@@ -43,6 +45,7 @@ const createCategoriesMap = (allCategories) => {
   return map;
 };
 
+//todo set theme like i - value
 const setThemeByCategory = (categoryName) => {
   switch (categoryName) {
     case "Morning":
@@ -75,6 +78,7 @@ const setThemeByCategory = (categoryName) => {
 
 const MusicPlayerProvider = ({ filesList, children, musicCategories }) => {
   const [currCategory, setCurrCategory] = useState("");
+  console.log("~📍📍📍📍📍 currCategory", currCategory);
   const [controlledSwiper, setControlledSwiper] = useState(null);
 
   const allMusicCategories = musicCategories;
@@ -131,6 +135,10 @@ const MusicPlayerProvider = ({ filesList, children, musicCategories }) => {
     }
   };
 
+  const getCategoryStyleByName = (categoryName) => {
+    return categoryStyles[categoryName];
+  };
+
   const musicContextValue = {
     ...musicControls,
     allMusicCategories,
@@ -141,6 +149,7 @@ const MusicPlayerProvider = ({ filesList, children, musicCategories }) => {
     setControlledSwiper,
     controlledSwiper,
     getSlideId,
+    getCategoryStyleByName,
   };
 
   return (
