@@ -1,4 +1,6 @@
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import { categoryStyles } from "./../../theme/constants";
+import chroma from "chroma-js";
 
 export const outerEdge = 280;
 // export const outerEdge = 240;
@@ -19,8 +21,13 @@ export const colorsRainbow = [
 
 export const getFilteredColors = (currCategoryName) => {
   if (currCategoryName === "All") return colorsRainbow;
-  // if (currFilter === -1) return colorsRainbow;
-  return colorsByFilter[currCategoryName];
+
+  const { circles } = categoryStyles[currCategoryName];
+  const scale = chroma.scale([circles[0], circles[1]]).colors(10);
+
+  scale.unshift(scale.pop()); //rotate by 1 - for special get2Colors function
+  return scale;
+  // return colorsByFilter[currCategoryName];
 };
 
 export const colorsByFilter = {

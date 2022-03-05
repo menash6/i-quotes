@@ -41,7 +41,6 @@ const SwiperCategories = () => {
     >
       {slides.map((slide, index) => {
         const { background } = getCategoryStyleByName(slide.currCategoryName);
-        console.log("🚀🚀🚀 background", background);
         return (
           <SwiperSlide
             key={slide._id}

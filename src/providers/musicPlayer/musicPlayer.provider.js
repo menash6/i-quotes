@@ -78,7 +78,6 @@ const setThemeByCategory = (categoryName) => {
 
 const MusicPlayerProvider = ({ filesList, children, musicCategories }) => {
   const [currCategory, setCurrCategory] = useState("");
-  console.log("~📍📍📍📍📍 currCategory", currCategory);
   const [controlledSwiper, setControlledSwiper] = useState(null);
 
   const allMusicCategories = musicCategories;
