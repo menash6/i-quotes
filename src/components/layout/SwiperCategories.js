@@ -9,7 +9,8 @@ import { useContext } from "react";
 import { MusicPlayerContext } from "../../providers/musicPlayer/musicPlayer.provider";
 
 const SwiperCategories = () => {
-  const { setCategoryByName, setControlledSwiper } = useContext(MusicPlayerContext);
+  const { setCategoryByName, setControlledSwiper, getCategoryStyleByName } =
+    useContext(MusicPlayerContext);
 
   const slides = [
     { _id: 0, currCategoryName: "All", color: "white" },
@@ -29,15 +30,28 @@ const SwiperCategories = () => {
       onSwiper={(swiper) => setControlledSwiper(swiper)}
       onSlideChange={(swiper) => {
         const currSlideIndex = swiper.realIndex;
+        if (swiper.previousIndex === 0 && swiper.realIndex === 1) {
+          //? realIndex is loaded with WRONG index===1 for the first time
+          //? so ignoring it
+          return;
+        }
         setCategoryByName(slides[currSlideIndex].currCategoryName);
       }}
       // onSwiper={(swiper) => updateNavigationColor({ slides, swiper })}
     >
       {slides.map((slide, index) => {
+        const { background } = getCategoryStyleByName(slide.currCategoryName);
+        console.log("🚀🚀🚀 background", background);
         return (
           <SwiperSlide
             key={slide._id}
-            style={{ backgroundImage: `linear-gradient(45deg,${slide.color},transparent)` }}
+            style={{
+              backgroundImage: `linear-gradient(to bottom,
+                ${background[0]} 0%,  
+                ${background[1]} 50%,
+                ${background[2]} 100%)`,
+            }}
+            // style={{ backgroundImage: `linear-gradient(45deg,${slide.color},transparent)` }}
           >
             <SwiperLayout
               color={slide.color}
