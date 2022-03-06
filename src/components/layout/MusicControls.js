@@ -1,7 +1,7 @@
 import { IonCol, IonRow } from "@ionic/react";
 import { selectStatusTotalTimers, STATUS } from "../../features/timers/timersSlice";
 import MusicButton from "./MusicButton";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const MusicControls = (props) => {
   const statusTotalTimer = useSelector(selectStatusTotalTimers);

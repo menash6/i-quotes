@@ -1,13 +1,18 @@
 import { IonButton, IonToolbar, IonIcon, IonRow, IonCol } from "@ionic/react";
 import { chatbubbleOutline, headsetOutline } from "ionicons/icons";
+import { useContext } from "react";
+import { MusicPlayerContext } from "../../providers/musicPlayer/musicPlayer.provider";
 
 const BottomButtons = ({ showIntervalPicker, showSelectSpeaker, showMusicFilter }) => {
+  const { getCategoryStyle } = useContext(MusicPlayerContext);
+  const { background, circles } = getCategoryStyle();
+
   return (
     <IonToolbar color="primary">
       <IonRow>
         <IonCol>
           <IonButton
-            // color="light"
+            style={{ "--background": "#ffffff22" }}
             fill="solid"
             expand="block"
             value="intervalPicker"
@@ -18,7 +23,7 @@ const BottomButtons = ({ showIntervalPicker, showSelectSpeaker, showMusicFilter 
         </IonCol>
         <IonCol>
           <IonButton
-            // color="light"
+            style={{ "--background": "#ffffff22" }}
             fill="solid"
             expand="block"
             value="selectSpeaker"

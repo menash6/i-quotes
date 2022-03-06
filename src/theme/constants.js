@@ -1,29 +1,47 @@
 export const categoryStyles = {
   Morning: {
-    background: ["#2473ab", "#1e528e", "#5b7983"],
+    background: ["#0069A7", "#3BAFE1", "#D7BE96"],
     circles: ["#d64b19", "#f5d95a"],
   },
   Focus: {
-    background: ["#94c5f8", "#a6e6ff", "#b1b5ea"],
-    circles: ["#151311", "#f1f1f1"],
+    background: ["#2899B4", "#FAD86E", "#271416"],
+    // background: ["#94c5f8", "#a6e6ff", "#b1b5ea"],
+    circles: ["#271416", "#C7FFC2"],
   },
   Workout: {
-    background: ["#4a4969", "#7072ab", "#eab0d1"],
+    background: ["#942D36", "#140508", "#FEA36E"],
+    // background: ["#4a4969", "#7072ab", "#eab0d1"],
     circles: ["#f10000", "#f5d95a"],
   },
   Night: {
     background: ["#010A10", "#8A3B12", "#240E03"],
-    circles: ["#3a0ca3", "#0C0223"],
+    // circles: ["#3a0ca3", "#0C0223"],
+    circles: ["#0C0223", "#9911FF"],
   },
   Mindfulness: {
-    background: ["#94c5f8", "#a6e6ff", "#b1b5ea"],
+    background: ["#123136", "#5A9174", "#F6C25C"],
     circles: ["#1a745c", "#9ae3a2"],
   },
   All: {
-    background: ["#ffffff", "#a6e6ff", "#94c5f8"],
-    circles: ["#d64b19", "#f5d95a"],
+    background: ["#f1f1f1", "#F6CAD3", "#55D7F1"],
+    // background: ["#f5f6cc", "#a6e6ff", "#94c5f8"],
+    circles: ["#087D78", "#0EEFE5"],
   },
 };
+
+export const defaultColor = "#f8ecc4";
+
+// const defaults = {
+//   primary: "#3880ff",
+//   secondary: "#0cd1e8",
+//   tertiary: "#7044ff",
+//   success: "#10dc60",
+//   warning: "#ffce00",
+//   danger: "#f04141",
+//   dark: "#222428",
+//   medium: "#989aa2",
+//   light: "#f4f5f8",
+// };
 
 // #020111 85%,#191621 100%); }
 // #020111 60%,#20202c 100%); }

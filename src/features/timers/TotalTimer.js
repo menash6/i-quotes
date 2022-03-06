@@ -1,16 +1,5 @@
 import { Stopwatch } from "./Stopwatch";
-import {
-  IonLabel,
-  IonDatetime,
-  IonButton,
-  IonCard,
-  IonCardContent,
-  IonItem,
-  IonText,
-  IonCardSubtitle,
-  IonGrid,
-  IonRow,
-} from "@ionic/react";
+import { IonDatetime } from "@ionic/react";
 import {
   selectStatusTotalTimers,
   STATUS,
@@ -20,26 +9,12 @@ import {
 } from "../../features/timers/timersSlice";
 
 import { useSelector, useDispatch } from "react-redux";
-import { getISOString, getSeconds, secondsToTime } from "./utils";
+import { getISOString, getSeconds } from "./utils";
 import { useContext } from "react";
-import { MusicPlayerContext } from "./../../providers/musicPlayer/musicPlayer.provider";
-import { QuotesPlayerContext } from "../../providers/quotesPlayer/quotesPlayer.provider";
-import ResetTotalTimer from "./ResetTotalTimer";
-
-function ShowTimer(remainingTime) {
-  return (
-    <IonGrid>
-      <IonRow className="ion-justify-content-center">
-        <IonLabel className="ion-text-center ion-no-margin ion-no-padding">
-          <IonText className="Timer ">{secondsToTime(remainingTime)}</IonText>
-        </IonLabel>
-      </IonRow>
-      <IonRow className="ion-justify-content-center">
-        <ResetTotalTimer />
-      </IonRow>
-    </IonGrid>
-  );
-}
+import { MusicPlayerContext } from "../../providers/musicPlayer/musicPlayer.provider";
+import { isLight } from "../../theme/utils/gradients";
+import ShowTimer from "./ShowTimer";
+import chroma from "chroma-js";
 
 const TotalTimer = ({ remainingTime }) => {
   const statusTotalTimer = useSelector(selectStatusTotalTimers);
@@ -47,11 +22,33 @@ const TotalTimer = ({ remainingTime }) => {
   const totalTime = useSelector(selectTotalTime);
 
   const dispatch = useDispatch();
+  const { getCategoryStyle } = useContext(MusicPlayerContext);
+
+  const { background, circles } = getCategoryStyle();
+
+  const createStyle = () => {
+    switch (isLight(background[2])) {
+      case false:
+        return {
+          background: chroma(circles[1]).brighten().desaturate(),
+          color: "black",
+          mixBlendMode: "lighten",
+        };
+
+      default:
+        return {
+          background: chroma(circles[0]).desaturate(),
+          color: "white",
+          mixBlendMode: "darken",
+        };
+    }
+  };
 
   return (
     <>
       {statusTotalTimer === STATUS.READY && (
         <IonDatetime
+          style={createStyle()}
           className="Timer pulse"
           mode="ios"
           display-format={isTotalTimeHours ? "HH:mm:ss" : "mm:ss"}
@@ -61,9 +58,9 @@ const TotalTimer = ({ remainingTime }) => {
           onIonChange={(e) => dispatch(timersActions.setTotalTime(getSeconds(e.detail.value)))}
         ></IonDatetime>
       )}
-      {(statusTotalTimer === STATUS.RUNNING || statusTotalTimer === STATUS.PAUSED) &&
-        ShowTimer(remainingTime)}
-
+      {(statusTotalTimer === STATUS.RUNNING || statusTotalTimer === STATUS.PAUSED) && (
+        <ShowTimer remainingTime={remainingTime} />
+      )}
       {statusTotalTimer === STATUS.ENDED && <Stopwatch />}
     </>
   );

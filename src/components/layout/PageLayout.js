@@ -1,10 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { ToolBar } from "./ToolBar";
 import { IntervalPicker } from "./../../features/timers/IntervalPicker";
 import SelectSpeaker from "../SelectSpeaker";
 import { SelectMusicFilter } from "./../SelectMusicFilter";
-import { IonPopover, IonContent, IonFooter, IonToolbar } from "@ionic/react";
+import { IonPopover, IonContent, IonFooter } from "@ionic/react";
 import BottomButtons from "./BottomButtons";
+import { useTheme } from "./../../theme/hooks/useTheme";
+import { MusicPlayerContext } from "../../providers/musicPlayer/musicPlayer.provider";
 
 const PageLayout = ({ children }) => {
   const [popoverState, setShowPopover] = useState({
@@ -20,6 +22,9 @@ const PageLayout = ({ children }) => {
       component,
     });
   };
+  const { getCategoryStyle } = useContext(MusicPlayerContext);
+  const { loadTheme } = useTheme();
+  loadTheme(getCategoryStyle());
 
   const showIntervalPicker = (e) => showPopupHandler(e, <IntervalPicker />);
   const showSelectSpeaker = (e) => showPopupHandler(e, <SelectSpeaker />);

@@ -5,7 +5,6 @@ import { CirclesTimer } from "./CirclesTimer";
 import { CirclesAnimation } from "./CirclesAnimation";
 
 import MusicControls from "../../components/layout/MusicControls";
-
 import TotalTimerLayout from "../../components/layout/TotalTimerLayout";
 
 import "./Timers.css";

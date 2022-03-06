@@ -7,15 +7,17 @@ import { LOAD_STATUS } from "../../hooks/usePlaylistUtils";
 
 import { useContext } from "react";
 import { MusicPlayerContext } from "../../providers/musicPlayer/musicPlayer.provider";
+import { getContrastColor } from "../../theme/utils/gradients";
 
 export default function MusicButton({ prevOrNext }) {
   const statusTotalTimer = useSelector(selectStatusTotalTimers);
-  const { next, prev, currentTrackStatus } = useContext(MusicPlayerContext);
+  const { next, prev, currentTrackStatus, getCategoryStyle } = useContext(MusicPlayerContext);
+  const { background } = getCategoryStyle();
 
   return (
     <IonButton
       className="ion-no-padding ion-no-margin"
-      color="dark"
+      style={{ "--color": getContrastColor(background[1]) }}
       disabled={statusTotalTimer === STATUS.PAUSED || currentTrackStatus === LOAD_STATUS.LOADING}
       fill="clear"
       size="large"

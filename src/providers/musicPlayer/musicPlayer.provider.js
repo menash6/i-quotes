@@ -3,6 +3,7 @@ import usePlaylist from "../../hooks/usePlaylist";
 import { LOAD_STATUS } from "../../hooks/usePlaylistUtils";
 import { musicUrl } from "./../../axiosInstance/constants";
 import { categoryStyles } from "./../../theme/constants";
+import { useTheme } from "./../../theme/hooks/useTheme";
 
 export const MusicPlayerContext = createContext({
   getCurrentIndex: () => {},
@@ -32,6 +33,7 @@ export const MusicPlayerContext = createContext({
   setControlledSwiper: () => {},
   getSlideId: () => {},
   getCategoryStyleByName: () => {},
+  getCategoryStyle: () => {},
 });
 
 const defaultVol = 0.1;
@@ -79,7 +81,7 @@ const setThemeByCategory = (categoryName) => {
 const MusicPlayerProvider = ({ filesList, children, musicCategories }) => {
   const [currCategory, setCurrCategory] = useState("");
   const [controlledSwiper, setControlledSwiper] = useState(null);
-
+  const { loadTheme } = useTheme();
   const allMusicCategories = musicCategories;
   const musicCategoriesMap = createCategoriesMap(allMusicCategories);
 
@@ -101,7 +103,10 @@ const MusicPlayerProvider = ({ filesList, children, musicCategories }) => {
       }
       return id;
     });
-    setThemeByCategory(musicCategoriesMap[id]);
+    // setThemeByCategory(musicCategoriesMap[id]);
+    const categoryName = musicCategoriesMap[id];
+    loadTheme(getCategoryStyleByName(categoryName));
+    loadTheme(getCategoryStyleByName(categoryName));
   };
 
   function getCategoryId(map, value) {
@@ -111,6 +116,7 @@ const MusicPlayerProvider = ({ filesList, children, musicCategories }) => {
   const setCategoryByName = (name) => {
     const categoryId = getCategoryId(musicCategoriesMap, name);
     setCategory(categoryId);
+    loadTheme(getCategoryStyleByName(name));
   };
 
   const getSlideId = (currCategory) => {
@@ -137,6 +143,10 @@ const MusicPlayerProvider = ({ filesList, children, musicCategories }) => {
   const getCategoryStyleByName = (categoryName) => {
     return categoryStyles[categoryName];
   };
+  const getCategoryStyle = () => {
+    const categoryName = musicCategoriesMap[currCategory];
+    return getCategoryStyleByName(categoryName);
+  };
 
   const musicContextValue = {
     ...musicControls,
@@ -149,6 +159,7 @@ const MusicPlayerProvider = ({ filesList, children, musicCategories }) => {
     controlledSwiper,
     getSlideId,
     getCategoryStyleByName,
+    getCategoryStyle,
   };
 
   return (

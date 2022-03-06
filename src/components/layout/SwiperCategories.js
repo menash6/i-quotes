@@ -1,12 +1,12 @@
 import { Swiper, SwiperSlide } from "swiper/react/swiper-react";
 import { Controller } from "swiper";
 
-import chroma from "chroma-js";
 import "swiper/swiper.min.css";
 
 import SwiperLayout from "./SwiperLayout";
 import { useContext } from "react";
 import { MusicPlayerContext } from "../../providers/musicPlayer/musicPlayer.provider";
+import { getContrastColor } from "./../../theme/utils/gradients";
 
 const SwiperCategories = () => {
   const { setCategoryByName, setControlledSwiper, getCategoryStyleByName } =
@@ -49,8 +49,8 @@ const SwiperCategories = () => {
                 ${background[0]} 0%,  
                 ${background[1]} 50%,
                 ${background[2]} 100%)`,
+              color: `${getContrastColor(background[0])}`,
             }}
-            // style={{ backgroundImage: `linear-gradient(45deg,${slide.color},transparent)` }}
           >
             <SwiperLayout
               color={slide.color}
