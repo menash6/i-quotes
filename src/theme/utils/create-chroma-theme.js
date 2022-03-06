@@ -15,8 +15,6 @@ export function CSSTextGenerator(colorsStyle) {
   const primaryColor = chroma(primary);
   const secondaryColor = chroma(secondary);
 
-  console.log("🚀🚀🚀 primaryColor", primaryColor);
-
   const primaryLCH = chroma(primary).lch();
   const primaryChroma = primaryLCH[1];
   const primaryHue = primaryLCH[2];

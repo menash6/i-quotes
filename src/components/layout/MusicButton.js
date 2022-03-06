@@ -19,6 +19,7 @@ export default function MusicButton({ prevOrNext }) {
       className="ion-no-padding ion-no-margin"
       style={{ "--color": getContrastColor(background[1]) }}
       disabled={statusTotalTimer === STATUS.PAUSED || currentTrackStatus === LOAD_STATUS.LOADING}
+      // disabled={true}
       fill="clear"
       size="large"
       onClick={() => {

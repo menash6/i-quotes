@@ -30,6 +30,7 @@ import {
   selectDebugMode,
   quotesPlayerActions,
 } from "../../features/quotesPlayer/quotesPlayerSlice";
+import MusicDevtools from "../../app/MusicDevtools";
 
 const Menu = () => {
   const currDebugMode = useSelector(selectDebugMode);
@@ -81,7 +82,7 @@ const Menu = () => {
             onIonChange={(e) => dispatch(quotesPlayerActions.setDebugMode(e.detail.checked))}
           />
         </IonItem>
-        {currDebugMode && <PlayersDevtools />}
+        {currDebugMode && <MusicDevtools />}
       </IonContent>
       <IonToolbar>
         <IonFooter className="ion-padding ion-text-center">

@@ -31,7 +31,7 @@ const ShowTimer = ({ remainingTime }) => {
         </IonLabel>
       </IonRow>
       <IonRow className="ion-justify-content-center">
-        <ResetTotalTimer style={createStyle()} />
+        <ResetTotalTimer />
       </IonRow>
     </IonGrid>
   );

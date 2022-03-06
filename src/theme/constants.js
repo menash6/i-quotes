@@ -14,7 +14,8 @@ export const categoryStyles = {
     circles: ["#f10000", "#f5d95a"],
   },
   Night: {
-    background: ["#010A10", "#8A3B12", "#240E03"],
+    background: ["#03112F", "#022855", "#014A83"],
+    // background: ["#010A10", "#8A3B12", "#240E03"],
     // circles: ["#3a0ca3", "#0C0223"],
     circles: ["#0C0223", "#9911FF"],
   },
@@ -23,9 +24,10 @@ export const categoryStyles = {
     circles: ["#1a745c", "#9ae3a2"],
   },
   All: {
-    background: ["#f1f1f1", "#F6CAD3", "#55D7F1"],
+    background: ["#f1f1f1", "#989aa2", "#222428"],
     // background: ["#f5f6cc", "#a6e6ff", "#94c5f8"],
-    circles: ["#087D78", "#0EEFE5"],
+    circles: ["#f4f5f8", "#f4f5f8"],
+    // circles: ["#087D78", "#0EEFE5"],
   },
 };
 

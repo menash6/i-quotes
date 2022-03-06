@@ -4,11 +4,11 @@ import { useContext } from "react";
 import { MusicPlayerContext } from "../../providers/musicPlayer/musicPlayer.provider";
 
 const BottomButtons = ({ showIntervalPicker, showSelectSpeaker, showMusicFilter }) => {
-  const { getCategoryStyle } = useContext(MusicPlayerContext);
+  const { getCategoryStyle, currCategoryName } = useContext(MusicPlayerContext);
   const { background, circles } = getCategoryStyle();
 
   return (
-    <IonToolbar color="primary">
+    <IonToolbar color={currCategoryName === "All" ? "dark" : "primary"}>
       <IonRow>
         <IonCol>
           <IonButton

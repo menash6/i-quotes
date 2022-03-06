@@ -160,6 +160,8 @@ export default function usePlaylist({ filesList, defaultVol = 1, autoPlay = true
 
   const next = () => {
     if (!tracksFiltered.current || !tracksFiltered.current[currTrack.index].howl) return;
+    // ! if currTrack is loading IGNORE!
+    if (currTrack.loadStatus === LOAD_STATUS.LOADING) return;
     tracksFiltered.current[currTrack.index].howl.stop();
     setCurrTrack((prevState) => {
       const nextIndex = getNextIndex(prevState.index, tracksFiltered.current.length);
@@ -172,6 +174,7 @@ export default function usePlaylist({ filesList, defaultVol = 1, autoPlay = true
   };
   const prev = () => {
     console.log(" usePlaylist prev!!!");
+    if (currTrack.loadStatus === LOAD_STATUS.LOADING) return;
     if (!tracksFiltered.current || !tracksFiltered.current[currTrack.index]) return;
     tracksFiltered.current[currTrack.index].howl.stop();
 

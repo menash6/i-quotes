@@ -20,7 +20,17 @@ export const colorsRainbow = [
 ];
 
 export const getFilteredColors = (currCategoryName) => {
-  if (currCategoryName === "All") return colorsRainbow;
+  // if (currCategoryName === "All") return colorsRainbow;
+  if (currCategoryName === "All") {
+    // const rainbowPastel = ["#DC5B6E", "#F19748", "#EAD04B", "#55A973", "#2D8FB6", "#6A54B4"];
+    const rainbow = ["#F02C03", "#FF950C", "#FEDC03", "#7CDA01", "#0D8DFF", "#B02FF7"];
+    const updatedRainbow = rainbow.map((c) => chroma(c).desaturate(1));
+
+    let scale = chroma.scale(updatedRainbow.reverse()).mode("hsl").colors(10);
+
+    scale.unshift(scale.pop()); //rotate by 1 - for special get2Colors function
+    return scale;
+  }
 
   const { circles } = categoryStyles[currCategoryName];
   const scale = chroma.scale([circles[0], circles[1]]).colors(10);

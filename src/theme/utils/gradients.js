@@ -15,7 +15,7 @@ export const create2ColorsGradient = (primaryHex, secondaryHex = null) => {
   if (secondaryHex === null) {
     return `linear-gradient( -72deg, ${primaryHex}, ${chroma(primaryHex).darken(2)})`;
   } else {
-    return `linear-gradient(  ${primaryHex}, ${secondaryHex})`;
+    return `linear-gradient( 45deg , ${primaryHex}, ${secondaryHex})`;
   }
 };
 

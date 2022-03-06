@@ -26,20 +26,28 @@ const TotalTimer = ({ remainingTime }) => {
 
   const { background, circles } = getCategoryStyle();
 
+  const padding = "10px";
+
   const createStyle = () => {
     switch (isLight(background[2])) {
       case false:
         return {
-          background: chroma(circles[1]).brighten().desaturate(),
+          background: "#F4F5F8",
+          // background: chroma(circles[1]).brighten().desaturate(),
           color: "black",
           mixBlendMode: "lighten",
+          paddingLeft: padding,
+          paddingRight: padding,
         };
 
       default:
         return {
           background: chroma(circles[0]).desaturate(),
-          color: "white",
-          mixBlendMode: "darken",
+          color: "#F4F5F8",
+          // color: "white",
+          // mixBlendMode: "darken",
+          paddingLeft: padding,
+          paddingRight: padding,
         };
     }
   };
