@@ -1205,10 +1205,10 @@
     "core-js-pure" "^3.16.0"
     "regenerator-runtime" "^0.13.4"
 
-"@babel/runtime@^7.1.2", "@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.1", "@babel/runtime@^7.12.13", "@babel/runtime@^7.12.5", "@babel/runtime@^7.3.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.2", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
-  "integrity" "sha512-99catp6bHCaxr4sJ/DbTGgHS4+Rs2RVd2g7iOap6SLGPDknRK9ztKNsE/Fg6QhSeh1FGE5f6gHGQmvvn3I3xhw=="
-  "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.15.4.tgz"
-  "version" "7.15.4"
+"@babel/runtime@^7.1.2", "@babel/runtime@^7.10.2", "@babel/runtime@^7.11.2", "@babel/runtime@^7.12.1", "@babel/runtime@^7.12.13", "@babel/runtime@^7.12.5", "@babel/runtime@^7.17.2", "@babel/runtime@^7.3.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.2", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4", "@babel/runtime@^7.9.2":
+  "integrity" "sha512-hzeyJyMA1YGdJTuWU0e/j4wKXrU4OMFvY2MSlaI9B7VQb0r5cxTE3EAIS2Q7Tn2RIcDkRvTA/v2JsAEhxe99uw=="
+  "resolved" "https://registry.npmjs.org/@babel/runtime/-/runtime-7.17.2.tgz"
+  "version" "7.17.2"
   dependencies:
     "regenerator-runtime" "^0.13.4"
 
@@ -1256,20 +1256,15 @@
   "resolved" "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   "version" "0.2.3"
 
-"@capacitor/android@3.3.0":
-  "integrity" "sha512-dzbzdN7KjjwpUbg7mZKVkgAVytEwGyXUL4Z1t9c12UhViJaNjU7/nSlTXjb+IiauwVg9oI2LHtSVrp1NIjUycw=="
-  "resolved" "https://registry.npmjs.org/@capacitor/android/-/android-3.3.0.tgz"
-  "version" "3.3.0"
+"@capacitor/android@3.4.3":
+  "integrity" "sha512-G/6+mbOde9LMWl5KvA5rB/xEQF05sKrQFMBwo8y3C8pYF+axtcrS0Dgze9rOB7nCjH4NXv/bLw58E9+q8/sQUA=="
+  "resolved" "https://registry.npmjs.org/@capacitor/android/-/android-3.4.3.tgz"
+  "version" "3.4.3"
 
-"@capacitor/app@1.0.3":
-  "integrity" "sha512-kilAdWODV5p32wz0jVGdSoQTEx4Q0TM/xYj9w3iYYNI24v1WIRnEs04TaGTG8JFYIUksJaOqGC3PoZddfZ1POA=="
-  "resolved" "https://registry.npmjs.org/@capacitor/app/-/app-1.0.3.tgz"
-  "version" "1.0.3"
-
-"@capacitor/cli@^3.3.0":
-  "integrity" "sha512-BkxagJhHG11+0ivFwUOnAhhdwQ1WXoX0WEzqzzGVL9k63hStuIOvPUusp34+G4EcNU01BAJlBt+dgefSvDhOFw=="
-  "resolved" "https://registry.npmjs.org/@capacitor/cli/-/cli-3.3.0.tgz"
-  "version" "3.3.0"
+"@capacitor/cli@^3.4.3":
+  "integrity" "sha512-mu2pGoIh/OapMzWwXGXUlOmapXthW9XcHGERpZxNE45aBEYC9eTJWmbcXVlJuyx/9GFnnV+pXjGl3i0grci/Zw=="
+  "resolved" "https://registry.npmjs.org/@capacitor/cli/-/cli-3.4.3.tgz"
+  "version" "3.4.3"
   dependencies:
     "@ionic/cli-framework-output" "^2.2.1"
     "@ionic/utils-fs" "^3.1.5"
@@ -1288,27 +1283,12 @@
     "tslib" "^2.1.0"
     "xml2js" "^0.4.23"
 
-"@capacitor/core@^3.0.0", "@capacitor/core@^3.3.0":
-  "integrity" "sha512-bKkg/IGALz5OKJPGwtGXoqi4JUXWbuILnZ9J12Mv21fPMFBoszYOiMfm7FqdcCwqcyJWCdG3SQDxCz0Q3e2y8Q=="
-  "resolved" "https://registry.npmjs.org/@capacitor/core/-/core-3.3.0.tgz"
-  "version" "3.3.0"
+"@capacitor/core@^3.4.0", "@capacitor/core@^3.4.3":
+  "integrity" "sha512-drfu0IiDMyeJtL4QALQgNFqdgN19DZJkbKh945eXyK44Sk2YkFXUs7Ewq1ZlVI30QF79mHGuM13oZeki0gv5Tw=="
+  "resolved" "https://registry.npmjs.org/@capacitor/core/-/core-3.4.3.tgz"
+  "version" "3.4.3"
   dependencies:
     "tslib" "^2.1.0"
-
-"@capacitor/haptics@1.0.3":
-  "integrity" "sha512-RPV8kd4bY7sdmssXMkrg9v0HrjJZoCkbVk5ygbTByM+Yxl/1qqQUkEnBzCsA48tJHQz4ddTMjtpBEblS+GWUsw=="
-  "resolved" "https://registry.npmjs.org/@capacitor/haptics/-/haptics-1.0.3.tgz"
-  "version" "1.0.3"
-
-"@capacitor/keyboard@1.0.3":
-  "integrity" "sha512-s963GqVAvhdqxwtASjev/Az6gm164GbAxZGXP29VK8J+j363y++F9uDVUNfud9z7msdXaoV4btyk7cc7rmxydg=="
-  "resolved" "https://registry.npmjs.org/@capacitor/keyboard/-/keyboard-1.0.3.tgz"
-  "version" "1.0.3"
-
-"@capacitor/status-bar@1.0.3":
-  "integrity" "sha512-btprzQ5Spjqd6FX3eXKqRKTKZWlIZmJL4bQ79d5N1ESortOZ5NJFB25lAT/a073t8aaJv6DVdZurVFd0/0ELSA=="
-  "resolved" "https://registry.npmjs.org/@capacitor/status-bar/-/status-bar-1.0.3.tgz"
-  "version" "1.0.3"
 
 "@cnakazawa/watch@^1.0.3":
   "integrity" "sha512-v9kIhKwjeZThiWrLmj0y17CWoyddASLj9O2yvbZkbvw/N3rWOYy9zkV66ursAoVr0mV15bL8g0c4QZUE6cdDoQ=="
@@ -6034,6 +6014,14 @@
   "resolved" "https://registry.npmjs.org/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz"
   "version" "2.0.6"
 
+"fast-unique-numbers@^6.0.13":
+  "integrity" "sha512-8+3Nlu7E4wOIGTaLZsHWR+iXj74PthlAYSrGl1j37p9Vtjoj6TlguJaCKtqjrfB4yjIwSQJ9R9pF6b/1NWvUGA=="
+  "resolved" "https://registry.npmjs.org/fast-unique-numbers/-/fast-unique-numbers-6.0.13.tgz"
+  "version" "6.0.13"
+  dependencies:
+    "@babel/runtime" "^7.17.2"
+    "tslib" "^2.3.1"
+
 "fastq@^1.6.0":
   "integrity" "sha512-YpkpUnK8od0o1hmeSc7UUs/eB/vIPWJYjKck2QKIzAf71Vm1AAQ3EbuZB3g2JIy+pg+ERD0vqI79KyZiB2e2Nw=="
   "resolved" "https://registry.npmjs.org/fastq/-/fastq-1.13.0.tgz"
@@ -7960,6 +7948,11 @@
     "@jest/core" "^26.6.0"
     "import-local" "^3.0.2"
     "jest-cli" "^26.6.0"
+
+"jetifier@^2.0.0":
+  "integrity" "sha512-J4Au9KuT74te+PCCCHKgAjyLlEa+2VyIAEPNCdE5aNkAJ6FAJcAqcdzEkSnzNksIa9NkGmC4tPiClk2e7tCJuQ=="
+  "resolved" "https://registry.npmjs.org/jetifier/-/jetifier-2.0.0.tgz"
+  "version" "2.0.0"
 
 "js-sha3@0.8.0":
   "integrity" "sha512-gF1cRrHhIzNfToc802P800N8PpXS+evLLXfsVpowqmAFR9uwbi89WvXg2QspOmXL8QL86J4T1EpFu+yUkwJY3Q=="
@@ -13439,6 +13432,34 @@
   "version" "0.1.1"
   dependencies:
     "microevent.ts" "~0.1.1"
+
+"worker-timers-broker@^6.0.67":
+  "integrity" "sha512-u9MlF8wE0vpLy6YMsllAu34n1XFNWddhB65g2ahRo3+wr5glGfw5kSJlYbY9BIZ/222JRpotGjKHXryl4SH5zg=="
+  "resolved" "https://registry.npmjs.org/worker-timers-broker/-/worker-timers-broker-6.0.67.tgz"
+  "version" "6.0.67"
+  dependencies:
+    "@babel/runtime" "^7.17.2"
+    "fast-unique-numbers" "^6.0.13"
+    "tslib" "^2.3.1"
+    "worker-timers-worker" "^7.0.34"
+
+"worker-timers-worker@^7.0.34":
+  "integrity" "sha512-mSruaE31l5jhjj6XD5RgYII4Owt1nXyfco2ij8rTlwkcs8okQmlOCU0u6LS53bX38z8LXMqVfTT9aMHhIdLofQ=="
+  "resolved" "https://registry.npmjs.org/worker-timers-worker/-/worker-timers-worker-7.0.34.tgz"
+  "version" "7.0.34"
+  dependencies:
+    "@babel/runtime" "^7.17.2"
+    "tslib" "^2.3.1"
+
+"worker-timers@^7.0.45":
+  "integrity" "sha512-XZly16cHJDXe64CSgVk7FUdQknRwX+YskOGhzsWlv+YRPHrF9kp3S8ChOE7Te4LnXKuBEjhkNbcH9qgXzpgEXQ=="
+  "resolved" "https://registry.npmjs.org/worker-timers/-/worker-timers-7.0.45.tgz"
+  "version" "7.0.45"
+  dependencies:
+    "@babel/runtime" "^7.17.2"
+    "tslib" "^2.3.1"
+    "worker-timers-broker" "^6.0.67"
+    "worker-timers-worker" "^7.0.34"
 
 "wrap-ansi@^2.0.0":
   "integrity" "sha1-2Pw9KE3QV5T+hJc8rs3Rz4JP3YU="

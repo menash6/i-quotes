@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.ammarcus.quotes',
-  appName: 'Quotes Timer',
+  appId: 'com.ammarcus.quotestimer',
+  appName: 'quotes-timer',
   webDir: 'build',
   bundledWebRuntime: false
 };
