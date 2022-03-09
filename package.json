@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@awesome-cordova-plugins/background-mode": "^5.40.0",
+    "@awesome-cordova-plugins/core": "^5.40.0",
+    "@awesome-cordova-plugins/device": "^5.40.0",
     "@capacitor/android": "3.4.3",
     "@capacitor/core": "^3.4.3",
     "@ionic/react": "^5.5.0",
@@ -23,6 +26,8 @@
     "axios": "^0.26.0",
     "babel-eslint": "^10.0.0",
     "chroma-js": "^2.4.2",
+    "cordova-plugin-background-mode": "^0.7.3",
+    "cordova-plugin-device": "^2.0.3",
     "eslint": "^7.5.0",
     "eslint-config-react-app": "^6.0.0",
     "eslint-plugin-flowtype": "^5.2.0",

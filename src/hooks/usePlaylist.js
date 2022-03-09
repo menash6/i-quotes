@@ -137,7 +137,7 @@ export default function usePlaylist({ filesList, defaultVol = 1, autoPlay = true
     if (!shouldPlay) return;
     const currHowl = tracksFiltered.current[currTrack.index].howl;
     if (currHowl.playing()) return;
-    console.log("🚀 ~ useEffect ~ currHowl.playing()", currHowl.playing());
+    console.log("🚀 ~ useEffect #3 ~ currHowl.playing()", currHowl.playing());
 
     const howlState = currHowl.state();
     if (howlState === "loading" || howlState === "unloaded") {
@@ -159,6 +159,8 @@ export default function usePlaylist({ filesList, defaultVol = 1, autoPlay = true
   }, [currTrack.index]);
 
   const next = () => {
+    console.log("🚀🚀🚀 next");
+
     if (!tracksFiltered.current || !tracksFiltered.current[currTrack.index].howl) return;
     // ! if currTrack is loading IGNORE!
     if (currTrack.loadStatus === LOAD_STATUS.LOADING) return;
@@ -273,6 +275,7 @@ export default function usePlaylist({ filesList, defaultVol = 1, autoPlay = true
     });
   };
   const nextAndPlay = () => {
+    console.log("🚀🚀🚀 nextAndPlay");
     next();
     setShouldPlay(true);
   };

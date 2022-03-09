@@ -16,7 +16,42 @@ import SwiperLayout from "./../components/layout/SwiperLayout";
 import TimersProvider from "../providers/timers/timers.provider";
 import { useRef, useState } from "react";
 
+import { BackgroundMode } from "@awesome-cordova-plugins/background-mode";
+
+document.addEventListener(
+  "deviceready",
+  function () {
+    BackgroundMode.enable();
+
+    BackgroundMode.setDefaults({
+      title: "Title",
+      text: "text",
+      // icon: 'icon' // this will look for icon.png in platforms/android/res/drawable|mipmap
+      color: "134567", // hex format like 'F14F4D'
+      // resume: Boolean,
+      hidden: false,
+      bigText: true,
+    });
+
+    BackgroundMode.configure({
+      bigText: true,
+      hidden: false,
+      text: "text",
+      color: "1f1f1f",
+      title: "TITLE",
+    });
+  },
+  false
+);
+
+BackgroundMode.on("activate", function () {
+  BackgroundMode.disableWebViewOptimizations();
+  BackgroundMode.disableBatteryOptimizations();
+});
+
 const App = () => {
+  // BackgroundMode.enable();
+
   const { musicCategories } = useMusicCategories();
   const { musicFiles, isLoadingMusicFiles } = useMusicFiles();
   const { recordings, isLoadingRecordings } = useRecordings();
