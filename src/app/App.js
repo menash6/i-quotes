@@ -12,9 +12,7 @@ import useRecordings from "../features/quotesPlayer/hooks/useRecordings";
 import Menu from "../components/layout/Menu";
 import SwiperCategories from "./../components/layout/SwiperCategories";
 import PageLayout from "../components/layout/PageLayout";
-import SwiperLayout from "./../components/layout/SwiperLayout";
 import TimersProvider from "../providers/timers/timers.provider";
-import { useRef, useState } from "react";
 
 import { BackgroundMode } from "@awesome-cordova-plugins/background-mode";
 

@@ -1,6 +1,7 @@
 import { useContext, createContext } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import useIntervalTimer from "../../hooks/useIntervalTimer";
+import { BackgroundMode } from "@awesome-cordova-plugins/background-mode";
 
 import {
   selectSpeakerMode,
@@ -26,7 +27,11 @@ export const TimersContext = createContext({
   remainingTime: 0,
   remainingIntervalSeconds: 0,
   activeInterval: 0,
+  endingStopwatchRemainingTime: 0,
+  endingStopwatchTotalTime: 120,
 });
+
+const endingTimerDefaults = { totalDuration: 120, numOfIntervals: 6 };
 
 const TimersProvider = ({ children }) => {
   const statusTotalTimer = useSelector(selectStatusTotalTimers);
@@ -35,7 +40,24 @@ const TimersProvider = ({ children }) => {
   const numOfIntervals = useSelector(selectNumOfIntervals);
   const isAllSpeakers = useSelector(selectIsAllSpeakers);
 
-  // const { updateStatus, remainingTime, remainingIntervalSeconds, activeInterval } =
+  const onEndingIntervalTimerComplete = () => {
+    if (statusTotalTimer === STATUS.ENDED) {
+      quotesControls.endingControls.nextAndPlay();
+    }
+    console.warn("onIntervalEnded STOPWATCH");
+  };
+
+  const endingStopwatchInterval = useIntervalTimer({
+    updateStatus: statusTotalTimer === STATUS.ENDED ? STATUS.RUNNING : STATUS.READY,
+    // isPlaying: statusTotalTimer === STATUS.RUNNING,
+    totalDuration: endingTimerDefaults.totalDuration,
+    intervalDuration: endingTimerDefaults.totalDuration / endingTimerDefaults.numOfIntervals,
+    numOfIntervals: endingTimerDefaults.numOfIntervals,
+    onEnded: () => console.warn("ONENDED STOPWATCH"),
+    onIntervalEnded: () => onEndingIntervalTimerComplete(),
+  });
+  console.log("🚀🚀🚀 endingStopwatchInterval", endingStopwatchInterval);
+
   const timersIntervalTimer = useIntervalTimer({
     updateStatus: statusTotalTimer,
     // isPlaying: statusTotalTimer === STATUS.RUNNING,
@@ -63,6 +85,11 @@ const TimersProvider = ({ children }) => {
     //todo start ENDING QUOTES NEW PLAYLIST
   };
   const onIntervalTimerComplete = () => {
+    BackgroundMode.wakeUp();
+    BackgroundMode.unlock();
+
+    console.warn("⌛⌛⌛ onIntervalTimerComplete started");
+
     quotesControls.nextAndPlay();
     musicControls.volDown(); //TODO CHANGE BACK
 
@@ -75,11 +102,13 @@ const TimersProvider = ({ children }) => {
     console.warn("onIntervalTimerComplete ended");
   };
 
-  // const timersContextValue = {};
+  const timersContextValue = {
+    ...timersIntervalTimer,
+    endingStopwatchRemainingTime: endingStopwatchInterval.remainingTime,
+    endingStopwatchTotalTime: endingTimerDefaults.totalDuration,
+  };
 
-  return (
-    <TimersContext.Provider value={{ ...timersIntervalTimer }}>{children}</TimersContext.Provider>
-  );
+  return <TimersContext.Provider value={timersContextValue}>{children}</TimersContext.Provider>;
 };
 
 export default TimersProvider;

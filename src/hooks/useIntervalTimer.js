@@ -155,6 +155,8 @@ export default function useIntervalTimer({
         if (remainingSeconds !== remainingSeconds % intervalDuration) {
           // dont trigger in the last interval - when total timer ends
           if (remainingSeconds % intervalDuration < 1) {
+            console.log("⌛⌛⌛ intervalDuration", intervalDuration);
+            console.log("⌛⌛⌛ remainingSeconds", remainingSeconds);
             onIntervalEnded();
           }
         }
